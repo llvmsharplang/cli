@@ -29,6 +29,7 @@ namespace LlvmSharpLang.CLI.Core
 
     public class ConsoleInterface
     {
+        // TODO: Needs to be '.xl'.
         public const string extension = ".cs";
 
         public string path;
