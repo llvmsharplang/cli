@@ -1,0 +1,3 @@
+[submodule "llvm-sharp-lang"]
+	path = llvm-sharp-lang
+	url = https://github.com/llvmsharplang/llvm-sharp-lang
