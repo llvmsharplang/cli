@@ -16,6 +16,9 @@ namespace LlvmSharpLang.CLI.Core
 
         [Option('r', "root", Required = false, HelpText = "The root directory to start the scanning process from.")]
         public string Root { get; set; }
+
+        [Option('i', "ir", Required = false, HelpText = "Print out the emitted IR code instead of the compiled result.")]
+        public bool PrintIr { get; set; }
     }
 }
 
