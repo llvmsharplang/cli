@@ -1,13 +1,12 @@
 using System;
 using System.IO;
 
-
-namespace cli
+namespace LlvmSharpLang.CLI.Core
 {
-
     public class FileResult
     {
         public string path { get; }
+
         public byte[] content { get; }
 
         public int Length { get => this.content.Length; }
@@ -24,15 +23,17 @@ namespace cli
         }
     }
 
-    public class CLI
+    public class ConsoleInterface
     {
         public const string extension = ".cs";
 
         public string path;
+
         public bool relative;
+
         public FileResult[] files;
 
-        public CLI(string path)
+        public ConsoleInterface(string path)
         {
             // The path is relative if it starts with './' or '../'.
             this.relative = path.StartsWith(".");
@@ -42,10 +43,11 @@ namespace cli
                         path; // Else, use the path.
         }
 
-        public CLI Scan()
+        public ConsoleInterface Scan()
         {
             // Get the files, using AllDirectories search option to search subfolders.
             string[] filePaths = Directory.GetFiles(this.path, $"*{extension}", SearchOption.AllDirectories);
+
             this.files = new FileResult[filePaths.Length];
 
             // Make file results out of the paths.
