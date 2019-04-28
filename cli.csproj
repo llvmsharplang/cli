@@ -11,4 +11,7 @@
             <HintPath>..\llvm-sharp\LlvmSharpLang\bin\Debug\netcoreapp2.2\LlvmSharpLang.dll</HintPath>
         </Reference>
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="CommandLineParser" Version="2.4.3" />
+    </ItemGroup>
 </Project>
