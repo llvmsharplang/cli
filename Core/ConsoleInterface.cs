@@ -1,25 +1,29 @@
 using System;
 using System.IO;
+using System.Text;
 
 namespace LlvmSharpLang.CLI.Core
 {
     public class FileResult
     {
-        public string path { get; }
+        public string Path { get; }
 
-        public byte[] content { get; }
+        public byte[] Content { get; }
 
-        public int Length { get => this.content.Length; }
+        public int Length
+        {
+            get => this.Content.Length;
+        }
 
         public FileResult(string path)
         {
-            this.path = path;
-            this.content = File.ReadAllBytes(this.path);
+            this.Path = path;
+            this.Content = File.ReadAllBytes(this.Path);
         }
 
         public override string ToString()
         {
-            return System.Text.Encoding.UTF8.GetString(this.content);
+            return Encoding.UTF8.GetString(this.Content);
         }
     }
 

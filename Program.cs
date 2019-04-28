@@ -15,7 +15,7 @@ namespace LlvmSharpLang.CLI
 
             for (var i = 0; i < cli.files.Length; i++)
             {
-                Console.WriteLine($"Path {i + 1}: {cli.files[i].path} | {cli.files[i].Length} bytes");
+                Console.WriteLine($"Path {i + 1}: {cli.files[i].Path} | {cli.files[i].Length} bytes");
             }
         }
     }
