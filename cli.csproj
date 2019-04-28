@@ -7,6 +7,8 @@
         <RestoreSources>$(RestoreSources);../llvm-sharp/LlvmSharpLang/bin/Debug;https://api.nuget.org/v3/index.json</RestoreSources>
     </PropertyGroup>
     <ItemGroup>
-        <ProjectReference Include="llvm-sharp-lang\LlvmSharpLang\LlvmSharpLang.csproj" />
+        <Reference Include="LlvmSharpLang">
+            <HintPath>..\llvm-sharp\bin\Debug\netcoreapp2.2\LlvmSharpLang.dll</HintPath>
+        </Reference>
     </ItemGroup>
 </Project>
