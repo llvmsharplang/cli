@@ -6,6 +6,7 @@ using CommandLine;
 using System.Collections.Generic;
 using LlvmSharpLang.Linking;
 using LlvmSharpLang.SyntaxAnalysis;
+using LlvmSharpLang.Parsing;
 
 namespace LlvmSharpLang.CLI
 {
@@ -83,10 +84,20 @@ namespace LlvmSharpLang.CLI
                 // Tokenize contents.
                 List<Token> tokens = lexer.Tokenize();
 
-                // Begin parsing.
-                // TODO
+                // Create the token stream.
+                TokenStream stream = new TokenStream(tokens.ToArray());
+
+                // Create the driver.
+                Driver driver = new Driver(stream);
+
+                // Invoke the driver.
+                driver.Next();
+
+                // Print out the resulting IR code (temporarily).
+                Console.WriteLine($"Output:\n{driver.Module.ToString()}");
             }
 
+            // TODO: At this point, something is changing the console color to yellow, probably core lib.
             Console.WriteLine($"Processed {files.Length} file(s).");
         }
 
