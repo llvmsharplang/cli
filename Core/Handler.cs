@@ -101,7 +101,7 @@ namespace LlvmSharpLang.CLI.Core
             {
                 string error;
 
-                LLVM.PrintModuleToFile(module.Source, Path.Join(this.options.Root, "program"), out error);
+                LLVM.PrintModuleToFile(module.Source, Path.Join(this.options.Output, "program"), out error);
             }
             // Otherwise, emit compiled result.
             else
