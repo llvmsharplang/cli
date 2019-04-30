@@ -1,15 +1,15 @@
 ﻿using System.IO;
 using System;
-using LlvmSharpLang.CLI.Core;
-using LlvmSharpLang;
+using Ion.CLI.Core;
+using Ion;
 using CommandLine;
 using System.Collections.Generic;
-using LlvmSharpLang.Linking;
-using LlvmSharpLang.SyntaxAnalysis;
-using LlvmSharpLang.Parsing;
+using Ion.Linking;
+using Ion.SyntaxAnalysis;
+using Ion.Parsing;
 using LLVMSharp;
 
-namespace LlvmSharpLang.CLI
+namespace Ion.CLI
 {
     internal sealed class Program
     {
