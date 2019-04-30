@@ -2,11 +2,11 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp2.2</TargetFramework>
-        <RootNamespace>LlvmSharpLang.CLI</RootNamespace>
+        <RootNamespace>Ion.CLI</RootNamespace>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="LlvmSharpLang">
-            <HintPath>..\llvm-sharp\LlvmSharpLang\bin\Debug\netcoreapp2.2\LlvmSharpLang.dll</HintPath>
+        <Reference Include="Ion">
+            <HintPath>..\Ion\Ion\bin\Debug\netcoreapp2.2\Ion.dll</HintPath>
         </Reference>
         <PackageReference Include="CommandLineParser" Version="2.4.3" />
         <PackageReference Include="LLVMSharp" Version="5.0.0" />
