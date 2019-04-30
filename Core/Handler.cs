@@ -120,6 +120,7 @@ namespace LlvmSharpLang.CLI.Core
                 // Create the target path.
                 targetPath = Path.Join(this.options.Output, "program.bc");
 
+                // Write bitcode to target path.
                 if (LLVM.WriteBitcodeToFile(module.Source, targetPath) != 0)
                 {
                     this.Fatal($"There was an error writing LLVM bitcode to '{targetPath}'.");
