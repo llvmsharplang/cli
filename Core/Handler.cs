@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using LLVMSharp;
 using LlvmSharpLang.Abstraction;
 using LlvmSharpLang.Linking;
@@ -96,17 +97,33 @@ namespace LlvmSharpLang.CLI.Core
 
         public void Emit(Abstraction.Module module)
         {
-            // Print the resulting IR code to the output target if applicable.
+            // TODO: Use this.
+            // Buffer for entire, joined program.
+            StringBuilder output = new StringBuilder();
+
+            string targetPath;
+
+            // Print the resulting LLVM IR code to the output target if applicable.
             if (this.options.PrintIr)
             {
+                // TODO: Make use of this.
                 string error;
 
-                LLVM.PrintModuleToFile(module.Source, Path.Join(this.options.Output, "program.ll"), out error);
+                // Create the target path.
+                targetPath = Path.Join(this.options.Output, "program.ll");
+
+                LLVM.PrintModuleToFile(module.Source, targetPath, out error);
             }
-            // Otherwise, emit compiled result.
+            // Otherwise, emit LLVM bitcode result.
             else
             {
-                // TODO
+                // Create the target path.
+                targetPath = Path.Join(this.options.Output, "program.bc");
+
+                if (LLVM.WriteBitcodeToFile(module.Source, targetPath) != 0)
+                {
+                    this.Fatal($"There was an error writing LLVM bitcode to '{targetPath}'.");
+                }
             }
         }
 
