@@ -60,7 +60,7 @@ namespace Ion.CLI.Core
             // Process files.
             foreach (var file in files)
             {
-                Console.WriteLine($"Processing {path} ...");
+                Console.WriteLine($"Processing {file} ...");
                 this.ProcessFile(file);
             }
 

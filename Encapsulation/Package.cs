@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Ion.CLI.Encapsulation
 {
     public class Package
