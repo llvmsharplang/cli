@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace LlvmSharpLang.CLI.Core
+namespace Ion.CLI.Core
 {
     public class FileResult
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using CommandLine;
 
-namespace LlvmSharpLang.CLI.Core
+namespace Ion.CLI.Core
 {
     public class Options
     {

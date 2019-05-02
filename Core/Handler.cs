@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using LLVMSharp;
-using LlvmSharpLang.Abstraction;
-using LlvmSharpLang.Linking;
-using LlvmSharpLang.Parsing;
-using LlvmSharpLang.SyntaxAnalysis;
+using Ion.Abstraction;
+using Ion.Linking;
+using Ion.Parsing;
+using Ion.SyntaxAnalysis;
 
-namespace LlvmSharpLang.CLI.Core
+namespace Ion.CLI.Core
 {
     public class Handler
     {
@@ -61,38 +61,42 @@ namespace LlvmSharpLang.CLI.Core
             foreach (var file in files)
             {
                 Console.WriteLine($"Processing {file} ...");
-
-                // Retrieve file contents.
-                string content = File.ReadAllText(file);
-
-                // Create the lexer.
-                Lexer lexer = new Lexer(content);
-
-                // Tokenize contents.
-                List<Token> tokens = lexer.Tokenize();
-
-                // Create the token stream.
-                TokenStream stream = new TokenStream(tokens.ToArray());
-
-                // TODO
-                // Temporarily insert token stream bounds.
-                stream.Insert(0, new Token
-                {
-                    Type = TokenType.KeywordFunction
-                });
-
-                // Create the driver.
-                Driver driver = new Driver(stream);
-
-                // Invoke the driver.
-                driver.Next();
-
-                // Emit the result.
-                this.Emit(driver.Module);
+                this.ProcessFile(file);
             }
 
             // TODO: At this point, something is changing the console color to yellow, probably core lib.
             Console.WriteLine($"Processed {files.Length} file(s).");
+        }
+
+        public void ProcessFile(string path)
+        {
+            // Retrieve file contents.
+            string content = File.ReadAllText(path);
+
+            // Create the lexer.
+            Lexer lexer = new Lexer(content);
+
+            // Tokenize contents.
+            List<Token> tokens = lexer.Tokenize();
+
+            // Create the token stream.
+            TokenStream stream = new TokenStream(tokens.ToArray());
+
+            // TODO
+            // Temporarily insert token stream bounds.
+            stream.Insert(0, new Token
+            {
+                Type = TokenType.KeywordFunction
+            });
+
+            // Create the driver.
+            Driver driver = new Driver(stream);
+
+            // Invoke the driver.
+            driver.Next();
+
+            // Emit the result.
+            this.Emit(driver.Module);
         }
 
         public void Emit(Abstraction.Module module)
