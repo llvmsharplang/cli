@@ -57,18 +57,32 @@ namespace Ion.CLI.Core
                 Environment.Exit(0);
             }
 
+            // Initialize the program output string builder.
+            StringBuilder programOutput = new StringBuilder();
+
             // Process files.
             foreach (var file in files)
             {
                 Console.WriteLine($"Processing {file} ...");
-                this.ProcessFile(file);
+
+                // Process file and obtain resulting output.
+                string result = this.ProcessFile(file);
+
+                // Append result to the string builder.
+                programOutput.Append(result);
             }
+
+            // TODO: Path hard-coded.
+            string finalProgramPath = "./l.bin/program.final";
+
+            // Write final program.
+            File.WriteAllText(finalProgramPath, programOutput.ToString());
 
             // TODO: At this point, something is changing the console color to yellow, probably core lib.
             Console.WriteLine($"Processed {files.Length} file(s).");
         }
 
-        public void ProcessFile(string path)
+        public string ProcessFile(string path)
         {
             // Retrieve file contents.
             string content = File.ReadAllText(path);
@@ -96,15 +110,18 @@ namespace Ion.CLI.Core
             driver.Next();
 
             // Emit the result.
-            this.Emit(driver.Module);
+            string result = this.Emit(driver.Module);
+
+            // Return the result.
+            return result;
         }
 
-        public void Emit(Abstraction.Module module)
+        public string Emit(Abstraction.Module module)
         {
-            // TODO: Use this.
-            // Buffer for entire, joined program.
-            StringBuilder output = new StringBuilder();
+            // Create the resulting string.
+            string result;
 
+            // Create the full, target output path.
             string targetPath;
 
             // Print the resulting LLVM IR code to the output target if applicable.
@@ -116,6 +133,8 @@ namespace Ion.CLI.Core
                 // Create the target path.
                 targetPath = Path.Join(this.options.Output, "program.ll");
 
+                // TODO: Should not write to file/create file.
+                // Emit IR to target path.
                 LLVM.PrintModuleToFile(module.Source, targetPath, out error);
             }
             // Otherwise, emit LLVM bitcode result.
@@ -124,12 +143,19 @@ namespace Ion.CLI.Core
                 // Create the target path.
                 targetPath = Path.Join(this.options.Output, "program.bc");
 
+                // TODO: Should not write to file/create file.
                 // Write bitcode to target path.
                 if (LLVM.WriteBitcodeToFile(module.Source, targetPath) != 0)
                 {
                     this.Fatal($"There was an error writing LLVM bitcode to '{targetPath}'.");
                 }
             }
+
+            // Read and obtain emitted data.
+            result = File.ReadAllText(targetPath);
+
+            // Return resutl.
+            return result;
         }
 
         /// <summary>
