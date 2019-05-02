@@ -21,4 +21,3 @@ namespace LlvmSharpLang.CLI.Core
         public bool PrintIr { get; set; }
     }
 }
-
