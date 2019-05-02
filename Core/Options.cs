@@ -19,6 +19,8 @@ namespace Ion.CLI.Core
 
         [Option('i', "ir", Required = false, HelpText = "Print out the emitted IR code instead of the compiled result.")]
         public bool PrintIr { get; set; }
+
+        [Option('a', "asm", Required = false, HelpText = "Prints assembly code for target machine to file.")]
+        public bool PrintAsm { get; set; }
     }
 }
-

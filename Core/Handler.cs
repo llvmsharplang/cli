@@ -60,7 +60,7 @@ namespace Ion.CLI.Core
             // Process files.
             foreach (var file in files)
             {
-                Console.WriteLine($"Processing {path} ...");
+                Console.WriteLine($"Processing {file} ...");
                 this.ProcessFile(file);
             }
 
@@ -117,6 +117,9 @@ namespace Ion.CLI.Core
                 targetPath = Path.Join(this.options.Output, "program.ll");
 
                 LLVM.PrintModuleToFile(module.Source, targetPath, out error);
+            }
+            else if (this.options.PrintAsm)
+            {
             }
             // Otherwise, emit LLVM bitcode result.
             else
