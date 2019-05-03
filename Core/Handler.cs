@@ -137,6 +137,10 @@ namespace Ion.CLI.Core
                 // Emit IR to target path.
                 LLVM.PrintModuleToFile(module.Source, targetPath, out error);
             }
+            else if (this.options.PrintAsm)
+            {
+                targetPath = Path.Join(this.options.Output, "program.asm");
+            }
             // Otherwise, emit LLVM bitcode result.
             else
             {
