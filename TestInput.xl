@@ -1,4 +1,4 @@
-fn anotherTests(int anArgument, float mysecondarg): double
+double anotherTests(int anArgument, float mysecondarg)
 {
     double PI = 3.14;
 

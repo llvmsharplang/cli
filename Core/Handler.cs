@@ -100,7 +100,7 @@ namespace Ion.CLI.Core
             // Temporarily insert token stream bounds.
             stream.Insert(0, new Token
             {
-                Type = TokenType.KeywordFunction
+                Type = TokenType.Unknown
             });
 
             // Create the driver.
