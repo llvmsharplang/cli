@@ -75,6 +75,8 @@ namespace Ion.CLI.Core
             // TODO: Path hard-coded.
             string finalProgramPath = "./l.bin/program.final";
 
+            Console.WriteLine("Writing final output file ...");
+
             // Write final program.
             File.WriteAllText(finalProgramPath, programOutput.ToString());
 
@@ -96,18 +98,17 @@ namespace Ion.CLI.Core
             // Create the token stream.
             TokenStream stream = new TokenStream(tokens.ToArray());
 
-            // TODO
-            // Temporarily insert token stream bounds.
-            stream.Insert(0, new Token
-            {
-                Type = TokenType.Unknown
-            });
+            // Insert token stream bounds.
+            stream.InsertBounds();
 
             // Create the driver.
             Driver driver = new Driver(stream);
 
-            // Invoke the driver.
-            driver.Next();
+            // Invoke the driver continuously.
+            while (driver.HasNext)
+            {
+                driver.Next();
+            }
 
             // Emit the result.
             string result = this.Emit(driver.Module);
