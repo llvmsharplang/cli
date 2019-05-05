@@ -32,7 +32,7 @@ namespace Ion.CLI
         {
             Console.WriteLine("There were errors processing the request.\n");
 
-            foreach (var error in errors)
+            foreach (Error error in errors)
             {
                 Console.WriteLine(error.ToString());
             }

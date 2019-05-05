@@ -61,7 +61,7 @@ namespace Ion.CLI.Core
             StringBuilder programOutput = new StringBuilder();
 
             // Process files.
-            foreach (var file in files)
+            foreach (string file in files)
             {
                 Console.WriteLine($"Processing {file} ...");
 
@@ -97,9 +97,6 @@ namespace Ion.CLI.Core
 
             // Create the token stream.
             TokenStream stream = new TokenStream(tokens.ToArray());
-
-            // Insert token stream bounds.
-            stream.InsertBounds();
 
             // Create the driver.
             Driver driver = new Driver(stream);

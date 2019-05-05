@@ -56,7 +56,7 @@ namespace Ion.CLI.Core
             this.files = new FileResult[filePaths.Length];
 
             // Make file results out of the paths.
-            for (var i = 0; i < filePaths.Length; i++)
+            for (int i = 0; i < filePaths.Length; i++)
             {
                 this.files[i] = new FileResult(filePaths[i]);
             }
