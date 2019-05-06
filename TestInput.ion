@@ -1,6 +1,8 @@
-int main(int first, float second)
+extern void printf(string message, ...)
+
+int main()
 {
-    float pi = 3.14;
-    
+    printf()
+
     return 0; 
 }
