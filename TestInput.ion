@@ -1,4 +1,4 @@
-extern void printf(string message, ...)
+extern int printf(string message, ...)
 
 int main()
 {
