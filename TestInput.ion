@@ -1,6 +1,7 @@
-extern int puts(string message)
-extern int printf(string format, ...)
+extern int puts(string message);
+extern int printf(string format, ...);
 
+// Single-line comment!
 int main()
 {
     puts("Hello world!");
