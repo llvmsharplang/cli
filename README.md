@@ -32,7 +32,7 @@ $ ion
 
 ### Options
 
-```shell
+```
 -v, --verbose    Set output to verbose messages.
 
 -e, --exclude    Exclude certain directories from being processed.
