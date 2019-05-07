@@ -1,9 +1,7 @@
 #!/bin/bash
 
-# Define utility functions.
-timestamp() {
-  date +"%T"
-}
+# Cleanup.
+bash clean.sh
 
 # Invoke .NET Core.
 dotnet publish -c Release
@@ -25,7 +23,7 @@ cp README.md $PUBLISH_PATH
 cd $PUBLISH_PATH
 
 # Zip publish directory.
-zip -r -9 $ROOT/$RELEASES_PATH/ion-cli-v0.0.0.$(timestamp).zip .
+zip -r -9 $ROOT/$RELEASES_PATH/ion-cli-v0.0.0.zip .
 
 # Inform operation completed.
 echo "Operation completed"
