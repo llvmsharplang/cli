@@ -2,7 +2,7 @@ extern void printf(string message, ...)
 
 int main()
 {
-    printf()
+    printf("Hello world!");
 
     return 0; 
 }
