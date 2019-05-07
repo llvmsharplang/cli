@@ -8,5 +8,5 @@ int main()
     printf("It's a %s's world!", "John Doe");
     printf("Testing numbers %d", 5);
 
-    return 0; 
+    return 0;
 }
