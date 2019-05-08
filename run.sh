@@ -1,3 +1,3 @@
 #!/bin/bash
-dotnet run --ir
-lli l.bin/program.ll
+dotnet run
+lli ion.bin/program.ll

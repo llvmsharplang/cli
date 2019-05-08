@@ -88,7 +88,7 @@ namespace Ion.CLI.Core
             }
 
             // TODO: Path hard-coded.
-            string finalProgramPath = "./l.bin/program.final";
+            string finalProgramPath = "./ion.bin/program.final";
 
             this.Print("Writing final output file ...");
 
