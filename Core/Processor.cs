@@ -29,8 +29,12 @@ namespace Ion.CLI.Core
             // Create the token stream.
             TokenStream stream = new TokenStream(tokens.ToArray());
 
-            // Create the driver.
-            Driver driver = new Driver(stream);
+            // TODO: Restrict file name by regex.
+            // Extract the file name of the path.
+            string fileName = Path.GetFileNameWithoutExtension(path);
+
+            // Create the named driver.
+            Driver driver = new Driver(stream, fileName);
 
             // Invoke the driver continuously.
             while (driver.HasNext)

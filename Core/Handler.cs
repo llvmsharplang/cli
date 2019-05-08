@@ -71,9 +71,6 @@ namespace Ion.CLI.Core
                 Environment.Exit(0);
             }
 
-            // Initialize the program output string builder.
-            StringBuilder programOutput = new StringBuilder();
-
             // Process files.
             foreach (string file in files)
             {
@@ -82,18 +79,7 @@ namespace Ion.CLI.Core
 
                 // Process file and obtain resulting output.
                 string result = this.processor.ProcessFile(file);
-
-                // Append result to the string builder.
-                programOutput.Append(result);
             }
-
-            // TODO: Path hard-coded.
-            string finalProgramPath = "./ion.bin/program.final";
-
-            this.Print("Writing final output file ...");
-
-            // Write final program.
-            File.WriteAllText(finalProgramPath, programOutput.ToString());
 
             // TODO: At this point, something is changing the console color to yellow, probably core lib.
             this.Print($"Processed {files.Length} file(s).");
@@ -117,7 +103,7 @@ namespace Ion.CLI.Core
                 string error;
 
                 // Create the target path.
-                targetPath = Path.Join(this.options.Output, $"program.{extension}");
+                targetPath = Path.Join(this.options.Output, $"{module.Name}.{extension}");
 
                 // TODO: Should not write to file/create file.
                 // Emit IR to target path.
@@ -130,7 +116,7 @@ namespace Ion.CLI.Core
                 extension = FileExtension.Bitcode;
 
                 // Create the target path.
-                targetPath = Path.Join(this.options.Output, $"program.{extension}");
+                targetPath = Path.Join(this.options.Output, $"{module.Name}.{extension}");
 
                 // TODO: Should not write to file/create file.
                 // Write bitcode to target path.
