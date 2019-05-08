@@ -4,7 +4,7 @@
 ALIAS_TARGET="dotnet ./IonCLI.dll"
 
 # Create the alias in the current shell.
-alias ion=$ALIAS_TARGET
+alias ion="$ALIAS_TARGET"
 
 # Append the alias to the .bashrc file.
 echo "alias ion=\"$ALIAS_TARGET\"" >> ~/.bashrc
