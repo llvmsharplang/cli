@@ -11,16 +11,16 @@ namespace Ion.CLI.Core
         [Option('e', "exclude", Required = false, HelpText = "Exclude certain directories from being processed.")]
         public IEnumerable<string> Exclude { get; set; }
 
-        [Option('o', "output", Required = false, HelpText = "The output directory which the program will be emitted onto.", Default = "l.bin")]
+        [Option('o', "output", Required = false, HelpText = "The output directory which the program will be emitted onto.", Default = "ion.bin")]
         public string Output { get; set; }
 
         [Option('r', "root", Required = false, HelpText = "The root directory to start the scanning process from.")]
         public string Root { get; set; }
 
-        [Option('i', "ir", Required = false, HelpText = "Print out the emitted IR code instead of the compiled result.")]
-        public bool PrintIr { get; set; }
+        [Option('b', "bitcode", Required = false, HelpText = "Print out the LLVM Bitcode code instead of LLVM IR.")]
+        public bool Bitcode { get; set; }
 
-        [Option('a', "asm", Required = false, HelpText = "Prints assembly code for target machine to file.")]
-        public bool PrintAsm { get; set; }
+        [Option('s', "silent", Required = false, HelpText = "Do not output any messages.")]
+        public bool Silent { get; set; }
     }
 }

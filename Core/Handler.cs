@@ -14,9 +14,23 @@ namespace Ion.CLI.Core
     {
         protected readonly Options options;
 
+        protected readonly Processor processor;
+
         public Handler(Options options)
         {
             this.options = options;
+
+            // Create the processor instance.
+            this.processor = new Processor(this);
+        }
+
+        protected void Print(string message)
+        {
+            // Only output if silent mode is not enabled.
+            if (!this.options.Silent)
+            {
+                Console.WriteLine(message);
+            }
         }
 
         public void Process()
@@ -40,7 +54,7 @@ namespace Ion.CLI.Core
             // Ensure output directory exists, otherwise create it.
             if (!Directory.Exists(this.options.Output))
             {
-                Console.WriteLine("Creating output directory ...");
+                this.Print("Creating output directory ...");
                 Directory.CreateDirectory(this.options.Output);
             }
 
@@ -53,7 +67,7 @@ namespace Ion.CLI.Core
             // No matching files.
             if (files.Length == 0)
             {
-                Console.WriteLine("No matching files discovered.");
+                this.Print("No matching files discovered.");
                 Environment.Exit(0);
             }
 
@@ -63,10 +77,11 @@ namespace Ion.CLI.Core
             // Process files.
             foreach (string file in files)
             {
-                Console.WriteLine($"Processing {file} ...");
+                // Inform the user that of the file being processed.
+                this.Print($"Processing {file} ...");
 
                 // Process file and obtain resulting output.
-                string result = this.ProcessFile(file);
+                string result = this.processor.ProcessFile(file);
 
                 // Append result to the string builder.
                 programOutput.Append(result);
@@ -75,43 +90,13 @@ namespace Ion.CLI.Core
             // TODO: Path hard-coded.
             string finalProgramPath = "./l.bin/program.final";
 
-            Console.WriteLine("Writing final output file ...");
+            this.Print("Writing final output file ...");
 
             // Write final program.
             File.WriteAllText(finalProgramPath, programOutput.ToString());
 
             // TODO: At this point, something is changing the console color to yellow, probably core lib.
-            Console.WriteLine($"Processed {files.Length} file(s).");
-        }
-
-        public string ProcessFile(string path)
-        {
-            // Retrieve file contents.
-            string content = File.ReadAllText(path);
-
-            // Create the lexer.
-            Lexer lexer = new Lexer(content);
-
-            // Tokenize contents.
-            List<Token> tokens = lexer.Tokenize();
-
-            // Create the token stream.
-            TokenStream stream = new TokenStream(tokens.ToArray());
-
-            // Create the driver.
-            Driver driver = new Driver(stream);
-
-            // Invoke the driver continuously.
-            while (driver.HasNext)
-            {
-                driver.Next();
-            }
-
-            // Emit the result.
-            string result = this.Emit(driver.Module);
-
-            // Return the result.
-            return result;
+            this.Print($"Processed {files.Length} file(s).");
         }
 
         public string Emit(Abstraction.Module module)
@@ -122,28 +107,30 @@ namespace Ion.CLI.Core
             // Create the full, target output path.
             string targetPath;
 
+            // Default to IR file extension.
+            string extension = FileExtension.IR;
+
             // Print the resulting LLVM IR code to the output target if applicable.
-            if (this.options.PrintIr)
+            if (!this.options.Bitcode)
             {
                 // TODO: Make use of this.
                 string error;
 
                 // Create the target path.
-                targetPath = Path.Join(this.options.Output, "program.ll");
+                targetPath = Path.Join(this.options.Output, $"program.{extension}");
 
                 // TODO: Should not write to file/create file.
                 // Emit IR to target path.
                 LLVM.PrintModuleToFile(module.Source, targetPath, out error);
             }
-            else if (this.options.PrintAsm)
-            {
-                targetPath = Path.Join(this.options.Output, "program.asm");
-            }
-            // Otherwise, emit LLVM bitcode result.
+            // Otherwise, emit LLVM Bitcode result.
             else
             {
+                // Set the extension to Bitcode.
+                extension = FileExtension.Bitcode;
+
                 // Create the target path.
-                targetPath = Path.Join(this.options.Output, "program.bc");
+                targetPath = Path.Join(this.options.Output, $"program.{extension}");
 
                 // TODO: Should not write to file/create file.
                 // Write bitcode to target path.
@@ -167,7 +154,7 @@ namespace Ion.CLI.Core
         public void Fatal(string message)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"Fatal: {message}");
+            this.Print($"Fatal: {message}");
             Console.ResetColor();
             Environment.Exit(1);
         }
