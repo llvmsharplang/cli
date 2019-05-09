@@ -22,8 +22,16 @@ namespace Ion.CLI
                 // Process request.
                 .WithParsed<Options>((options) =>
                 {
+                    // Create a new verifier instance with the current working directory.
+                    IntegrityVerifier verifier = new IntegrityVerifier(Environment.CurrentDirectory);
+
+                    // Invoke the verifier.
+                    verifier.Invoke();
+
+                    // Create a new handler instance.
                     Handler handler = new Handler(options);
 
+                    // Invoke the handler.
                     handler.Process();
                 });
         }
