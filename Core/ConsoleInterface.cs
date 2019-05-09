@@ -27,7 +27,7 @@ namespace Ion.CLI.Core
         }
     }
 
-    public class ConsoleInterface
+    internal class ConsoleInterface
     {
         // TODO: Needs to be '.xl'.
         public const string extension = ".cs";

@@ -10,7 +10,7 @@ using Ion.SyntaxAnalysis;
 
 namespace Ion.CLI.Core
 {
-    public class Handler
+    internal class Handler
     {
         protected readonly Options options;
 
