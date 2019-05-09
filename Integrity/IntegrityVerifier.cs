@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace Ion.CLI.Core
+namespace Ion.CLI.Integrity
 {
     internal class IntegrityVerifier
     {
@@ -64,10 +64,10 @@ namespace Ion.CLI.Core
                 }
 
                 // Ensure all tools exist.
-                foreach (string tool in VerifierConstants.Tools)
+                foreach (ToolDefinition tool in VerifierConstants.Tools)
                 {
                     // Create the path for the tool.
-                    string path = Path.Combine(this.ToolsPath, tool);
+                    string path = Path.Combine(this.ToolsPath, tool.FileName);
 
                     // Ensure tool exists.
                     if (!File.Exists(path))
@@ -75,6 +75,12 @@ namespace Ion.CLI.Core
                         FatalError.Print($"Required LLVM tool '{path}' is missing. You may have a corrupt installation.");
                     }
                 }
+
+                // Ensure tools execute and have correct versions.
+                // TODO
+
+                // Do not continue at this point.
+                return;
             }
         }
     }
