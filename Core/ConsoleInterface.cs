@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ion.CLI.Core
 {
-    public class FileResult
+    internal class FileResult
     {
         public string Path { get; }
 

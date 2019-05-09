@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Ion.CLI.Encapsulation
 {
-    public class Package
+    internal class Package
     {
         /// <summary>
         /// The uniquely identifying package name.

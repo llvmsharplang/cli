@@ -1,6 +1,6 @@
 namespace Ion.CLI.Encapsulation
 {
-    public class Dependency : Package
+    internal class Dependency : Package
     {
         /// <summary>
         /// Whether this is an optional dependency.

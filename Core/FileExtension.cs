@@ -1,6 +1,6 @@
 namespace Ion.CLI.Core
 {
-    public static class FileExtension
+    internal static class FileExtension
     {
         public const string IR = "ll";
 

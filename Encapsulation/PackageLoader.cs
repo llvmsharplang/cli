@@ -1,6 +1,6 @@
 namespace Ion.CLI.Encapsulation
 {
-    public class PackageLoader
+    internal class PackageLoader
     {
         // TODO
     }
