@@ -1,10 +1,11 @@
-# Constant declaration.
-$ToolsUrl = "https://github.com/IonLanguage/Ion.CLI/releases/download/llvm-tools-1/tools.zip"
-$ToolsZipFile = "llvm-tools.zip"
-$ToolsFolder = "llvm-tools"
-$FinishedMessage = "You're all set!"
-
 # Utility functions.
+function Resolve {
+    param([string] $path)
+
+    # Return the resolved path.
+    return $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($path)
+}
+
 function PathAppend {
     param([string] $path)
 
@@ -15,9 +16,15 @@ function PathAppend {
     [Environment]::SetEnvironmentVariable("Path", $env:Path + ";$path", [System.EnvironmentVariableTarget]::User)
 }
 
+# Constant declaration.
+$ToolsUrl = "https://github.com/IonLanguage/Ion.CLI/releases/download/llvm-tools-1/tools.zip"
+$ToolsZipFile = "llvm-tools.zip"
+$ToolsFolder = Resolve "../../.llvm-tools"
+$FinishedMessage = "You're all set!"
+
 # LLVM tools.
 if (Test-Path $ToolsFolder) {
-    "LLVM tools directory already exists in the current directory."
+    "LLVM tools directory already exists."
 }
 else {
     "Downloading LLVM tools ..."
@@ -44,3 +51,5 @@ Remove-Item $ToolsZipFile -ErrorAction Ignore
 
 # Inform the user the process completed.
 $FinishedMessage
+
+Pause

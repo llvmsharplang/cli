@@ -3,5 +3,6 @@ obj/
 ion.bin/
 .releases/
 *.exe
-llvm-tools/
-.WinInstallerBuilds
+.llvm-tools/
+.winInstallerBuilds/
+llvm-tools.zip
