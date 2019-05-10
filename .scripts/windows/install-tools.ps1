@@ -51,5 +51,3 @@ Remove-Item $ToolsZipFile -ErrorAction Ignore
 
 # Inform the user the process completed.
 $FinishedMessage
-
-Pause
