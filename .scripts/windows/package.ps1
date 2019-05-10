@@ -26,6 +26,7 @@ dotnet publish -c Release -r linux-x64
 
 # Package builds.
 "Packaging builds ..."
+New-Item -ItemType Directory -Force -Path .\.packages
 
 # Package Windows x64.
 "Packaging Windows x64 (through Inno Setup) ..."
@@ -33,8 +34,9 @@ Start-Process -Wait -WindowStyle Hidden -FilePath "$env:LOCALAPPDATA\Programs\In
 
 # Package Linux x64.
 "Packaging Linux x64 ..."
-Copy-Item .\.installers\installer.sh .\bin\Release\netcoreapp2.2\linux-x64\publish
-Compress-Archive -CompressionLevel Optimal -Path .\bin\Release\netcoreapp2.2\linux-x64\publish -DestinationPath .\.packages\linux-x64.zip
+Copy-Item .\.installers\installer.sh .\bin\Release\netcoreapp2.2\linux-x64\publish\
+Copy-Item .\.installers\*.txt .\bin\Release\netcoreapp2.2\linux-x64\publish\
+Compress-Archive -CompressionLevel Optimal -Path .\bin\Release\netcoreapp2.2\linux-x64\publish\* -DestinationPath .\.packages\linux-x64.zip
 
 # Finish up.
 "Packaging completed."

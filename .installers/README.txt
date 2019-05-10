@@ -1,0 +1,3 @@
+--- Installation ---
+
+$ bash installer.sh
