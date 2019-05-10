@@ -8,11 +8,11 @@ Please note that to setup a working development environment, a path to an existi
 
 ### Installation
 
-If you have downloaded this as a release, use the following scripts to install the CLI utility locally on your machine:
+If you have downloaded this as a release, follow the instructions below to install the CLI utility locally on your machine:
 
 #### Windows
 
-Simple execute the `install.bat` script by double-clicking it.
+Simply right-click on the `install.ps1` file, and select "Run with PowerShell".
 
 #### Linux
 
@@ -24,7 +24,7 @@ $ bash install.sh
 
 ### Usage
 
-Usage is simple. Once you've ran the installation script on your platform, you can simple run the following command on a Windows Command Prompt (if you're on Windows) or a shell (if you're on Linux):
+Usage is simple. Once you've ran the installation script on your platform, you can simple run the following command on a Windows Command Prompt (if you're on Windows) or a shell otherwise:
 
 ```shell
 $ ion
