@@ -20,7 +20,7 @@ function PathAppend {
 $ToolsUrl = "https://github.com/IonLanguage/Ion.CLI/releases/download/llvm-tools-1/tools.zip"
 $ToolsZipFile = "llvm-tools.zip"
 $ToolsFolder = Resolve "../../.llvm-tools"
-$FinishedMessage = "You're all set!"
+$FinishedMessage = "Tools installation completed."
 
 # LLVM tools.
 if (Test-Path $ToolsFolder) {
