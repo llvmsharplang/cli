@@ -8,7 +8,7 @@ namespace Ion.CLI.Integrity
         /// The folder path on which the required LLVM tools
         /// are stored in. Windows only.
         /// </summary>
-        public const string ToolsPath = ".llvm-tools";
+        public const string ToolsPath = "llvm-tools";
 
         /// <summary>
         /// The version string expected to be captured during
