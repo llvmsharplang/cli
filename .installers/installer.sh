@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define alias target.
-ALIAS_TARGET="dotnet ./IonCLI.dll"
+ALIAS_TARGET="./IonCLI"
 
 # Create the alias in the current shell.
 alias ion="$ALIAS_TARGET"
