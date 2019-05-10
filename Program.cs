@@ -8,6 +8,7 @@ using Ion.Linking;
 using Ion.SyntaxAnalysis;
 using Ion.Parsing;
 using LLVMSharp;
+using Ion.CLI.Integrity;
 
 namespace Ion.CLI
 {
