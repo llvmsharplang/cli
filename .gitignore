@@ -4,3 +4,4 @@ ion.bin/
 .releases/
 *.exe
 llvm-tools/
+.WinInstallerBuilds
