@@ -19,7 +19,7 @@ function PathAppend {
 # Constant declaration.
 $ToolsUrl = "https://github.com/IonLanguage/Ion.CLI/releases/download/llvm-tools-1/tools.zip"
 $ToolsZipFile = "llvm-tools.zip"
-$ToolsFolder = Resolve "../../.llvm-tools"
+$ToolsFolder = Resolve "llvm-tools"
 $FinishedMessage = "Tools installation completed."
 
 # LLVM tools.
@@ -35,7 +35,7 @@ else {
     "Extracting LLVM tools ..."
 
     # Extract the LLVM tools package.
-    Expand-Archive -path $ToolsZipFile -destinationpath $ToolsFolder
+    expand-archive -path $ToolsZipFile -destinationpath $ToolsFolder
 
     "Appending LLVM tools to path ..."
 

@@ -4,5 +4,5 @@ ion.bin/
 .releases/
 *.exe
 .llvm-tools/
-.winInstallerBuilds/
+.packages/
 llvm-tools.zip
