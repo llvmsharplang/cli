@@ -7,6 +7,7 @@ using Ion.Abstraction;
 using Ion.Linking;
 using Ion.Parsing;
 using Ion.SyntaxAnalysis;
+using IonCLI.Encapsulation;
 
 namespace IonCLI.Core
 {
@@ -57,6 +58,20 @@ namespace IonCLI.Core
                 this.Print("Creating output directory ...");
                 Directory.CreateDirectory(this.options.Output);
             }
+
+            // Create a new package loader instance.
+            PackageLoader packageLoader = new PackageLoader(root);
+
+            // Ensure package manifest exists.
+            if (!packageLoader.DoesManifestExist)
+            {
+                this.Fatal("Package manifest file does not exist.");
+            }
+
+            // Load the package manifest.
+            Package package = packageLoader.ReadPackage();
+
+            // TODO: Process package.
 
             // Create the scanner.
             Scanner scanner = new Scanner(root);

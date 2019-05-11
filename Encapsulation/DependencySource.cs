@@ -1,6 +1,6 @@
 namespace IonCLI.Encapsulation
 {
-    internal enum DependencySourceType
+    public enum DependencySourceType
     {
         /// <summary>
         /// A project hosted on GitHub.
@@ -18,7 +18,7 @@ namespace IonCLI.Encapsulation
         Local
     }
 
-    internal class DependencySource
+    public class DependencySource
     {
         public DependencySourceType Type { get; set; }
 

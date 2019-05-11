@@ -23,11 +23,20 @@ namespace IonCLI
                 // Process request.
                 .WithParsed<Options>((options) =>
                 {
-                    // Create a new verifier instance with the base directory.
-                    IntegrityVerifier verifier = new IntegrityVerifier(AppContext.BaseDirectory);
+                    // Check integrity if applicable.
+                    if (!options.NoIntegrity)
+                    {
+                        // Create a new verifier instance with the base directory.
+                        IntegrityVerifier verifier = new IntegrityVerifier(AppContext.BaseDirectory);
 
-                    // Invoke the verifier.
-                    verifier.Invoke();
+                        // Invoke the verifier.
+                        verifier.Invoke();
+                    }
+                    // Inform the user that integrity check is disabled.
+                    else
+                    {
+                        Console.WriteLine("Integrity check is disabled.");
+                    }
 
                     // Create a new handler instance.
                     Handler handler = new Handler(options);

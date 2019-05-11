@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace IonCLI.Encapsulation
 {
-    internal class Package
+    public class Package
     {
         /// <summary>
         /// The uniquely identifying package name.
@@ -24,16 +24,16 @@ namespace IonCLI.Encapsulation
         /// by the compiler, incremented every compilation
         /// step.
         /// </summary>
-        public long Iteration { get; set; }
+        public long Build { get; set; }
 
         /// <summary>
-        /// The author(s)' names or contact information.
+        /// The author's name or contact information.
         /// </summary>
-        public IEnumerable<string> Authors { get; set; }
+        public string Author { get; set; }
 
         /// <summary>
         /// Packages needed or used within this application.
         /// </summary>
-        public IEnumerable<Package> Dependencies { get; set; }
+        public Dependency[] Dependencies { get; set; }
     }
 }

@@ -21,6 +21,13 @@ namespace IonCLI.Core
         public bool Bitcode { get; set; }
 
         [Option('s', "silent", Required = false, HelpText = "Do not output any messages.")]
+
         public bool Silent { get; set; }
+
+        [Option('i', "no-integrity", Required = false, HelpText = "Skip integrity check.")]
+        public bool NoIntegrity { get; set; }
+
+        [Option('d', "debug", Required = false, HelpText = "Use debugging mode.")]
+        public bool DebugMode { get; set; }
     }
 }

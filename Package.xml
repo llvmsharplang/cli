@@ -1,0 +1,13 @@
+<Package>
+    <Name>TestPackage</Name>
+    <Description>A package definition for testing the project.</Description>
+    <Version>1.0.0</Version>
+    <Build>0</Build>
+    <Author>Atlas and Contributors</Author>
+    <Dependencies>
+        <Dependency>
+            <Name>TestDependency</Name>
+            <Version>1.0.0</Version>
+        </Dependency>
+    </Dependencies>
+</Package>

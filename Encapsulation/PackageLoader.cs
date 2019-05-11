@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace IonCLI.Encapsulation
 {
-    internal class PackageLoader
+    public class PackageLoader
     {
         /// <summary>
         /// Whether the package manifest file exists

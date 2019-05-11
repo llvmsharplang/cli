@@ -1,7 +1,17 @@
 namespace IonCLI.Encapsulation
 {
-    internal class Dependency : Package
+    public class Dependency
     {
+        /// <summary>
+        /// The uniquely identifying dependency name.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// The version string of the dependency.
+        /// </summary>
+        public string Version { get; set; }
+
         /// <summary>
         /// Whether this is an optional dependency.
         /// </summary>
