@@ -25,15 +25,6 @@ namespace IonCLI.Core
             this.processor = new Processor(this);
         }
 
-        protected void Print(string message)
-        {
-            // Only output if silent mode is not enabled.
-            if (!this.options.Silent)
-            {
-                Console.WriteLine(message);
-            }
-        }
-
         public void Process()
         {
             // Set the root directory.
@@ -149,7 +140,7 @@ namespace IonCLI.Core
         public void Fatal(string message)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            this.Print($"Fatal: {message}");
+            Log.Compose($"Fatal: {message}");
             Console.ResetColor();
             Environment.Exit(1);
         }
@@ -165,14 +156,14 @@ namespace IonCLI.Core
             // No matching files.
             if (files.Length == 0)
             {
-                this.Print("No matching files discovered.");
+                Log.Compose("No matching files discovered.");
                 Environment.Exit(0);
             }
 
             // Ensure output directory exists, otherwise create it.
             if (!Directory.Exists(this.options.Output))
             {
-                this.Print("Creating output directory ...");
+                Log.Compose("Creating output directory ...");
                 Directory.CreateDirectory(this.options.Output);
             }
 
@@ -180,7 +171,7 @@ namespace IonCLI.Core
             foreach (string file in files)
             {
                 // Inform the user that of the file being processed.
-                this.Print($"Processing {file} ...");
+                Log.Compose($"Processing {file} ...");
 
                 // Process file and obtain resulting output.
                 string result = this.processor.ProcessFile(file);
