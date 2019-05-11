@@ -47,20 +47,14 @@ $ ion
 ### Options
 
 ```
--v, --verbose    Set output to verbose messages.
-
--e, --exclude    Exclude certain directories from being processed.
-
--o, --output     (Default: l.bin) The output directory which the program will be 
-                 emitted onto.
-
--r, --root       The root directory to start the scanning process from.
-
--i, --ir         Print out the emitted IR code instead of the compiled result.
-
--a, --asm        Prints assembly code for target machine to file.
-
---help           Display this help screen.
-
---version        Display version information.
+-v, --verbose         Set output to verbose messages.
+-e, --exclude         Exclude certain directories from being processed.
+-o, --output          (Default: ion.bin) The output directory which the program will be emitted onto.
+-r, --root            The root directory to start the scanning process from.
+-b, --bitcode         Print out the LLVM Bitcode code instead of LLVM IR.
+-s, --silent          Do not output any messages.
+-i, --no-integrity    Skip integrity check.
+-d, --debug           Use debugging mode.
+--help                Display this help screen.
+--version             Display version information.
 ```
