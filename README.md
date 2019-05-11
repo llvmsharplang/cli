@@ -20,6 +20,14 @@ git clone https://github.com/IonLanguage/Ion.CLI && cd Ion.CLI/.scripts/windows 
 
 You're all set!
 
+#### Additional notes
+
+If you're developing the application, it is recommended you run it with the following command:
+
+```shell
+$ dotnet run -- -r .test -t .llvm-tools -v -d
+```
+
 ### Installation
 
 If you have downloaded this as a release, follow the instructions below to install the CLI utility locally on your machine:

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace IonCLI.Core
 {
-    internal class Processor
+    public class Processor
     {
         protected readonly Handler handler;
 

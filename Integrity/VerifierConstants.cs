@@ -2,19 +2,19 @@ using System.Text.RegularExpressions;
 
 namespace IonCLI.Integrity
 {
-    internal static class VerifierConstants
+    public static class VerifierConstants
     {
         /// <summary>
-        /// The folder path on which the required LLVM tools
+        /// The default folder path on which the required LLVM tools
         /// are stored in. Windows only.
         /// </summary>
-        public const string ToolsPath = "llvm-tools";
+        public const string DefaultToolsPath = "llvm-tools";
 
         /// <summary>
-        /// The version string expected to be captured during
+        /// The default version string expected to be captured during
         /// the invocation of the tools.
         /// </summary>
-        public const string LlvmVersion = "5.0.0";
+        public const string DefaultLlvmVersion = "5.0.0";
 
         /// <summary>
         /// Matches a generic version string from the version command
@@ -34,7 +34,7 @@ namespace IonCLI.Integrity
                 FileName = "lli.exe",
                 Invoker = "lli --version",
                 MatchPattern = VerifierConstants.GenericVersionPattern,
-                ExpectedMatch = VerifierConstants.LlvmVersion
+                ExpectedMatch = VerifierConstants.DefaultLlvmVersion
             },
 
             // LLC.
@@ -43,7 +43,7 @@ namespace IonCLI.Integrity
                 FileName = "llc.exe",
                 Invoker = "llc --version",
                 MatchPattern = VerifierConstants.GenericVersionPattern,
-                ExpectedMatch = VerifierConstants.LlvmVersion
+                ExpectedMatch = VerifierConstants.DefaultLlvmVersion
             }
         };
     }

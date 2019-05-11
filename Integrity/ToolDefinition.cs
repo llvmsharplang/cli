@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace IonCLI.Integrity
 {
-    internal struct ToolDefinition
+    public struct ToolDefinition
     {
         /// <summary>
         /// The filename of the tool, along with its

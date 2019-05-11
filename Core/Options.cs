@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using CommandLine;
+using IonCLI.Integrity;
 
 namespace IonCLI.Core
 {
-    internal class Options
+    public class Options
     {
         [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
         public bool Verbose { get; set; }
@@ -29,5 +30,8 @@ namespace IonCLI.Core
 
         [Option('d', "debug", Required = false, HelpText = "Use debugging mode.")]
         public bool DebugMode { get; set; }
+
+        [Option('t', "tools-path", Required = false, HelpText = "Specify the tools directory path to use. Path is relative to the CLI's execution directory.", Default = VerifierConstants.DefaultToolsPath)]
+        public string ToolsPath { get; set; }
     }
 }

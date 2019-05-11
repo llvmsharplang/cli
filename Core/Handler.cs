@@ -11,7 +11,7 @@ using IonCLI.Encapsulation;
 
 namespace IonCLI.Core
 {
-    internal class Handler
+    public class Handler
     {
         protected readonly Options options;
 
@@ -56,7 +56,7 @@ namespace IonCLI.Core
             PackageLoader packageLoader = new PackageLoader(root);
 
             // Inform the user of the final root directory.
-            Console.WriteLine($"Using root directory: {root}");
+            Log.Verbose($"Using root directory: {root}");
 
             // Ensure package manifest exists.
             if (!packageLoader.DoesManifestExist)
@@ -86,7 +86,7 @@ namespace IonCLI.Core
                     root = Path.GetFullPath(package.Options.SourceRoot);
 
                     // Inform the user of the action taken.
-                    Console.WriteLine($"Using source root directory from package manifest: {root}");
+                    Log.Verbose($"Using source root directory from package manifest: {root}");
                 }
             }
 

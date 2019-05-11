@@ -23,11 +23,14 @@ namespace IonCLI
                 // Process request.
                 .WithParsed<Options>((options) =>
                 {
+                    // Set verbose mode.
+                    Log.VerboseMode = options.Verbose;
+
                     // Check integrity if applicable.
                     if (!options.NoIntegrity)
                     {
                         // Create a new verifier instance with the base directory.
-                        IntegrityVerifier verifier = new IntegrityVerifier(AppContext.BaseDirectory);
+                        IntegrityVerifier verifier = new IntegrityVerifier(options, AppContext.BaseDirectory);
 
                         // Invoke the verifier.
                         verifier.Invoke();
@@ -35,7 +38,7 @@ namespace IonCLI
                     // Inform the user that integrity check is disabled.
                     else
                     {
-                        Console.WriteLine("Integrity check is disabled.");
+                        Log.Verbose("Integrity check is disabled.");
                     }
 
                     // Create a new handler instance.
