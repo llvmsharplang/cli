@@ -1,3 +1,5 @@
+using System;
+
 namespace IonCLI.PackageManagement
 {
     public enum DependencySourceType
@@ -20,8 +22,14 @@ namespace IonCLI.PackageManagement
 
     public abstract class DependencySource
     {
-        public DependencySourceType Type { get; set; }
+        public abstract DependencySourceType Type { get; }
 
-        public string URL { get; set; }
+        public abstract string URL { get; }
+
+        public virtual bool Verify()
+        {
+            // TODO: Implement.
+            throw new NotImplementedException();
+        }
     }
 }
