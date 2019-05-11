@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace Ion.CLI.Encapsulation
+namespace IonCLI.Encapsulation
 {
     internal class PackageLoader
     {

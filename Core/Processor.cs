@@ -4,7 +4,7 @@ using Ion.CodeGeneration;
 using System.IO;
 using System.Collections.Generic;
 
-namespace Ion.CLI.Core
+namespace IonCLI.Core
 {
     internal class Processor
     {

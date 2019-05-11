@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System;
-using Ion.CLI.Core;
+using IonCLI.Core;
 using Ion;
 using CommandLine;
 using System.Collections.Generic;
@@ -8,9 +8,9 @@ using Ion.Linking;
 using Ion.SyntaxAnalysis;
 using Ion.Parsing;
 using LLVMSharp;
-using Ion.CLI.Integrity;
+using IonCLI.Integrity;
 
-namespace Ion.CLI
+namespace IonCLI
 {
     internal sealed class Program
     {

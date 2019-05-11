@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace Ion.CLI.Integrity
+namespace IonCLI.Integrity
 {
     internal static class VerifierConstants
     {

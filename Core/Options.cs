@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using CommandLine;
 
-namespace Ion.CLI.Core
+namespace IonCLI.Core
 {
     internal class Options
     {

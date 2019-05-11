@@ -1,4 +1,4 @@
-namespace Ion.CLI.Encapsulation
+namespace IonCLI.Encapsulation
 {
     internal static class PackageConstants
     {

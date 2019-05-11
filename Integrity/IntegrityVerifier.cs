@@ -1,9 +1,9 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
-using Ion.CLI.Core;
+using IonCLI.Core;
 
-namespace Ion.CLI.Integrity
+namespace IonCLI.Integrity
 {
     internal class IntegrityVerifier
     {

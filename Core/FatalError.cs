@@ -1,6 +1,6 @@
 using System;
 
-namespace Ion.CLI.Core
+namespace IonCLI.Core
 {
     internal static class FatalError
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Ion.CLI.Encapsulation
+namespace IonCLI.Encapsulation
 {
     internal class Package
     {

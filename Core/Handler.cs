@@ -8,7 +8,7 @@ using Ion.Linking;
 using Ion.Parsing;
 using Ion.SyntaxAnalysis;
 
-namespace Ion.CLI.Core
+namespace IonCLI.Core
 {
     internal class Handler
     {
@@ -85,7 +85,7 @@ namespace Ion.CLI.Core
             this.Print($"Processed {files.Length} file(s).");
         }
 
-        public string Emit(Abstraction.Module module)
+        public string Emit(Ion.Abstraction.Module module)
         {
             // Create the resulting string.
             string result;
