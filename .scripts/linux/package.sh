@@ -23,7 +23,7 @@ cp $INSTALLERS_PATH/*.txt $PUBLISH_PATH
 cd $PUBLISH_PATH
 
 # Zip publish directory.
-tar czf $ROOT/$PACKAGES_PATH/ion-cli-linux-x64-v0.0.0.tar.gz .
+tar -czf $ROOT/$PACKAGES_PATH/ion-cli-linux-x64-v0.0.0.tar.gz .
 
 # Inform operation completed.
 echo "Operation completed"
