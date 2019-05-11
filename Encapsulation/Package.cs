@@ -35,5 +35,7 @@ namespace IonCLI.Encapsulation
         /// Packages needed or used within this application.
         /// </summary>
         public Dependency[] Dependencies { get; set; }
+
+        public PackageOptions Options { get; set; }
     }
 }

@@ -58,3 +58,5 @@ $ ion
 --help                Display this help screen.
 --version             Display version information.
 ```
+
+Note: If any of the CLI's arguments are specified and defined within the package manifest file, the CLI's arguments will take precedence.

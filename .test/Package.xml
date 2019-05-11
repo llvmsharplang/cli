@@ -10,4 +10,7 @@
             <Version>1.0.0</Version>
         </Dependency>
     </Dependencies>
+    <Options>
+        <SourceRoot>.test\Source</SourceRoot>
+    </Options>
 </Package>

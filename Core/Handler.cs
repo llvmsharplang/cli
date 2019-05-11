@@ -49,18 +49,14 @@ namespace IonCLI.Core
                 }
 
                 // Use provided root directory path.
-                root = this.options.Root;
-            }
-
-            // Ensure output directory exists, otherwise create it.
-            if (!Directory.Exists(this.options.Output))
-            {
-                this.Print("Creating output directory ...");
-                Directory.CreateDirectory(this.options.Output);
+                root = Path.GetFullPath(this.options.Root);
             }
 
             // Create a new package loader instance.
             PackageLoader packageLoader = new PackageLoader(root);
+
+            // Inform the user of the final root directory.
+            Console.WriteLine($"Using root directory: {root}");
 
             // Ensure package manifest exists.
             if (!packageLoader.DoesManifestExist)
@@ -71,33 +67,31 @@ namespace IonCLI.Core
             // Load the package manifest.
             Package package = packageLoader.ReadPackage();
 
-            // TODO: Process package.
-
-            // Create the scanner.
-            Scanner scanner = new Scanner(root);
-
-            // Scan for files.
-            string[] files = scanner.Scan();
-
-            // No matching files.
-            if (files.Length == 0)
+            // Process package options if applicable.
+            if (package.Options != null)
             {
-                this.Print("No matching files discovered.");
-                Environment.Exit(0);
+                // Use package's root path option if applicable.
+                if (package.Options.SourceRoot != null)
+                {
+                    // Create the new root path.
+                    string newRoot = Path.GetFullPath(package.Options.SourceRoot);
+
+                    // Ensure directory path exists.
+                    if (!Directory.Exists(newRoot))
+                    {
+                        this.Fatal("Provided source root directory path in package manifest does not exist");
+                    }
+
+                    // Override root path.
+                    root = Path.GetFullPath(package.Options.SourceRoot);
+
+                    // Inform the user of the action taken.
+                    Console.WriteLine($"Using source root directory from package manifest: {root}");
+                }
             }
 
-            // Process files.
-            foreach (string file in files)
-            {
-                // Inform the user that of the file being processed.
-                this.Print($"Processing {file} ...");
-
-                // Process file and obtain resulting output.
-                string result = this.processor.ProcessFile(file);
-            }
-
-            // TODO: At this point, something is changing the console color to yellow, probably core lib.
-            this.Print($"Processed {files.Length} file(s).");
+            // Process scanner.
+            this.ProcessScanner(root);
         }
 
         public string Emit(Ion.Abstraction.Module module)
@@ -158,6 +152,42 @@ namespace IonCLI.Core
             this.Print($"Fatal: {message}");
             Console.ResetColor();
             Environment.Exit(1);
+        }
+
+        protected void ProcessScanner(string root)
+        {
+            // Create the scanner.
+            Scanner scanner = new Scanner(root);
+
+            // Scan for files.
+            string[] files = scanner.Scan();
+
+            // No matching files.
+            if (files.Length == 0)
+            {
+                this.Print("No matching files discovered.");
+                Environment.Exit(0);
+            }
+
+            // Ensure output directory exists, otherwise create it.
+            if (!Directory.Exists(this.options.Output))
+            {
+                this.Print("Creating output directory ...");
+                Directory.CreateDirectory(this.options.Output);
+            }
+
+            // Process files.
+            foreach (string file in files)
+            {
+                // Inform the user that of the file being processed.
+                this.Print($"Processing {file} ...");
+
+                // Process file and obtain resulting output.
+                string result = this.processor.ProcessFile(file);
+            }
+
+            // TODO: At this point, something is changing the console color to yellow, probably core lib.
+            this.Print($"Processed {files.Length} file(s).");
         }
     }
 }
