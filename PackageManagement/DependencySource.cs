@@ -88,6 +88,9 @@ namespace IonCLI.PackageManagement
 
             // Acquire the entire response's content.
             string content = reader.ReadToEnd();
+
+            // TODO: Finish implementing.
+            throw new NotImplementedException();
         }
     }
 }
