@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Net;
 
 namespace IonCLI.PackageManagement
@@ -60,6 +61,33 @@ namespace IonCLI.PackageManagement
                 // Upon any web exception, return false.
                 return false;
             }
+        }
+
+        public virtual bool Resolve()
+        {
+            // Verify remote URL first.
+            if (!this.Verify())
+            {
+                return false;
+            }
+
+            // Create a new web request instance.
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this.URL);
+
+            // Specify decompression strategies.
+            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
+
+            // Invoke the web request and retrieve the response.
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            // Retrieve the response's stream.
+            Stream stream = response.GetResponseStream();
+
+            // Create a new response reader instance.
+            StreamReader reader = new StreamReader(stream);
+
+            // Acquire the entire response's content.
+            string content = reader.ReadToEnd();
         }
     }
 }
