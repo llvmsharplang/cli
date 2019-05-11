@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace IonCLI.PackageManagement
 {
-    public class Package
+    public class PackageDefinition
     {
         /// <summary>
         /// The uniquely identifying package name.
