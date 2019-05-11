@@ -27,7 +27,9 @@ namespace IonCLI.Core
             // Print only if verbose mode is active.
             if (Log.VerboseMode)
             {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.WriteLine($"Verbose: {message}");
+                Console.ResetColor();
             }
         }
     }
