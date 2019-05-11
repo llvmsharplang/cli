@@ -29,6 +29,9 @@ if (Test-Path $ToolsFolder) {
 else {
     "Downloading LLVM tools ..."
 
+    # Enforces TSL12 security protocol.
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
     # Download the LLVM tools package.
     Invoke-WebRequest $ToolsUrl -OutFile $ToolsZipFile
 
