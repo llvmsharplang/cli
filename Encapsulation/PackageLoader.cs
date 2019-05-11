@@ -6,6 +6,10 @@ namespace Ion.CLI.Encapsulation
 {
     internal class PackageLoader
     {
+        /// <summary>
+        /// Whether the package manifest file exists
+        /// inside the provided root directory path.
+        /// </summary>
         public bool DoesManifestExist
         {
             get
@@ -18,6 +22,9 @@ namespace Ion.CLI.Encapsulation
             }
         }
 
+        /// <summary>
+        /// The manifest path located under the provided root path.
+        /// </summary>
         public string ManifestFilePath => this.ResolvePath(PackageConstants.ManifestFilename);
 
         protected readonly string root;
@@ -27,6 +34,10 @@ namespace Ion.CLI.Encapsulation
             this.root = root;
         }
 
+        /// <summary>
+        /// Resolve a path located under the provided root
+        /// directory path.
+        /// </summary>
         protected string ResolvePath(string path)
         {
             // Combine root path with the provided path.
