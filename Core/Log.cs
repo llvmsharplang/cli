@@ -6,6 +6,26 @@ namespace IonCLI.Core
     {
         public static bool VerboseMode { get; set; } = false;
 
+        public static bool SilentMode { get; set; } = false;
+
+        public static void Compose(string message, ConsoleColor? color = null)
+        {
+            // Set color beforehand if applicable.
+            if (color.HasValue)
+            {
+                Console.ForegroundColor = color.Value;
+            }
+
+            // Print the message.
+            Console.WriteLine(message);
+
+            // Reset color afterwards if applicable.
+            if (color.HasValue)
+            {
+                Console.ResetColor();
+            }
+        }
+
         /// <summary>
         /// Prints out an error message onto the console
         /// and terminates program execution with a faulty
@@ -14,9 +34,7 @@ namespace IonCLI.Core
         public static void Error(string message)
         {
             // Print the message.
-            Console.ForegroundColor = ConsoleColor.Red;
-            System.Console.WriteLine($"Error: {message}");
-            Console.ResetColor();
+            Log.Compose($"Error: {message}", ConsoleColor.Red);
 
             // Exit program.
             Environment.Exit(1);
@@ -27,10 +45,15 @@ namespace IonCLI.Core
             // Print only if verbose mode is active.
             if (Log.VerboseMode)
             {
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.WriteLine($"Verbose: {message}");
-                Console.ResetColor();
+                // Print the message.
+                Log.Compose($"Verbose: {message}", ConsoleColor.DarkGray);
             }
+        }
+
+        public static void Success(string message)
+        {
+            // Print the message without conditions.
+            Log.Compose(message, ConsoleColor.Green);
         }
     }
 }

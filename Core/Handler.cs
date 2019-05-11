@@ -187,7 +187,7 @@ namespace IonCLI.Core
             }
 
             // TODO: At this point, something is changing the console color to yellow, probably core lib.
-            this.Print($"Processed {files.Length} file(s).");
+            Log.Success($"Processed {files.Length} file(s).");
         }
     }
 }
