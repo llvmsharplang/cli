@@ -48,7 +48,7 @@ namespace IonCLI.PackageManagement
         /// Attempts to load the content of the manifest file
         /// and serialize it onto a Package class instance.
         /// </summary>
-        public Package ReadPackage()
+        public PackageDefinition ReadPackage()
         {
             // Ensure manifest file exists.
             if (!this.DoesManifestExist)
@@ -60,10 +60,10 @@ namespace IonCLI.PackageManagement
             FileStream manifestStream = new FileStream(this.ManifestFilePath, FileMode.Open);
 
             // Create the XML serializer instance.
-            XmlSerializer serializer = new XmlSerializer(typeof(Package));
+            XmlSerializer serializer = new XmlSerializer(typeof(PackageDefinition));
 
             // Invoke serializer.
-            Package package = (Package)serializer.Deserialize(manifestStream);
+            PackageDefinition package = (PackageDefinition)serializer.Deserialize(manifestStream);
 
             // Return the serialized package class instance.
             return package;
