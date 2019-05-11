@@ -1,4 +1,4 @@
-namespace IonCLI.Encapsulation
+namespace IonCLI.PackageManagement
 {
     public class Dependency
     {

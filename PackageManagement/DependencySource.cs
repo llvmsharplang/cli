@@ -1,4 +1,4 @@
-namespace IonCLI.Encapsulation
+namespace IonCLI.PackageManagement
 {
     public enum DependencySourceType
     {
@@ -18,7 +18,7 @@ namespace IonCLI.Encapsulation
         Local
     }
 
-    public class DependencySource
+    public abstract class DependencySource
     {
         public DependencySourceType Type { get; set; }
 
