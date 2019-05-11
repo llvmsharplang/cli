@@ -23,8 +23,8 @@ namespace Ion.CLI
                 // Process request.
                 .WithParsed<Options>((options) =>
                 {
-                    // Create a new verifier instance with the current working directory.
-                    IntegrityVerifier verifier = new IntegrityVerifier(Environment.CurrentDirectory);
+                    // Create a new verifier instance with the base directory.
+                    IntegrityVerifier verifier = new IntegrityVerifier(AppContext.BaseDirectory);
 
                     // Invoke the verifier.
                     verifier.Invoke();

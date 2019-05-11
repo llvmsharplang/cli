@@ -17,31 +17,29 @@ function PathAppend {
 }
 
 # Constant declaration.
-$ToolsUrl = "https://github.com/IonLanguage/Ion.CLI/releases/download/llvm-tools-1/tools.zip"
+$ToolsUrl = "https://github.com/IonLanguage/Ion.CLI/releases/download/llvm-tools/tools.zip"
 $ToolsZipFile = "llvm-tools.zip"
-$ToolsFolder = Resolve "llvm-tools"
-$FinishedMessage = "Tools installation completed."
+$FinishedMessage = "Operation completed."
+$InstallationPath = "$env:LOCALAPPDATA\Programs\IonLanguage"
 
-# LLVM tools.
-if (Test-Path $ToolsFolder) {
-    "LLVM tools directory already exists."
+# Enter installation directory.
+Set-Location -Path $InstallationPath
+
+# Create other constants.
+$MainExeFullPath = "$InstallationPath\IonCLI.exe"
+$FinalExeFullPath = "$InstallationPath\ion.exe"
+
+# Inform the user of the process.
+"We're getting everything ready for you! Please do not close this window."
+
+# Rename IonCLI executable if applicable.
+if ([System.IO.File]::Exists($MainExeFullPath)) {
+    Move-Item -Force -Path $MainExeFullPath -Destination $FinalExeFullPath
 }
-else {
-    "Downloading LLVM tools ..."
 
-    # Download the LLVM tools package.
-    Invoke-WebRequest $ToolsUrl -OutFile $ToolsZipFile
-
-    "Extracting LLVM tools ..."
-
-    # Extract the LLVM tools package.
-    expand-archive -path $ToolsZipFile -destinationpath $ToolsFolder
-
-    "Appending LLVM tools to path ..."
-
-    # Append tools to path.
-    PathAppend $ToolsFolder
-}
+# Add IonCLI's executable to path.
+"Adding IonCLI to path ..."
+PathAppend $InstallationPath
 
 # Cleanup.
 "Cleaning up ..."

@@ -24,7 +24,7 @@ DefaultGroupName={#Name}
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=commandline
 OutputDir=.packages
-OutputBaseFilename=ionlang-winx64-{#Version}
+OutputBaseFilename=ion-cli-win-x64-{#Version}
 SetupIconFile=Ion.ico
 Compression=lzma
 SolidCompression=yes
@@ -36,8 +36,12 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 [Files]
 Source: "bin\Release\netcoreapp2.2\win10-x64\publish\IonCLI.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "bin\Release\netcoreapp2.2\win10-x64\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ".llvm-tools\*"; DestDir: "{app}\llvm-tools"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: ".installers\installer.ps1"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
+
+[Run]
+Filename: "powershell"; Parameters: "-ExecutionPolicy remotesigned -File {app}\installer.ps1"; Description: "Run post-installation script (recommended)"; Flags: postinstall
 
 [Icons]
 Name: "{group}\{#Name}"; Filename: "{app}\{#ExeName}"
