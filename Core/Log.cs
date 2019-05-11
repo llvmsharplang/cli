@@ -27,7 +27,7 @@ namespace IonCLI.Core
             // Print only if verbose mode is active.
             if (Log.VerboseMode)
             {
-                Console.WriteLine($"Verbose: message");
+                Console.WriteLine($"Verbose: {message}");
             }
         }
     }
