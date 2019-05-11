@@ -7,7 +7,7 @@ using Ion.Abstraction;
 using Ion.Linking;
 using Ion.Parsing;
 using Ion.SyntaxAnalysis;
-using IonCLI.Encapsulation;
+using IonCLI.PackageManagement;
 
 namespace IonCLI.Core
 {
