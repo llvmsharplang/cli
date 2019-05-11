@@ -63,7 +63,7 @@ namespace IonCLI.PackageManagement
             }
         }
 
-        public virtual bool Resolve()
+        public virtual bool Fetch()
         {
             // Verify remote URL first.
             if (!this.Verify())

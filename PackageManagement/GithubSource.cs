@@ -1,3 +1,5 @@
+using System;
+
 namespace IonCLI.PackageManagement
 {
     internal class GithubSource : DependencySource
@@ -9,6 +11,12 @@ namespace IonCLI.PackageManagement
         public GithubSource(string repositoryUrl)
         {
             this.URL = repositoryUrl;
+        }
+
+        public override bool Fetch()
+        {
+            // TODO: Implement.
+            throw new NotImplementedException();
         }
     }
 }
