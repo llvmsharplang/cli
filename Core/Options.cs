@@ -6,6 +6,9 @@ namespace IonCLI.Core
 {
     public class Options
     {
+        [Value(0, MetaName = "operation", Required = false, HelpText = "The operation to perform.", Default = "build")]
+        public string Operation { get; set; }
+
         [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
         public bool Verbose { get; set; }
 

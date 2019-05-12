@@ -27,6 +27,24 @@ namespace IonCLI.Core
 
         public void Process()
         {
+            // Retrieve operation value from options.
+            string operationValue = this.options.Operation;
+
+            // Inform the user of the requested operation if applicable.
+            Log.Verbose($"Using operation: {operationValue}");
+
+            // Resolve operation value.
+            OperationType operation = Operation.Resolve(operationValue);
+
+            // Ensure operation type is not unknown.
+            if (operation == OperationType.Unknown)
+            {
+                Log.Error($"Unknown operation: '{operationValue}'");
+            }
+
+            // Inform the user that the requested operation is valid, if applicable.
+            Log.Verbose("Requested operation is valid.");
+
             // Set the root directory.
             string root = Directory.GetCurrentDirectory();
 
@@ -36,27 +54,33 @@ namespace IonCLI.Core
                 // Ensure provided root directory exists.
                 if (!Directory.Exists(options.Root))
                 {
-                    this.Fatal("The specified root directory path does not exist");
+                    Log.Error("The specified root directory path does not exist");
                 }
 
                 // Use provided root directory path.
                 root = Path.GetFullPath(this.options.Root);
             }
 
-            // Create a new package loader instance.
-            PackageLoader packageLoader = new PackageLoader(root);
-
             // Inform the user of the final root directory.
             Log.Verbose($"Using root directory: {root}");
+
+            // Create a new package loader instance.
+            PackageLoader packageLoader = new PackageLoader(root);
 
             // Ensure package manifest exists.
             if (!packageLoader.DoesManifestExist)
             {
-                this.Fatal("Package manifest file does not exist.");
+                Log.Error("Package manifest file does not exist.");
             }
+
+            // Inform the user that the package manifest exists.
+            Log.Verbose("Package manifest file exists.");
 
             // Load the package manifest.
             Package package = packageLoader.ReadPackage();
+
+            // Inform the user that the package manifest was loaded.
+            Log.Verbose("Package manifest file loaded.");
 
             // Process package options if applicable.
             if (package.Options != null)
@@ -64,14 +88,20 @@ namespace IonCLI.Core
                 // Use package's root path option if applicable.
                 if (package.Options.SourceRoot != null)
                 {
-                    // Create the new root path.
-                    string newRoot = Path.GetFullPath(package.Options.SourceRoot);
+                    // Create the source directory path.
+                    string sourcePath = Path.GetFullPath(package.Options.SourceRoot);
+
+                    // Inform the user of the source directory path.
+                    Log.Verbose($"Using source directory: {sourcePath}");
 
                     // Ensure directory path exists.
-                    if (!Directory.Exists(newRoot))
+                    if (!Directory.Exists(sourcePath))
                     {
-                        this.Fatal("Provided source root directory path in package manifest does not exist");
+                        Log.Error("Provided source root directory path in package manifest does not exist");
                     }
+
+                    // Inform the user that the source directory exists.
+                    Log.Verbose("Source directory is valid.");
 
                     // Override root path.
                     root = Path.GetFullPath(package.Options.SourceRoot);
@@ -122,7 +152,7 @@ namespace IonCLI.Core
                 // Write bitcode to target path.
                 if (LLVM.WriteBitcodeToFile(module.Source, targetPath) != 0)
                 {
-                    this.Fatal($"There was an error writing LLVM bitcode to '{targetPath}'.");
+                    Log.Error($"There was an error writing LLVM bitcode to '{targetPath}'.");
                 }
             }
 
@@ -131,18 +161,6 @@ namespace IonCLI.Core
 
             // Return resutl.
             return result;
-        }
-
-        /// <summary>
-        /// Display an error message and terminate the
-        /// program.
-        /// </summary>
-        public void Fatal(string message)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Log.Compose($"Fatal: {message}");
-            Console.ResetColor();
-            Environment.Exit(1);
         }
 
         protected void ProcessScanner(string root)
