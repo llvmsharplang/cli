@@ -121,7 +121,8 @@ namespace IonCLI.Core
             this.ProcessScanner(root);
         }
 
-        public void ProcessOperation(Driver driver)
+        // TODO: This should be invoked once all files have been processed, not every time one is.
+        public string ProcessOperation(Driver driver)
         {
             // Ensure operation is valid.
             if (this.operation == OperationType.Unknown)
@@ -132,14 +133,11 @@ namespace IonCLI.Core
             else if (this.operation == OperationType.Build)
             {
                 // Pass along the module to the emit method.
-                this.Emit(driver.Module);
-
-                // Do not continue execution.
-                return;
+                return this.Emit(driver.Module);
             }
 
             // At this point, operation must be run. Emit the module.
-            this.Emit(driver.Module);
+            string result = this.Emit(driver.Module);
 
             // Create the tool invoker instance.
             ToolInvoker toolInvoker = new ToolInvoker();
@@ -147,6 +145,9 @@ namespace IonCLI.Core
             // TODO: Finish implementing.
             // Invoke the corresponding tool to execute the program.
             toolInvoker.Invoke(ToolType.LLI, new string[] { });
+
+            // Return the resulting, compiled string.
+            return result;
         }
 
         protected string Emit(Ion.Abstraction.Module module)
