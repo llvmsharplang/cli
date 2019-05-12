@@ -8,7 +8,7 @@ namespace IonCLI.PackageManagement
         public override DependencySourceType Type => DependencySourceType.GitHub;
 
         public override string URL { get; }
-        private Repository Repo { }
+        private Repository Repo { get; set; }
 
         public GithubSource(string repositoryUrl)
         {
