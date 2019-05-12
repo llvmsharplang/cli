@@ -1,0 +1,10 @@
+<Package>
+    <Name>My package</Name>
+    <Description>A default package.</Description>
+    <Version>1.0.0</Version>
+    <Build>0</Build>
+    <Author>Unknown</Author>
+    <Options>
+        <SourceRoot>Src</SourceRoot>
+    </Options>
+</Package>
