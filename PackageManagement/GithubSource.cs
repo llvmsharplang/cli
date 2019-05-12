@@ -8,18 +8,21 @@ namespace IonCLI.PackageManagement
         public override DependencySourceType Type => DependencySourceType.GitHub;
 
         public override string URL { get; }
-        private Repository repo { }
+        private Repository Repo { }
 
         public GithubSource(string repositoryUrl)
         {
             this.URL = repositoryUrl;
-            this.repo = new Repository(repositoryUrl);
         }
 
         public override bool Fetch()
         {
-            // TODO: Implement.
-            throw new NotImplementedException();
+            // TODO: Figure out what the *local* path for this should be.
+            var localRepoPath = "";
+            // TODO: Support HTTP creds (name, passw) https://github.com/libgit2/libgit2sharp/wiki/git-clone
+            Repository.Clone(this.URL, localRepoPath);
+            this.Repo = new Repository(localRepoPath + ".git");
+            // TODO: Switch to branches for different releases/versions?
         }
     }
 }
