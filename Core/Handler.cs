@@ -8,14 +8,17 @@ using Ion.Linking;
 using Ion.Parsing;
 using Ion.SyntaxAnalysis;
 using IonCLI.PackageManagement;
+using Ion.Core;
 
 namespace IonCLI.Core
 {
-    public class Handler
+    internal class Handler
     {
         protected readonly Options options;
 
         protected readonly Processor processor;
+
+        protected OperationType operation;
 
         public Handler(Options options)
         {
@@ -44,6 +47,9 @@ namespace IonCLI.Core
 
             // Inform the user that the requested operation is valid, if applicable.
             Log.Verbose("Requested operation is valid.");
+
+            // Set the operation for future use.
+            this.operation = operation;
 
             // Set the root directory.
             string root = Directory.GetCurrentDirectory();
@@ -115,7 +121,35 @@ namespace IonCLI.Core
             this.ProcessScanner(root);
         }
 
-        public string Emit(Ion.Abstraction.Module module)
+        public void ProcessOperation(Driver driver)
+        {
+            // Ensure operation is valid.
+            if (this.operation == OperationType.Unknown)
+            {
+                throw new InvalidOperationException("Unexpected operation to be unknown");
+            }
+            // Emit only if the operation is build.
+            else if (this.operation == OperationType.Build)
+            {
+                // Pass along the module to the emit method.
+                this.Emit(driver.Module);
+
+                // Do not continue execution.
+                return;
+            }
+
+            // At this point, operation must be run. Emit the module.
+            this.Emit(driver.Module);
+
+            // Create the tool invoker instance.
+            ToolInvoker toolInvoker = new ToolInvoker();
+
+            // TODO: Finish implementing.
+            // Invoke the corresponding tool to execute the program.
+            toolInvoker.Invoke(ToolType.LLI, new string[] { });
+        }
+
+        protected string Emit(Ion.Abstraction.Module module)
         {
             // Create the resulting string.
             string result;

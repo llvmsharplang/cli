@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace IonCLI.Core
 {
-    public class Processor
+    internal class Processor
     {
         protected readonly Handler handler;
 
@@ -43,7 +43,7 @@ namespace IonCLI.Core
             }
 
             // Emit the result.
-            string result = this.handler.Emit(driver.Module);
+            string result = this.handler.ProcessOperation(driver);
 
             // Return the result.
             return result;
