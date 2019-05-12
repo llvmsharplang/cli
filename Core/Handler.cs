@@ -56,7 +56,7 @@ namespace IonCLI.Core
             }
 
             // Load the package manifest.
-            Package package = packageLoader.ReadPackage();
+            PackageDefinition package = packageLoader.ReadPackage();
 
             // Process package options if applicable.
             if (package.Options != null)
