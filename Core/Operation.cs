@@ -8,7 +8,9 @@ namespace IonCLI.Core
 
         Build,
 
-        Run
+        Run,
+
+        Init
     }
 
     internal static class Operation
@@ -16,7 +18,8 @@ namespace IonCLI.Core
         private static readonly Dictionary<string, OperationType> valueMap = new Dictionary<string, OperationType>
         {
             {"build", OperationType.Build},
-            {"run", OperationType.Run}
+            {"run", OperationType.Run},
+            {"init", OperationType.Init}
         };
 
         public static OperationType Resolve(string value)

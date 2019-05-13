@@ -28,6 +28,70 @@ namespace IonCLI.Core
             this.processor = new Processor(this);
         }
 
+        protected void HandleInitOperation()
+        {
+            // Retrieve the application's base path.
+            string basePath = AppContext.BaseDirectory;
+
+            // Combine base path with the default package's path.
+            string defaultPackagePath = Path.Combine(basePath, PackageConstants.DefaultPackageFilename);
+
+            // Override path if debug mode is active.
+            if (this.options.DebugMode)
+            {
+                defaultPackagePath = Path.Combine(Environment.CurrentDirectory, PackageConstants.DefaultPackageFilename);
+            }
+
+            // Ensure default package file exists.
+            if (!File.Exists(defaultPackagePath))
+            {
+                throw new FileNotFoundException("Default package manifest file does not exist");
+            }
+
+            // Create the destination path.
+            string destination = Path.Combine(this.options.Root, PackageConstants.ManifestFilename);
+
+            // Create the re-initialization flag.
+            bool reinitializing = false;
+
+            // Determine if re-initializing.
+            if (File.Exists(destination))
+            {
+                // Activate the re-initialization flag.
+                reinitializing = true;
+
+                // Inform the user that re-initialization is taking place.
+                Log.Verbose("Package manifest already exists, re-initializing.");
+
+                // Attempt to delete the existing package manifest.
+                File.Delete(destination);
+
+                // Ensure that the existing package manifest was deleted.
+                if (File.Exists(destination))
+                {
+                    Log.Error("Unable to delete existing package manifest");
+                }
+
+                // Inform the user that the existing package manifest was deleted.
+                Log.Verbose("Existing package manifest was deleted.");
+            }
+
+            // Copy the default package manifest.
+            File.Copy(defaultPackagePath, destination);
+
+            // Destination manifest should now exist.
+            if (File.Exists(destination))
+            {
+                // Inform the user that the operation completed.
+                Log.Success(reinitializing ? "Re-initialized existing package manifest" : "Create a default package manifest file");
+            }
+            // Otherwise, report that it does not.
+            else
+            {
+                Log.Error("Could not create default package manifest");
+            }
+        }
+
         public void Process()
         {
             // Retrieve operation value from options.
@@ -69,6 +133,28 @@ namespace IonCLI.Core
 
             // Inform the user of the final root directory.
             Log.Verbose($"Using root directory: {root}");
+
+            // Ensure root directory exists.
+            if (!Directory.Exists(root))
+            {
+                Log.Error("Root directory does not exist");
+            }
+
+            // Apply root directory to options.
+            this.options.Root = root;
+
+            // Inform the user that the root directory is valid.
+            Log.Verbose("Root directory is valid.");
+
+            // If operation is to initialize, simply initialize and finish.
+            if (this.operation == OperationType.Init)
+            {
+                // Invoke the initialization operation handler.
+                this.HandleInitOperation();
+
+                // Terminate this function.
+                return;
+            }
 
             // Create a new package loader instance.
             PackageLoader packageLoader = new PackageLoader(root);
@@ -135,8 +221,13 @@ namespace IonCLI.Core
                 // Pass along the module to the emit method.
                 return this.Emit(driver.Module);
             }
+            // At this point, operation must be run.
+            else if (this.operation != OperationType.Run)
+            {
+                throw new InvalidOperationException("Expected operation to be run");
+            }
 
-            // At this point, operation must be run. Emit the module.
+            // Emit the module.
             string result = this.Emit(driver.Module);
 
             // Create the tool invoker instance.
