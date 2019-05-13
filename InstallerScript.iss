@@ -5,7 +5,6 @@
 #define Version "0.0.1-alpha"
 #define Publisher "Atlas and Contributors"
 #define Website "https://github.com/IonLanguage"
-#define ExeName "IonCLI.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -34,7 +33,6 @@ WizardStyle=modern
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "bin\Release\netcoreapp2.2\win10-x64\publish\IonCLI.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "bin\Release\netcoreapp2.2\win10-x64\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: ".llvm-tools\*"; DestDir: "{app}\llvm-tools"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: ".installers\installer.ps1"; DestDir: "{app}"; Flags: ignoreversion
@@ -43,6 +41,3 @@ Source: "DefaultPackage.xml"; DestDir: "{app}"; Flags: ignoreversion
 
 [Run]
 Filename: "powershell"; Parameters: "-ExecutionPolicy remotesigned -File {app}\installer.ps1"; Description: "Run post-installation script (recommended)"; Flags: postinstall
-
-[Icons]
-Name: "{group}\{#Name}"; Filename: "{app}\{#ExeName}"
