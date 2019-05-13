@@ -18,12 +18,11 @@ namespace IonCLI.PackageManagement
         {
             throw new NotImplementedException();
             // TODO: Figure out what the *local* path for this should be.
-            var localRepoPath = "";
-            // TODO: Support HTTP creds (name, passw) https://github.com/libgit2/libgit2sharp/wiki/git-clone
+            string localRepoPath = "";
+            // TODO: Support HTTP creds (name, password). https://github.com/libgit2/libgit2sharp/wiki/git-clone
             Repository.Clone(this.URL, localRepoPath);
             
             // TODO: Switch to branches for different releases/versions?
-            // This would help with that TODO
             // this.Repo = new Repository(localRepoPath + ".git");
             
         }
