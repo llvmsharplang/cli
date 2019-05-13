@@ -38,6 +38,7 @@ Source: "bin\Release\netcoreapp2.2\win10-x64\publish\IonCLI.exe"; DestDir: "{app
 Source: "bin\Release\netcoreapp2.2\win10-x64\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: ".llvm-tools\*"; DestDir: "{app}\llvm-tools"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: ".installers\installer.ps1"; DestDir: "{app}"; Flags: ignoreversion
+Source: "DefaultPackage.xml"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Run]
