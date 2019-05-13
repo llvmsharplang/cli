@@ -19,7 +19,7 @@ First, make sure you have Inno Setup installed, as this is used to package the W
 
 Now, simply `cd` into your desired development folder, and run the following one-liner:
 ```cmd
-git clone https://github.com/IonLanguage/Ion.CLI && cd Ion.CLI/.scripts/windows && setup-env.bat
+$ git clone https://github.com/IonLanguage/Ion.CLI && cd Ion.CLI/.scripts/windows && setup-env.bat
 ```
 
 You're all set!
@@ -63,8 +63,8 @@ $ ion
 
 -e, --exclude         Exclude certain directories from being processed.
 
--o, --output          (Default: ion.bin) The output directory which the program will be
-                      emitted onto.
+-o, --output          (Default: ion.bin) The output directory which the
+                      program will be emitted onto.
 
 -r, --root            The root directory to start the scanning process from.
 
@@ -76,12 +76,15 @@ $ ion
 
 -d, --debug           Use debugging mode.
 
--t, --tools-path      (Default: llvm-tools) Specify the tools directory path to use. Path is
-                      relative to the CLI's execution directory.
+-t, --tools-path      (Default: llvm-tools) Specify the tools directory path
+                      to use. Path is relative to the CLI's execution
+                      directory.
 
 --help                Display this help screen.
 
 --version             Display version information.
+
+operation (pos. 0)    (Default: build) The operation to perform.
 ```
 
 Note: If any of the CLI's arguments are specified and defined within the package manifest file, the CLI's arguments will take precedence.
