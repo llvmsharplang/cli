@@ -66,7 +66,7 @@ namespace IonCLI.Integrity
                 }
 
                 // Ensure all tools exist.
-                foreach (ToolDefinition tool in VerifierConstants.Tools)
+                foreach (ToolDefinition tool in VerifierConstants.Tools.Values)
                 {
                     // Create the path for the tool.
                     string path = Path.Combine(this.options.ToolsPath, tool.FileName);
