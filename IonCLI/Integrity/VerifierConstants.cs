@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using IonCLI.Core;
 
 namespace IonCLI.Integrity
 {
@@ -26,25 +28,25 @@ namespace IonCLI.Integrity
         /// The LLVM tools filenames expected to be within
         /// the LLVM tools folder.
         /// </summary>
-        public static ToolDefinition[] Tools = new ToolDefinition[]
+        public static Dictionary<ToolType, ToolDefinition> Tools = new Dictionary<ToolType, ToolDefinition>
         {
             // LLI.
-            new ToolDefinition
+            {ToolType.LLI, new ToolDefinition
             {
                 FileName = "lli.exe",
                 Invoker = "lli --version",
                 MatchPattern = VerifierConstants.GenericVersionPattern,
                 ExpectedMatch = VerifierConstants.DefaultLlvmVersion
-            },
+            }},
 
             // LLC.
-            new ToolDefinition
+            {ToolType.LLC, new ToolDefinition
             {
                 FileName = "llc.exe",
                 Invoker = "llc --version",
                 MatchPattern = VerifierConstants.GenericVersionPattern,
                 ExpectedMatch = VerifierConstants.DefaultLlvmVersion
-            }
+            }}
         };
     }
 }

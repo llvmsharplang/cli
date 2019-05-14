@@ -140,6 +140,7 @@ namespace IonCLI.Core
                 Log.Error("Root directory does not exist");
             }
 
+            // TODO: Should never modify options' root path.
             // Apply root directory to options.
             this.options.Root = root;
 
@@ -231,7 +232,7 @@ namespace IonCLI.Core
             string result = this.Emit(driver.Module);
 
             // Create the tool invoker instance.
-            ToolInvoker toolInvoker = new ToolInvoker();
+            ToolInvoker toolInvoker = new ToolInvoker(this.options);
 
             // TODO: Finish implementing.
             // Invoke the corresponding tool to execute the program.

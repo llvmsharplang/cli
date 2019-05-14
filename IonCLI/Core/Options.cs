@@ -36,5 +36,13 @@ namespace IonCLI.Core
 
         [Option('t', "tools-path", Required = false, HelpText = "Specify the tools directory path to use. Path is relative to the CLI's execution directory.", Default = VerifierConstants.DefaultToolsPath)]
         public string ToolsPath { get; set; }
+
+        public ActivePath PathResolver { get; }
+
+        public Options()
+        {
+            // Initialize the path resolver.
+            this.PathResolver = new ActivePath(this.Root);
+        }
     }
 }
