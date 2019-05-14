@@ -9,7 +9,7 @@ namespace IonCLI.Core
     /// resolving relative paths to a single, root
     /// directory path.
     /// </summary>
-    public class ActivePath
+    public class PathResolver
     {
         /// <summary>
         /// The root directory path, used within the utility
@@ -17,7 +17,7 @@ namespace IonCLI.Core
         /// </summary>
         public Options Options { get; }
 
-        public ActivePath(Options options)
+        public PathResolver(Options options)
         {
             // Ensure options object is not empty.
             if (options == null)
@@ -60,6 +60,18 @@ namespace IonCLI.Core
 
             // Return the resulting path.
             return toolPath;
+        }
+
+        public string Output(string path)
+        {
+            // Combine output path with the provided path.
+            string result = Path.Combine(this.Options.Output, path);
+
+            // Compute absolute path of the result.
+            result = Path.GetFullPath(result);
+
+            // Return resulting path.
+            return result;
         }
     }
 }

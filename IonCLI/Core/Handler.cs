@@ -25,7 +25,7 @@ namespace IonCLI.Core
             this.options = options;
 
             // Create the processor instance.
-            this.processor = new Processor(this);
+            this.processor = new Processor(this, options);
         }
 
         protected void HandleInitOperation()
@@ -209,10 +209,15 @@ namespace IonCLI.Core
         }
 
         // TODO: This should be invoked once all files have been processed, not every time one is.
-        public string ProcessOperation(Driver driver)
+        public string ProcessOperation(string irSourceFilePath, Driver driver)
         {
+            // Ensure source file path exists.
+            if (!File.Exists(irSourceFilePath))
+            {
+                throw new FileNotFoundException("Provided source file path does not exist");
+            }
             // Ensure operation is valid.
-            if (this.operation == OperationType.Unknown)
+            else if (this.operation == OperationType.Unknown)
             {
                 throw new InvalidOperationException("Unexpected operation to be unknown");
             }
@@ -236,7 +241,10 @@ namespace IonCLI.Core
 
             // TODO: Finish implementing.
             // Invoke the corresponding tool to execute the program.
-            toolInvoker.Invoke(ToolType.LLC, new string[] { "--version" });
+            toolInvoker.Invoke(ToolType.LLC, new string[]
+            {
+                irSourceFilePath
+            });
 
             // Return the resulting, compiled string.
             return result;

@@ -10,13 +10,22 @@ namespace IonCLI.Core
     {
         protected readonly Handler handler;
 
-        public Processor(Handler handler)
+        protected readonly Options options;
+
+        public Processor(Handler handler, Options options)
         {
             this.handler = handler;
+            this.options = options;
         }
 
         public string ProcessFile(string path)
         {
+            // Ensure path file exists.
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException("Provided file path does not exist");
+            }
+
             // Retrieve file contents.
             string content = File.ReadAllText(path);
 
@@ -42,8 +51,14 @@ namespace IonCLI.Core
                 driver.Next();
             }
 
+            // Prepare expected output file path.
+            string outputFile = Path.ChangeExtension(fileName, FileExtension.IR);
+
+            // Resolve within the output directory.
+            outputFile = this.options.PathResolver.Output(outputFile);
+
             // Emit the result.
-            string result = this.handler.ProcessOperation(driver);
+            string result = this.handler.ProcessOperation(outputFile, driver);
 
             // Return the result.
             return result;

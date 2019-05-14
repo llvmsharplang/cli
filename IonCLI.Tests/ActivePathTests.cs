@@ -15,7 +15,7 @@ namespace IonCLI.Tests
         public void Resolve(string input, string expected)
         {
             // Create the active path instance.
-            ActivePath activePath = new ActivePath(ActivePathTests.root);
+            PathResolver activePath = new PathResolver(ActivePathTests.root);
 
             // Prepare the input path.
             input = Util.CleanPathSeparators(input);

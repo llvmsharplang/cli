@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using CommandLine;
 using IonCLI.Integrity;
 
@@ -37,12 +38,12 @@ namespace IonCLI.Core
         [Option('t', "tools-path", Required = false, HelpText = "Specify the tools directory path to use. Path is relative to the CLI's execution directory.", Default = VerifierConstants.DefaultToolsPath)]
         public string ToolsPath { get; set; }
 
-        public ActivePath PathResolver { get; protected set; }
+        public PathResolver PathResolver { get; protected set; }
 
         public Options()
         {
             // Initialize the path resolver.
-            this.PathResolver = new ActivePath(this);
+            this.PathResolver = new PathResolver(this);
         }
     }
 }
