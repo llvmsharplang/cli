@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Restore packages
           command:
-            pwd && cd IonCLI && dotnet restore && cd ../IonCLI.Tests && dotnet restore && cd ..
+            cd IonCLI && dotnet restore && cd ../IonCLI.Tests && dotnet restore && cd ..
       - run:
           name: Build tests
           command:
@@ -24,7 +24,7 @@ jobs:
       - run:
           name: Build project
           command:
-            cd IonCLI && dotnet build && cd ..
+            pwd && cd IonCLI && dotnet build && cd ..
       - run:
           name: Run tests
           command:
