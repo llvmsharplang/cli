@@ -1,3 +1,4 @@
+using System.IO;
 using IonCLI.Core;
 using NUnit.Framework;
 
@@ -9,12 +10,15 @@ namespace IonCLI.Tests
         public const string root = "root";
 
         [Test]
-        [TestCase("test", @"root\test")]
-        [TestCase("test.ext", @"root\test.ext")]
+        [TestCase("test", "root/test")]
+        [TestCase("test.ext", "root/test.ext")]
         public void Resolve(string input, string expected)
         {
             // Create the active path instance.
             ActivePath activePath = new ActivePath(ActivePathTests.root);
+
+            // Prepare the input path.
+            input = Util.CleanPathSeparators(input);
 
             // Resolve the input path.
             string actual = activePath.Resolve(input);
