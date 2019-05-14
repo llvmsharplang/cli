@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Restore packages
           command:
-            cd IonCLI && dotnet restore && cd ..
+            cd IonCLI && dotnet restore && cd .. && cd IonCLI.Tests && dotnet restore && cd ..
       - run:
           name: Build tests
           command:
