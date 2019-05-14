@@ -26,6 +26,9 @@ namespace IonCLI
                     // Set verbose mode.
                     Log.VerboseMode = options.Verbose;
 
+                    // Inform the user that verbose mode is active.
+                    Log.Verbose("Using verbose mode.");
+
                     // Check integrity if applicable.
                     if (!options.NoIntegrity)
                     {
@@ -51,8 +54,9 @@ namespace IonCLI
 
         private static void HandleParseErrors(IEnumerable<Error> errors)
         {
-            Console.WriteLine("There were errors processing the request.\n");
+            Console.WriteLine("There were errors processing the request.");
 
+            // Display all errors.
             foreach (Error error in errors)
             {
                 Console.WriteLine(error.ToString());

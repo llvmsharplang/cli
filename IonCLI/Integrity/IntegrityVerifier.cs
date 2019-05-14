@@ -28,8 +28,17 @@ namespace IonCLI.Integrity
             // Perform OS check.
             this.PerformOsCheck();
 
+            // Inform the user that the OS check completed.
+            Log.Verbose("OS check completed successfully.");
+
             // Ensure tools, if applicable.
             this.TestTools();
+
+            // Inform the user that the integrity check completed, if applicable.
+            if (!this.options.NoIntegrity)
+            {
+                Log.Verbose("Integrity check completed successfully.");
+            }
         }
 
         /// <summary>
@@ -71,15 +80,15 @@ namespace IonCLI.Integrity
                     // Create the path for the tool.
                     string path = Path.Combine(this.options.ToolsPath, tool.FileName);
 
+                    // Resolve the path to have it as absolute.
+                    path = Path.GetFullPath(path);
+
                     // Ensure tool exists.
                     if (!File.Exists(path))
                     {
                         Log.Error($"Required tool executable '{path}' is missing. You may have a corrupt installation.");
                     }
                 }
-
-                // Ensure tools execute and have correct versions.
-                // TODO
 
                 // Do not continue at this point.
                 return;

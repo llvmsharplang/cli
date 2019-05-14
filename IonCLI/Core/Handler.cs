@@ -236,7 +236,7 @@ namespace IonCLI.Core
 
             // TODO: Finish implementing.
             // Invoke the corresponding tool to execute the program.
-            toolInvoker.Invoke(ToolType.LLI, new string[] { });
+            toolInvoker.Invoke(ToolType.LLC, new string[] { "--version" });
 
             // Return the resulting, compiled string.
             return result;
