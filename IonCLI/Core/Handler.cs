@@ -9,6 +9,7 @@ using Ion.Parsing;
 using Ion.SyntaxAnalysis;
 using IonCLI.PackageManagement;
 using Ion.Core;
+using IonCLI.Engines;
 
 namespace IonCLI.Core
 {
@@ -208,53 +209,44 @@ namespace IonCLI.Core
             this.ProcessScanner(root);
         }
 
-        // TODO: This should be invoked once all files have been processed, not every time one is.
-        public string ProcessOperation(string irSourceFilePath, Driver driver)
+        public void DelegateEngineOperation(OperationType operation, Project project)
         {
-            // Ensure source file path exists.
-            if (!File.Exists(irSourceFilePath))
-            {
-                throw new FileNotFoundException("Provided source file path does not exist");
-            }
             // Ensure operation is valid.
             else if (this.operation == OperationType.Unknown)
             {
                 throw new InvalidOperationException("Unexpected operation to be unknown");
             }
-            // Emit only if the operation is build.
-            else if (this.operation == OperationType.Build)
+
+            // Create the engine buffer.
+            OperationEngine engine = null;
+
+            // Create a new build engine instance.
+            if (this.operation == OperationType.Build)
             {
-                // Pass along the module to the emit method.
-                return this.Emit(driver.Module);
+                engine = new BuildEngine();
             }
-            // At this point, operation must be run.
-            else if (this.operation != OperationType.Run)
+            // Create a new execution engine instance.
+            else if (this.operation == OperationType.Run)
             {
-                throw new InvalidOperationException("Expected operation to be run");
+                engine = new ExecutionEngine();
+            }
+            // At this point, the provided operation is invalid.
+            else
+            {
+                throw new ArgumentException($"Unknown requested operation: {operation}");
             }
 
-            // Emit the module.
-            string result = this.Emit(driver.Module);
-
-            // Create the tool invoker instance.
-            ToolInvoker toolInvoker = new ToolInvoker(this.options);
-
-            // TODO: Finish implementing.
-            // Invoke the corresponding tool to execute the program.
-            toolInvoker.Invoke(ToolType.LLC, new string[]
+            // Ensure the engine buffer is not null.
+            if (engine == null)
             {
-                irSourceFilePath,
-                
-                // TODO: Hard-coded.
-                "-filetype",
-                "obj"
-            });
+                throw new Exception("Unexpected engine to be null");
+            }
 
-            // Return the resulting, compiled string.
-            return result;
+            // Invoke the engine buffer.
+            engine.Invoke(project);
         }
 
-        protected string Emit(Ion.Abstraction.Module module)
+        protected string Build(Ion.Abstraction.Module module)
         {
             // Create the resulting string.
             string result;
