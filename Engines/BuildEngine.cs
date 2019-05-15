@@ -1,8 +1,10 @@
+using IonCLI.Core;
+
 namespace IonCLI.Engines
 {
     public class BuildEngine : OperationEngine
     {
-        public BuildEngine()
+        public BuildEngine(EngineContext context) : base(context)
         {
             //
         }
@@ -12,7 +14,14 @@ namespace IonCLI.Engines
             // Prepare engine.
             this.Prepare();
 
-            // TODO: Implement.
+            // Create a new tool invoker instace.
+            ToolInvoker toolInvoker = new ToolInvoker(this.context.Options);
+
+            // Invoke the LLC tool to compile to object code.
+            toolInvoker.Invoke(ToolType.LLC, new string[]
+            {
+                
+            });
         }
     }
 }

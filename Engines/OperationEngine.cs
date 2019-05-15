@@ -1,3 +1,4 @@
+using System;
 using Ion.Core;
 
 namespace IonCLI.Engines
@@ -6,7 +7,20 @@ namespace IonCLI.Engines
     {
         public virtual OperationEngine[] Dependencies { get; }
 
-        public abstract void Invoke(Project project);
+        protected readonly EngineContext context;
+
+        public OperationEngine(EngineContext context)
+        {
+            this.context = context;
+
+            // Ensure context values are not null.
+            if (this.context.Options == null || this.context.Project == null)
+            {
+                throw new NullReferenceException("Unexpected property in context to be null");
+            }
+        }
+
+        public abstract void Invoke();
 
         protected virtual void Prepare()
         {

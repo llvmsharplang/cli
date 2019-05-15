@@ -4,7 +4,7 @@ namespace IonCLI.Engines
 {
     public class ExecutionEngine : OperationEngine
     {
-        public ExecutionEngine()
+        public ExecutionEngine(EngineContext context) : base(context)
         {
             this.Dependencies = new OperationEngine[]
             {

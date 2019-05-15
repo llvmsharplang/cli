@@ -57,11 +57,8 @@ namespace IonCLI.Core
             // Resolve within the output directory.
             outputFile = this.options.PathResolver.Output(outputFile);
 
-            // Emit the result.
-            string result = this.handler.DelegateOperation(outputFile, driver);
-
-            // Return the result.
-            return result;
+            // Return the output file path.
+            return outputFile;
         }
     }
 }

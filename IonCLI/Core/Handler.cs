@@ -209,7 +209,7 @@ namespace IonCLI.Core
             this.ProcessScanner(root);
         }
 
-        public void DelegateEngineOperation(OperationType operation, Project project)
+        public void SummonEngine(OperationType operation, Project project)
         {
             // Ensure operation is valid.
             else if (this.operation == OperationType.Unknown)
@@ -217,18 +217,21 @@ namespace IonCLI.Core
                 throw new InvalidOperationException("Unexpected operation to be unknown");
             }
 
+            // Create the engine context.
+            EngineContext context = new EngineContext(this.options, project);
+
             // Create the engine buffer.
             OperationEngine engine = null;
 
             // Create a new build engine instance.
             if (this.operation == OperationType.Build)
             {
-                engine = new BuildEngine();
+                engine = new BuildEngine(context);
             }
             // Create a new execution engine instance.
             else if (this.operation == OperationType.Run)
             {
-                engine = new ExecutionEngine();
+                engine = new ExecutionEngine(context);
             }
             // At this point, the provided operation is invalid.
             else
@@ -243,7 +246,7 @@ namespace IonCLI.Core
             }
 
             // Invoke the engine buffer.
-            engine.Invoke(project);
+            engine.Invoke();
         }
 
         protected string Build(Ion.Abstraction.Module module)
@@ -322,9 +325,12 @@ namespace IonCLI.Core
                 // Inform the user that of the file being processed.
                 Log.Compose($"Processing {file} ...");
 
-                // Process file and obtain resulting output.
+                // TODO: Process output file path if possible.
+                // Process file and obtain resulting output file path.
                 string result = this.processor.ProcessFile(file);
             }
+
+            // TODO: At this point, the engine handler (SummonEngine()) should be invoked.
 
             // TODO: At this point, something is changing the console color to yellow, probably core lib.
             Log.Success($"Processed {files.Length} file(s).");
