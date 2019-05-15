@@ -4,6 +4,6 @@ namespace IonCLI.Core
     {
         public const string IR = "ll";
 
-        public const string Bitcode = "bc";
+        public const string Bitcode = "obj";
     }
 }

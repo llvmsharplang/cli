@@ -205,10 +205,16 @@ namespace IonCLI.Core
             }
 
             // Process scanner.
-            this.ProcessScanner(root);
+            Project project = this.ProcessScanner(root);
+
+            // Summon the corresponding engine.
+            this.SummonEngine(this.operation, package, project);
+
+            // Inform the user that the compilation was successfull.
+            Log.Success("Compilation successful.");
         }
 
-        public void SummonEngine(OperationType operation, Project project)
+        public void SummonEngine(OperationType operation, Package package, Project project)
         {
             // Ensure operation is valid.
             if (this.operation == OperationType.Unknown)
@@ -220,7 +226,8 @@ namespace IonCLI.Core
             EngineContext context = new EngineContext
             {
                 Options = this.options,
-                Project = project
+                Project = project,
+                Package = package
             };
 
             // Create the engine buffer.
@@ -300,7 +307,7 @@ namespace IonCLI.Core
             return result;
         }
 
-        protected void ProcessScanner(string root)
+        protected Project ProcessScanner(string root)
         {
             // Create the scanner.
             Scanner scanner = new Scanner(root);
@@ -339,11 +346,11 @@ namespace IonCLI.Core
                 project.Modules.Add(module);
             }
 
-            // Summon the corresponding engine.
-            this.SummonEngine(operation, project);
-
             // Inform the user that the operation completed successfully.
-            Log.Success($"Processed {files.Length} file(s).");
+            Log.Verbose($"Processed {files.Length} file(s).");
+
+            // Return the project.
+            return project;
         }
     }
 }

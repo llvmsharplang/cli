@@ -1,4 +1,5 @@
 <Package>
+    <Identifier>test</Identifier>
     <Name>TestPackage</Name>
     <Description>A package definition for testing the project.</Description>
     <Version>1.0.0</Version>

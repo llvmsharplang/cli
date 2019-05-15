@@ -30,7 +30,7 @@ namespace IonCLI.Integrity
         /// </summary>
         public static Dictionary<ToolType, ToolDefinition> Tools = new Dictionary<ToolType, ToolDefinition>
         {
-            // LLI.
+            // LLI (LLVM direct executioner).
             {ToolType.LLI, new ToolDefinition
             {
                 FileName = "lli.exe",
@@ -39,13 +39,19 @@ namespace IonCLI.Integrity
                 ExpectedMatch = VerifierConstants.DefaultLlvmVersion
             }},
 
-            // LLC.
+            // LLC (LLVM static compiler).
             {ToolType.LLC, new ToolDefinition
             {
                 FileName = "llc.exe",
                 Invoker = "llc --version",
                 MatchPattern = VerifierConstants.GenericVersionPattern,
                 ExpectedMatch = VerifierConstants.DefaultLlvmVersion
+            }},
+
+            // LLD (LLVM linker).
+            {ToolType.LLD, new ToolDefinition
+            {
+                FileName = "lld.exe"
             }}
         };
     }

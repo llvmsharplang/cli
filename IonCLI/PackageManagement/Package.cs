@@ -4,6 +4,8 @@ namespace IonCLI.PackageManagement
 {
     public class Package
     {
+        public string Identifier { get; set; }
+
         /// <summary>
         /// The uniquely identifying package name.
         /// </summary>
