@@ -212,13 +212,17 @@ namespace IonCLI.Core
         public void SummonEngine(OperationType operation, Project project)
         {
             // Ensure operation is valid.
-            else if (this.operation == OperationType.Unknown)
+            if (this.operation == OperationType.Unknown)
             {
                 throw new InvalidOperationException("Unexpected operation to be unknown");
             }
 
             // Create the engine context.
-            EngineContext context = new EngineContext(this.options, project);
+            EngineContext context = new EngineContext
+            {
+                Options = this.options,
+                Project = project
+            };
 
             // Create the engine buffer.
             OperationEngine engine = null;
@@ -231,7 +235,7 @@ namespace IonCLI.Core
             // Create a new execution engine instance.
             else if (this.operation == OperationType.Run)
             {
-                engine = new ExecutionEngine(context);
+                engine = new Engines.ExecutionEngine(context);
             }
             // At this point, the provided operation is invalid.
             else

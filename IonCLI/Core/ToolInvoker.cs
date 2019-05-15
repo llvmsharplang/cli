@@ -4,7 +4,7 @@ using System.IO;
 using IonCLI.Core;
 using IonCLI.Integrity;
 
-namespace Ion.Core
+namespace IonCLI.Core
 {
     internal sealed class ToolInvoker
     {

@@ -1,3 +1,6 @@
+using Ion.Core;
+using IonCLI.Core;
+
 namespace IonCLI.Engines
 {
     public struct EngineContext

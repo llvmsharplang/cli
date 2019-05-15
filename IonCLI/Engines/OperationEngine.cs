@@ -5,7 +5,7 @@ namespace IonCLI.Engines
 {
     public abstract class OperationEngine
     {
-        public virtual OperationEngine[] Dependencies { get; }
+        public virtual OperationEngine[] Dependencies { get; protected set; }
 
         protected readonly EngineContext context;
 

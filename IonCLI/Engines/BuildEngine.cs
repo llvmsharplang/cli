@@ -20,7 +20,8 @@ namespace IonCLI.Engines
             // Invoke the LLC tool to compile to object code.
             toolInvoker.Invoke(ToolType.LLC, new string[]
             {
-                
+                "-filetype obj",
+
             });
         }
     }

@@ -8,7 +8,7 @@ namespace IonCLI.Engines
         {
             this.Dependencies = new OperationEngine[]
             {
-                new BuildEngine()
+                new BuildEngine(context)
             };
         }
 
