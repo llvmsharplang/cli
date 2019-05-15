@@ -293,7 +293,7 @@ namespace IonCLI.Core
             // Read and obtain emitted data.
             result = File.ReadAllText(targetPath);
 
-            // Return resutl.
+            // Return result.
             return result;
         }
 
