@@ -1,14 +1,4 @@
-extern int puts(string message);
-extern int printf(string format, ...);
-
-namespace Test1;
-
-// Single-line comment!
-int main()
+int test()
 {
-    puts("Hello world!");
-    printf("It's a %s's world!", "John Doe");
-    printf("Testing numbers %d", 5);
-
-    return 0;
+    return 4321;
 }

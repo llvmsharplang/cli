@@ -243,7 +243,11 @@ namespace IonCLI.Core
             // Invoke the corresponding tool to execute the program.
             toolInvoker.Invoke(ToolType.LLC, new string[]
             {
-                irSourceFilePath
+                irSourceFilePath,
+                
+                // TODO: Hard-coded.
+                "-filetype",
+                "obj"
             });
 
             // Return the resulting, compiled string.
