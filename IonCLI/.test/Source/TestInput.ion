@@ -1,3 +1,5 @@
+namespace Test1;
+
 int test()
 {
     return 4321;

@@ -2,5 +2,5 @@ namespace Test2;
 
 int Main()
 {
-    return test();
+    return 4331;
 }

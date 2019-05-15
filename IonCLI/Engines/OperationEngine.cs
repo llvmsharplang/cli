@@ -12,6 +12,7 @@ namespace IonCLI.Engines
         public OperationEngine(EngineContext context)
         {
             this.context = context;
+            this.Dependencies = new OperationEngine[] { };
 
             // Ensure context values are not null.
             if (this.context.Options == null || this.context.Project == null)

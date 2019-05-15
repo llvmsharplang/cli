@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using LLVMSharp;
-using Ion.Abstraction;
 using Ion.Linking;
 using Ion.Parsing;
 using Ion.SyntaxAnalysis;
@@ -253,7 +252,7 @@ namespace IonCLI.Core
             engine.Invoke();
         }
 
-        protected string Build(Ion.Abstraction.Module module)
+        protected string Build(Ion.CodeGeneration.Module module)
         {
             // Create the resulting string.
             string result;
@@ -271,11 +270,11 @@ namespace IonCLI.Core
                 string error;
 
                 // Create the target path.
-                targetPath = Path.Join(this.options.Output, $"{module.Name}.{extension}");
+                targetPath = Path.Join(this.options.Output, $"{module.FileName}.{extension}");
 
                 // TODO: Should not write to file/create file.
                 // Emit IR to target path.
-                LLVM.PrintModuleToFile(module.Source, targetPath, out error);
+                LLVM.PrintModuleToFile(module.Target, targetPath, out error);
             }
             // Otherwise, emit LLVM Bitcode result.
             else
@@ -284,11 +283,11 @@ namespace IonCLI.Core
                 extension = FileExtension.Bitcode;
 
                 // Create the target path.
-                targetPath = Path.Join(this.options.Output, $"{module.Name}.{extension}");
+                targetPath = Path.Join(this.options.Output, $"{module.FileName}.{extension}");
 
                 // TODO: Should not write to file/create file.
                 // Write bitcode to target path.
-                if (LLVM.WriteBitcodeToFile(module.Source, targetPath) != 0)
+                if (LLVM.WriteBitcodeToFile(module.Target, targetPath) != 0)
                 {
                     Log.Error($"There was an error writing LLVM bitcode to '{targetPath}'.");
                 }
@@ -323,6 +322,9 @@ namespace IonCLI.Core
                 Directory.CreateDirectory(this.options.Output);
             }
 
+            // Create a new project instance.
+            Project project = new Project();
+
             // Process files.
             foreach (string file in files)
             {
@@ -330,13 +332,17 @@ namespace IonCLI.Core
                 Log.Compose($"Processing {file} ...");
 
                 // TODO: Process output file path if possible.
-                // Process file and obtain resulting output file path.
-                string result = this.processor.ProcessFile(file);
+                // Process file and obtain the resulting module.
+                Ion.CodeGeneration.Module module = this.processor.ProcessFile(file);
+
+                // Append the module to the project.
+                project.Modules.Add(module);
             }
 
-            // TODO: At this point, the engine handler (SummonEngine()) should be invoked.
+            // Summon the corresponding engine.
+            this.SummonEngine(operation, project);
 
-            // TODO: At this point, something is changing the console color to yellow, probably core lib.
+            // Inform the user that the operation completed successfully.
             Log.Success($"Processed {files.Length} file(s).");
         }
     }

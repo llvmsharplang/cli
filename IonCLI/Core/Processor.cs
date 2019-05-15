@@ -18,7 +18,7 @@ namespace IonCLI.Core
             this.options = options;
         }
 
-        public string ProcessFile(string path)
+        public Ion.CodeGeneration.Module ProcessFile(string path)
         {
             // Ensure path file exists.
             if (!File.Exists(path))
@@ -51,14 +51,8 @@ namespace IonCLI.Core
                 driver.Next();
             }
 
-            // Prepare expected output file path.
-            string outputFile = Path.ChangeExtension(fileName, FileExtension.IR);
-
-            // Resolve within the output directory.
-            outputFile = this.options.PathResolver.Output(outputFile);
-
-            // Return the output file path.
-            return outputFile;
+            // Return the driver's module.
+            return driver.Module;
         }
     }
 }
