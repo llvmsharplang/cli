@@ -69,7 +69,7 @@ namespace IonCLI.Integrity
             if (this.isWindowsOs)
             {
                 // Resolve tools path directory.
-                string toolsPath = Path.Combine(AppContext.BaseDirectory, this.options.ToolsPath);
+                string toolsPath = Paths.BaseDirectory(this.options.ToolsPath);
 
                 // Inform the user of the tools path being used.
                 Log.Verbose($"Using tools directory: {toolsPath}");

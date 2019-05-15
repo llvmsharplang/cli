@@ -56,7 +56,7 @@ namespace IonCLI.Core
             string fileName = VerifierConstants.Tools[type].FileName;
 
             // Resolve tools path.
-            string toolsPath = Path.Combine(AppContext.BaseDirectory, this.Options.ToolsPath);
+            string toolsPath = Paths.BaseDirectory(this.Options.ToolsPath);
 
             // Combine the tools path with the tool's filename.
             string toolPath = Path.Combine(toolsPath, fileName);
