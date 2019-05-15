@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Build core library
           command:
-            cd ../Ion && dotnet build && cd ../project
+            cd ../Ion && git checkout dev && dotnet build && cd ../project
       - run:
           name: Restore packages
           command:
