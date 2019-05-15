@@ -38,6 +38,9 @@ namespace IonCLI.Core
         [Option('t', "tools-path", Required = false, HelpText = "Specify the tools directory path to use. Path is relative to the CLI's execution directory.", Default = VerifierConstants.DefaultToolsPath)]
         public string ToolsPath { get; set; }
 
+        [Option('k', "keep-emitted", Required = false, HelpText = "Do not cleanup emitted files after compilation.")]
+        public bool KeepEmittedFiles { get; set; }
+
         public PathResolver PathResolver { get; protected set; }
 
         public Options()

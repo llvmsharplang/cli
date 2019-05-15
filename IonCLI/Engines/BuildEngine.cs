@@ -94,21 +94,30 @@ namespace IonCLI.Engines
                 Log.Error("Could not create output executable.");
             }
 
-            // Inform the user that cleaning process has begun.
-            Log.Verbose("Cleaning up output files.");
-
-            // Cleanup emitted IR files.
-            foreach (string outputIrFile in outputIrFiles)
+            if (!this.context.Options.KeepEmittedFiles)
             {
-                // Delete the file.
-                File.Delete(outputIrFile);
+                // Inform the user that cleaning process has begun.
+                Log.Verbose("Cleaning up output files.");
+
+                // Cleanup emitted IR files.
+                foreach (string outputIrFile in outputIrFiles)
+                {
+                    // Delete the file.
+                    File.Delete(outputIrFile);
+                }
+
+                // Cleanup emitted Bitcode files.
+                foreach (string outputBitcodeFile in outputBitcodeFiles)
+                {
+                    // Delete the file.
+                    File.Delete(outputBitcodeFile);
+                }
             }
-
-            // Cleanup emitted Bitcode files.
-            foreach (string outputBitcodeFile in outputBitcodeFiles)
+            // Otherwise, inform the user.
+            else
             {
-                // Delete the file.
-                File.Delete(outputBitcodeFile);
+                // Inform the user that the cleaning process will not be executed.
+                Log.Verbose("Keeping emitted files.");
             }
         }
     }
