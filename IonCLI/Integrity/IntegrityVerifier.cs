@@ -68,6 +68,8 @@ namespace IonCLI.Integrity
             // Ensure tools have been downloaded on Windows.
             if (this.isWindowsOs)
             {
+                Log.Verbose($"Using tools directory: {this.options.ToolsPath}");
+
                 // Tools directory must exist on Windows.
                 if (!Directory.Exists(this.options.ToolsPath))
                 {
