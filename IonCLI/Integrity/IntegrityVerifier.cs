@@ -68,10 +68,14 @@ namespace IonCLI.Integrity
             // Ensure tools have been downloaded on Windows.
             if (this.isWindowsOs)
             {
-                Log.Verbose($"Using tools directory: {this.options.ToolsPath}");
+                // Resolve tools path directory.
+                string toolsPath = Path.Combine(AppContext.BaseDirectory, this.options.ToolsPath);
+
+                // Inform the user of the tools path being used.
+                Log.Verbose($"Using tools directory: {toolsPath}");
 
                 // Tools directory must exist on Windows.
-                if (!Directory.Exists(this.options.ToolsPath))
+                if (!Directory.Exists(toolsPath))
                 {
                     Log.Error("Tools directory does not exist. You may have a corrupt installation. Try running the installation script again.");
                 }
@@ -80,7 +84,7 @@ namespace IonCLI.Integrity
                 foreach (ToolDefinition tool in VerifierConstants.Tools.Values)
                 {
                     // Create the path for the tool.
-                    string path = Path.Combine(this.options.ToolsPath, tool.FileName);
+                    string path = Path.Combine(toolsPath, tool.FileName);
 
                     // Resolve the path to have it as absolute.
                     path = Path.GetFullPath(path);
