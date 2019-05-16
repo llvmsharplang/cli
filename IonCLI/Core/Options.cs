@@ -41,6 +41,9 @@ namespace IonCLI.Core
         [Option('k', "keep-emitted", Required = false, HelpText = "Do not cleanup emitted files after compilation.")]
         public bool KeepEmittedFiles { get; set; }
 
+        [Option('x', "external-output", Required = false, HelpText = "Whether to display external executables' output. Verbose mode must also be active.")]
+        public bool ExternalOutput { get; set; }
+
         public PathResolver PathResolver { get; protected set; }
 
         public Options()

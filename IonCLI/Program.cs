@@ -26,8 +26,30 @@ namespace IonCLI
                     // Set verbose mode.
                     Log.VerboseMode = options.Verbose;
 
+                    // Set external output mode.
+                    Log.ExternalOutputMode = options.ExternalOutput;
+
                     // Inform the user that verbose mode is active.
                     Log.Verbose("Using verbose mode.");
+
+                    // Inform the user that external output mode is active, if applicable.
+                    if (options.ExternalOutput)
+                    {
+                        Log.Verbose("Using external output mode");
+                    }
+
+                    // Override specific options if debug mode is active.
+                    if (options.DebugMode)
+                    {
+                        // Inform the user that debug mode is active.
+                        Log.Verbose("Using debug mode.");
+
+                        // Retrieve the current, working directory.
+                        string currentDirectory = Directory.GetCurrentDirectory();
+
+                        // Override the tools path by providing the current working directory as the root.
+                        options.ToolsPath = Path.Combine(currentDirectory, options.ToolsPath);
+                    }
 
                     // Check integrity if applicable.
                     if (!options.NoIntegrity)

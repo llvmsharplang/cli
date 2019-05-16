@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using Ion.CodeGeneration.Structure;
 using IonCLI.Core;
+using IonCLI.Integrity;
 
 namespace IonCLI.Engines
 {
@@ -49,8 +50,8 @@ namespace IonCLI.Engines
                 // Invoke the LLC tool to compile to object code (Bitcode).
                 toolInvoker.Invoke(ToolType.LLC, new string[]
                 {
-                    "-filetype",
-                    "obj",
+                    "-filetype=obj",
+                    "-mtriple=x86_64-pc-windows-msvc",
                     outputIrFilePath
                 });
 
@@ -70,23 +71,25 @@ namespace IonCLI.Engines
             // Create the output executable full path.
             string outputExecutablePath = this.context.Options.PathResolver.Output(packageIdentifier);
 
+            // Resolve the Link tool's root path.
+            string linkToolRoot = this.context.Options.PathResolver.ToolRoot(ToolType.Link);
+
+            System.Console.WriteLine($"Link tool root: {linkToolRoot}");
+
             // TODO: Hard-coded for Windows.
             // Create the argument list for LLD.
             List<string> args = new List<string>
             {
-                "-flavor",
-                "link",
-                "/NODEFAULTLIB",
-                $"/ENTRY:{SpecialName.Main}",
+                "/DEFAULTLIB:libcmt",
                 $"/OUT:{outputExecutablePath}",
-                "/SUBSYSTEM:Windows"
+                $"/LIBPATH:{linkToolRoot}"
             };
 
             // Append all emitted bitcode files.
             args.AddRange(outputBitcodeFiles);
 
             // Invoke the linker with the arguments as an array.
-            toolInvoker.Invoke(ToolType.LLD, args.ToArray());
+            toolInvoker.Invoke(ToolType.Link, args.ToArray());
 
             // Ensure program was compiled successful.
             if (!File.Exists(outputExecutablePath))

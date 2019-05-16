@@ -81,13 +81,16 @@ namespace IonCLI.Integrity
                 }
 
                 // Ensure all tools exist.
-                foreach (ToolDefinition tool in VerifierConstants.Tools.Values)
+                foreach ((ToolType type, ToolDefinition tool) in VerifierConstants.Tools)
                 {
-                    // Create the path for the tool.
-                    string path = Path.Combine(toolsPath, tool.FileName);
+                    // Ensure required properties are set.
+                    if (String.IsNullOrEmpty(tool.FileName))
+                    {
+                        throw new Exception($"Tool definition for '{type}' must contain a filename");
+                    }
 
-                    // Resolve the path to have it as absolute.
-                    path = Path.GetFullPath(path);
+                    // Resolve the path for the tool.
+                    string path = this.options.PathResolver.Tool(type);
 
                     // Ensure tool exists.
                     if (!File.Exists(path))

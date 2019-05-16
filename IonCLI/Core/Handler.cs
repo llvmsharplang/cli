@@ -9,6 +9,7 @@ using Ion.SyntaxAnalysis;
 using IonCLI.PackageManagement;
 using Ion.Core;
 using IonCLI.Engines;
+using IonCLI.Integrity;
 
 namespace IonCLI.Core
 {
@@ -39,6 +40,7 @@ namespace IonCLI.Core
             // Override path if debug mode is active.
             if (this.options.DebugMode)
             {
+                // Use the environment's working directory instead for default package's path.
                 defaultPackagePath = Path.Combine(Environment.CurrentDirectory, PackageConstants.DefaultPackageFilename);
             }
 

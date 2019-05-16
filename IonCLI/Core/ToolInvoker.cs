@@ -59,18 +59,7 @@ namespace IonCLI.Core
             // Instruct process to redirect output.
             process.StartInfo.RedirectStandardOutput = true;
 
-            // TODO: Finish implementing.
-            process.OutputDataReceived += (sender, data) =>
-            {
-                System.Console.WriteLine($"Tool '{tool.FileName}' standard output: {data.Data}");
-            };
-
-            // TODO: Finish implementing.
-            process.ErrorDataReceived += (sender, data) =>
-            {
-                System.Console.WriteLine($"Tool '{tool.FileName}' error output: {data.Data}");
-            };
-
+            // TODO: Handle error stream too?
             // Instruct process to redirect errors.
             process.StartInfo.RedirectStandardError = true;
 
@@ -82,6 +71,12 @@ namespace IonCLI.Core
 
             // Inform the user of the waiting state.
             Log.Verbose($"Awaiting tool: {tool.FileName}");
+
+            // Capture the output of the tool.
+            string output = process.StandardOutput.ReadToEnd();
+
+            // Process the tool's trimmed output.
+            Log.ExternalOutput(output.Trim(), tool.FileName);
 
             // Wait for completion.
             process.WaitForExit();

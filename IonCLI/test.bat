@@ -1,2 +1,2 @@
 @echo off
-dotnet run -- build -dv -t ../.tools -r .test -o .test/bin
+dotnet run -- build -dxvk -t ../.tools -r .test -o .test/bin

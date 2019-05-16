@@ -12,6 +12,6 @@
         </Dependency>
     </Dependencies>
     <Options>
-        <SourceRoot>Source</SourceRoot>
+        <SourceRoot>.test/Source</SourceRoot>
     </Options>
 </Package>

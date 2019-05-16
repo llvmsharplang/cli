@@ -12,7 +12,14 @@ namespace IonCLI.Core
         /// </summary>
         public static string BaseDirectory(string path)
         {
-            return Path.Combine(AppContext.BaseDirectory, path);
+            // Merge the base path with the provided path.
+            string result = Path.Combine(AppContext.BaseDirectory, path);
+
+            // Resolve the path into an absolute path.
+            result = Path.GetFullPath(result);
+
+            // Return the resulting path.
+            return result;
         }
 
         /// <summary>

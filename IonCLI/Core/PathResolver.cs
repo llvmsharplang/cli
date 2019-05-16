@@ -44,7 +44,7 @@ namespace IonCLI.Core
             return result;
         }
 
-        public string Tool(ToolType type)
+        public string ToolRoot(ToolType type)
         {
             // Ensure the tool type provided is valid.
             if (!VerifierConstants.Tools.ContainsKey(type))
@@ -52,10 +52,8 @@ namespace IonCLI.Core
                 throw new ArgumentException($"Unknown tool type: {type}");
             }
 
+            // Retrieve the tool.
             ToolDefinition tool = VerifierConstants.Tools[type];
-
-            // Retrive the tool type's corresponding filename.
-            string fileName = tool.FileName;
 
             // Resolve tools path.
             string toolsPath = Paths.BaseDirectory(this.Options.ToolsPath);
@@ -70,8 +68,29 @@ namespace IonCLI.Core
                 toolRootPath = Path.Combine(toolsPath, tool.Root);
             }
 
-            // Combine the tools path with the tool's filename.
-            string toolPath = Path.Combine(toolsPath, fileName);
+            // Return the resulting tool's root path.
+            return toolRootPath;
+        }
+
+        public string Tool(ToolType type)
+        {
+            // Ensure the tool type provided is valid.
+            if (!VerifierConstants.Tools.ContainsKey(type))
+            {
+                throw new ArgumentException($"Unknown tool type: {type}");
+            }
+
+            // Retrieve the tool.
+            ToolDefinition tool = VerifierConstants.Tools[type];
+
+            // Retrive the tool type's corresponding filename.
+            string fileName = tool.FileName;
+
+            // Retrieve the tool's root path.
+            string toolRootPath = this.ToolRoot(type);
+
+            // Combine the tools path (or root path) with the tool's filename.
+            string toolPath = Path.Combine(toolRootPath, fileName);
 
             // Resolve the tool path into an absolute path.
             toolPath = Path.GetFullPath(toolPath);

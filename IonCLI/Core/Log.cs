@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace IonCLI.Core
 {
@@ -7,6 +8,8 @@ namespace IonCLI.Core
         public static bool VerboseMode { get; set; } = false;
 
         public static bool SilentMode { get; set; } = false;
+
+        public static bool ExternalOutputMode { get; set; } = false;
 
         public static void Compose(string message, ConsoleColor? color = null)
         {
@@ -38,6 +41,42 @@ namespace IonCLI.Core
 
             // Exit program.
             Environment.Exit(1);
+        }
+
+        public static void ExternalOutput(string message, string sender)
+        {
+            if (Log.VerboseMode && Log.ExternalOutputMode)
+            {
+                // Extract the title string.
+                string title = $"External output from '{sender}'";
+
+                // Output the title.
+                Log.Compose(title);
+
+                // Create the ray buffer.
+                string ray = "";
+
+                // Create a new string builder to append to the ray string.
+                StringBuilder rayBuilder = new StringBuilder();
+
+                // Fill ray string.
+                for (int i = 0; i < title.Length; i++)
+                {
+                    rayBuilder.Append("-");
+                }
+
+                // Apply ray builder.
+                ray = rayBuilder.ToString();
+
+                // Output the start ray string.
+                Log.Compose(ray);
+
+                // Write the message.
+                Log.Compose(message, ConsoleColor.Cyan);
+
+                // Output the end ray string.
+                Log.Compose(ray);
+            }
         }
 
         public static void Verbose(string message)
