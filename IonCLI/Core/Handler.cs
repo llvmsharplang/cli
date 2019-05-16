@@ -211,9 +211,6 @@ namespace IonCLI.Core
 
             // Summon the corresponding engine.
             this.SummonEngine(this.operation, package, project);
-
-            // Inform the user that the compilation was successfull.
-            Log.Success("Compilation successful.");
         }
 
         public void SummonEngine(OperationType operation, Package package, Project project)

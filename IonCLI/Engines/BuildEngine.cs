@@ -76,8 +76,6 @@ namespace IonCLI.Engines
             // Resolve the Link tool's root path.
             string linkToolRoot = this.context.Options.PathResolver.ToolRoot(ToolType.Link);
 
-            System.Console.WriteLine($"Link tool root: {linkToolRoot}");
-
             // TODO: Hard-coded for Windows.
             // Create the argument list for LLD.
             List<string> args = new List<string>
@@ -124,6 +122,9 @@ namespace IonCLI.Engines
                 // Inform the user that the cleaning process will not be executed.
                 Log.Verbose("Keeping emitted files.");
             }
+
+            // Inform the user that the compilation was successfull.
+            Log.Success("Compilation successful.");
         }
     }
 }
