@@ -51,6 +51,8 @@ namespace IonCLI.Engines
                 toolInvoker.Invoke(ToolType.LLC, new string[]
                 {
                     "-filetype=obj",
+
+                    // TODO: Hard-coded target.
                     "-mtriple=x86_64-pc-windows-msvc",
                     outputIrFilePath
                 });
