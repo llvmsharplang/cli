@@ -1,6 +1,10 @@
-namespace Test1;
+namespace Test2;
 
-int test()
+extern int printf(string format, ...);
+
+int Main()
 {
-    return 4321;
+    printf("Hello world!");
+
+    return 4331;
 }

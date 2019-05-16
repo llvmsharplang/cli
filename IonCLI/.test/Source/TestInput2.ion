@@ -1,6 +1,0 @@
-namespace Test2;
-
-int Main()
-{
-    return 4331;
-}
