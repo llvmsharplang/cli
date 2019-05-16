@@ -13,7 +13,7 @@
             "args": [
                 "-dv",
                 "-t",
-                "../.llvm-tools",
+                "../.tools",
                 "-r",
                 ".test",
                 "-o",

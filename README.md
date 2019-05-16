@@ -29,7 +29,7 @@ You're all set!
 If you're developing the application, it is recommended you run it with the following command:
 
 ```shell
-$ dotnet run -- --verbose --debug --root .test --tools-path .llvm-tools
+$ dotnet run -- --verbose --debug --root .test --tools-path .tools
 ```
 
 ### Installation

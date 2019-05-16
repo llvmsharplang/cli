@@ -3,6 +3,6 @@ obj/
 ion.bin/
 .releases/
 *.exe
-.llvm-tools/
+.tools/
 .packages/
 llvm-tools.zip

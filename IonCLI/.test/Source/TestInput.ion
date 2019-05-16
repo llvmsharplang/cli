@@ -2,9 +2,9 @@ namespace Test2;
 
 extern int printf(string format, ...);
 
-int Main()
+int main()
 {
     printf("Hello world!");
 
-    return 4331;
+    return 1234;
 }
