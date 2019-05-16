@@ -52,14 +52,29 @@ namespace IonCLI.Core
                 throw new ArgumentException($"Unknown tool type: {type}");
             }
 
+            ToolDefinition tool = VerifierConstants.Tools[type];
+
             // Retrive the tool type's corresponding filename.
-            string fileName = VerifierConstants.Tools[type].FileName;
+            string fileName = tool.FileName;
 
             // Resolve tools path.
             string toolsPath = Paths.BaseDirectory(this.Options.ToolsPath);
 
+            // Initialize the tool's root path to be the previously resolved tools path.
+            string toolRootPath = toolsPath;
+
+            // Prepare the tool's root path if applicable.
+            if (tool.Root != null)
+            {
+                // Combine the tools path with the tool's root path.
+                toolRootPath = Path.Combine(toolsPath, tool.Root);
+            }
+
             // Combine the tools path with the tool's filename.
             string toolPath = Path.Combine(toolsPath, fileName);
+
+            // Resolve the tool path into an absolute path.
+            toolPath = Path.GetFullPath(toolPath);
 
             // Return the resulting path.
             return toolPath;

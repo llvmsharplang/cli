@@ -52,6 +52,13 @@ namespace IonCLI.Integrity
             {ToolType.LLD, new ToolDefinition
             {
                 FileName = "lld.exe"
+            }},
+
+            // Link (Visual Studio's, Windows-only linker).
+            {ToolType.Link, new ToolDefinition
+            {
+                FileName = "link.exe",
+                Root = "link"
             }}
         };
     }

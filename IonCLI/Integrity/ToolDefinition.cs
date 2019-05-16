@@ -27,5 +27,11 @@ namespace IonCLI.Integrity
         /// invocation.
         /// </summary>
         public Regex MatchPattern { get; set; }
+
+        /// <summary>
+        /// The root directory on which the tool's executable
+        /// is located, under the tools directory.
+        /// </summary>
+        public string Root { get; set; }
     }
 }
