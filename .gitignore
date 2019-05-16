@@ -5,4 +5,4 @@ ion.bin/
 *.exe
 .tools/
 .packages/
-llvm-tools.zip
+tools.zip

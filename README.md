@@ -76,7 +76,7 @@ $ ion
 
 -d, --debug           Use debugging mode.
 
--t, --tools-path      (Default: llvm-tools) Specify the tools directory path
+-t, --tools-path      (Default: tools) Specify the tools directory path
                       to use. Path is relative to the CLI's execution
                       directory.
 

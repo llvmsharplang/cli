@@ -7,10 +7,10 @@ namespace IonCLI.Integrity
     public static class VerifierConstants
     {
         /// <summary>
-        /// The default folder path on which the required LLVM tools
+        /// The default folder path on which the required tools
         /// are stored in. Windows only.
         /// </summary>
-        public const string DefaultToolsPath = "llvm-tools";
+        public const string DefaultToolsPath = "tools";
 
         /// <summary>
         /// The default version string expected to be captured during
