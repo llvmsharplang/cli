@@ -4,7 +4,19 @@ extern int printf(string format, ...);
 
 int main()
 {
-    printf("Hello world!");
+    : GetFormat(), Echo("Hello")
+    | printf
+    ;
 
     return 1234;
+}
+
+string Echo(string message)
+{
+    return "Hello";
+}
+
+string GetFormat()
+{
+    return "%s world!";
 }
