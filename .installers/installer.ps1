@@ -44,7 +44,7 @@ PathAppend $InstallationPath
 # Cleanup.
 "Cleaning up ..."
 
-# Remove LLVM tools package file.
+# Remove tools package file.
 Remove-Item $ToolsZipFile -ErrorAction Ignore
 
 # Inform the user the process completed.

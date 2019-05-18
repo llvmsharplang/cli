@@ -25,8 +25,8 @@ namespace IonCLI.Integrity
         public static Regex GenericVersionPattern = new Regex(@"[0-9]\.[0-9]\.[0-9]");
 
         /// <summary>
-        /// The LLVM tools filenames expected to be within
-        /// the LLVM tools folder.
+        /// The tool filenames expected to be within
+        /// the tools folder.
         /// </summary>
         public static Dictionary<ToolType, ToolDefinition> Tools = new Dictionary<ToolType, ToolDefinition>
         {

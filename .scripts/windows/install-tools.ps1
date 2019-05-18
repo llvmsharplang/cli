@@ -17,30 +17,30 @@ function PathAppend {
 }
 
 # Constant declaration.
-$ToolsUrl = "https://github.com/IonLanguage/Ion.CLI/releases/download/llvm-tools/tools.zip"
+$ToolsUrl = "https://github.com/IonLanguage/Ion.CLI/releases/download/tools/tools.zip"
 $ToolsZipFile = "tools.zip"
 $ToolsFolder = Resolve "../../.tools"
 $FinishedMessage = "Tools installation completed."
 
-# LLVM tools.
+# Tools.
 if (Test-Path $ToolsFolder) {
-    "LLVM tools directory already exists."
+    "Tools directory already exists."
 }
 else {
-    "Downloading LLVM tools ..."
+    "Downloading tools ..."
 
     # Enforce TSL12 security protocol.
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-    # Download the LLVM tools package.
+    # Download the tools package.
     Invoke-WebRequest $ToolsUrl -OutFile $ToolsZipFile
 
-    "Extracting LLVM tools ..."
+    "Extracting tools ..."
 
-    # Extract the LLVM tools package.
+    # Extract the tools package.
     Expand-Archive -path $ToolsZipFile -destinationpath $ToolsFolder
 
-    "Appending LLVM tools to path ..."
+    "Appending tools to path ..."
 
     # Append tools to path.
     PathAppend $ToolsFolder
@@ -49,7 +49,7 @@ else {
 # Cleanup.
 "Cleaning up ..."
 
-# Remove LLVM tools package file.
+# Remove tools package file.
 Remove-Item $ToolsZipFile -ErrorAction Ignore
 
 # Inform the user the process completed.
