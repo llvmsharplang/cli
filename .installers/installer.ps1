@@ -17,7 +17,6 @@ function PathAppend {
 }
 
 # Constant declaration.
-$ToolsUrl = "https://github.com/IonLanguage/Ion.CLI/releases/download/llvm-tools/tools.zip"
 $ToolsZipFile = "tools.zip"
 $FinishedMessage = "Operation completed."
 $InstallationPath = "$env:LOCALAPPDATA\Programs\IonLanguage"
