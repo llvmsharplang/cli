@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define Name "Ion Language"
-#define Version "0.0.2-alpha"
+#define Version "0.0.3-alpha"
 #define Publisher "Atlas and Contributors"
 #define Website "https://github.com/IonLanguage"
 
