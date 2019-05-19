@@ -2,15 +2,6 @@ namespace Test2;
 
 extern int printf(string format, ...);
 
-int main()
-{
-    : GetFormat(), Echo("Hello")
-    | printf
-    ;
-
-    return 1234;
-}
-
 string Echo(string message)
 {
     return "Hello";
@@ -19,4 +10,13 @@ string Echo(string message)
 string GetFormat()
 {
     return "%s world!";
+}
+
+int main()
+{
+    : GetFormat(), Echo("Hello")
+    | printf
+    ;
+
+    return 1234;
 }

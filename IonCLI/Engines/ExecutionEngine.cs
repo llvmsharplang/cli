@@ -57,7 +57,7 @@ namespace IonCLI.Engines
             string output = process.StandardOutput.ReadToEnd();
 
             // Display the executable's output.
-            Log.Compose($"\n{output.Trim()}");
+            Log.Compose(output.Trim());
 
             // Retrieve the exit code.
             int exitCode = process.ExitCode;
