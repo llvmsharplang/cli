@@ -33,10 +33,10 @@ namespace IonCLI.Core
             Lexer lexer = new Lexer(content);
 
             // Tokenize contents.
-            List<Token> tokens = lexer.Tokenize();
+            Token[] tokens = lexer.Tokenize();
 
             // Create the token stream.
-            TokenStream stream = new TokenStream(tokens.ToArray());
+            TokenStream stream = new TokenStream(tokens);
 
             // TODO: Restrict file name by regex.
             // Extract the file name of the path.
