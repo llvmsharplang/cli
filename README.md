@@ -38,7 +38,7 @@ If you have downloaded this as a release, follow the instructions below to insta
 
 #### Windows
 
-Simply right-click on the `install.ps1` file, and select "Run with PowerShell".
+Simply right-click on the `install.ps1` file, and select `Run with PowerShell`.
 
 #### Linux
 
@@ -50,10 +50,10 @@ $ bash install.sh
 
 ### Usage
 
-Usage is simple. Once you've ran the installation script on your platform, you can simple run the following command on a Windows Command Prompt (if you're on Windows) or a shell otherwise:
+Usage is simple. Once you've installed Ion on your platform, you can run the following command on a Windows Command Prompt (if you're on Windows) or a shell otherwise:
 
 ```shell
-$ ion
+$ ion [build|run] [options]
 ```
 
 ### Options
