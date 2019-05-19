@@ -55,7 +55,7 @@ $ ion [build|run] [options]
 ### Options
 
 ```
--v, --verbose             Set output to verbose messages.
+-v, --verbose             Enable verbose mode, allowing verbose messages to be displayed.
 
 -e, --exclude             Exclude certain directories from being processed.
 

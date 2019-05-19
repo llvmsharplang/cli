@@ -10,7 +10,7 @@ namespace IonCLI.Core
         [Value(0, MetaName = "operation", Required = false, HelpText = "The operation to perform.", Default = "build")]
         public string Operation { get; set; }
 
-        [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
+        [Option('v', "verbose", Required = false, HelpText = "Enable verbose mode, allowing verbose messages to be displayed.")]
         public bool Verbose { get; set; }
 
         [Option('e', "exclude", Required = false, HelpText = "Exclude certain directories from being processed.")]
