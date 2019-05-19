@@ -36,10 +36,6 @@ $ dotnet run -- --verbose --debug --root .test --tools-path .tools
 
 If you have downloaded this as a release, follow the instructions below to install the CLI utility locally on your machine:
 
-#### Windows
-
-Simply right-click on the `install.ps1` file, and select `Run with PowerShell`.
-
 #### Linux
 
 Run the `install.sh` script:
