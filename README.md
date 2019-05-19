@@ -89,5 +89,3 @@ $ ion
 
 operation (pos. 0)        (Default: build) The operation to perform.
 ```
-
-Note: If any of the CLI's arguments are specified and defined within the package manifest file, the CLI's arguments will take precedence.
