@@ -39,13 +39,13 @@ namespace IonCLI.Core
         /// and terminates program execution with a faulty
         /// exit code.
         /// </summary>
-        public static void Error(string message)
+        public static void Error(string message, int exitCode = 1)
         {
             // Print the message.
             Log.Compose($"Error: {message}", ConsoleColor.Red);
 
             // Exit program.
-            Environment.Exit(1);
+            Environment.Exit(exitCode);
         }
 
         public static void Warning(string message)

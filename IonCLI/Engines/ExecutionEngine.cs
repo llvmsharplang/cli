@@ -50,6 +50,9 @@ namespace IonCLI.Engines
             // Instruct process to redirect output.
             process.StartInfo.RedirectStandardOutput = true;
 
+            // Inform the user that the program is being run.
+            Log.Verbose("Running output executable.");
+
             // Start the process.
             process.Start();
 
@@ -68,7 +71,8 @@ namespace IonCLI.Engines
             // Exit code was not successful.
             if (exitCode != 0 && !this.context.Options.IgnoreExitCode)
             {
-                Log.Error(exitCodeMessage);
+                // Log the error and terminate program.
+                Log.Error(exitCodeMessage, exitCode);
             }
             // Otherwise the program was successful.
             else
