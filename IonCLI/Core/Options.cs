@@ -16,7 +16,7 @@ namespace IonCLI.Core
         [Option('e', "exclude", Required = false, HelpText = "Exclude certain directories from being processed.")]
         public IEnumerable<string> Exclude { get; set; }
 
-        [Option('o', "output", Required = false, HelpText = "The output directory which the program will be emitted onto.", Default = "ion.bin")]
+        [Option('o', "output", Required = false, HelpText = "The output directory which the program will be emitted onto.", Default = "bin")]
         public string Output { get; set; }
 
         [Option('r', "root", Required = false, HelpText = "The root directory to start the scanning process from.")]

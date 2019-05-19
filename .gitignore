@@ -1,6 +1,5 @@
 bin/
 obj/
-ion.bin/
 .releases/
 *.exe
 .tools/

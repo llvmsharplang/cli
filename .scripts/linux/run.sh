@@ -1,3 +1,3 @@
 #!/bin/bash
 dotnet run
-lli ion.bin/program.ll
+lli bin/program.ll

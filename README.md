@@ -59,7 +59,7 @@ $ ion [build|run] [options]
 
 -e, --exclude             Exclude certain directories from being processed.
 
--o, --output              (Default: ion.bin) The output directory which the program will be emitted onto.
+-o, --output              (Default: bin) The output directory which the program will be emitted onto.
 
 -r, --root                The root directory to start the scanning process from.
 
