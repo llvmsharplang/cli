@@ -13,44 +13,82 @@ function PathAppend {
     $path = Resolve-Path $path
 
     # Set the environment variable.
-    [Environment]::SetEnvironmentVariable("Path", $env:Path + ";$path", [System.EnvironmentVariableTarget]::User)
+    #[Environment]::SetEnvironmentVariable("Path", $env:Path + ";$path", [System.EnvironmentVariableTarget]::User)
+}
+
+function Prompt {
+    param([string] $question)
+
+    # Append options to the question.
+    $question = "$question ? Yes or (N)o"
+
+    # Invoke, and retrieve the answer.
+    $answer = Read-Host $question
+
+    # Return whether the answer contained a positive keyword.
+    return "y", "Y", "yes", "Yes", "YES" -Contains $answer
+}
+
+function GetToolsUrl {
+    param([string] $platformId)
+
+    return "https://github.com/IonLanguage/Ion.CLI/releases/download/tools/$platformId.zip"
+}
+
+function GetToolsTempFilename {
+    param([string] $platformId)
+
+    return "tools.$platformId.zip"
+}
+
+function DownloadTools {
+    param([string] $platformId)
+
+    "($ToolCounter/$PlatformIdsLength) Downloading $platformId tools ..."
+
+    # Resolve the tools download URL.
+    $DownloadUrl = GetToolsUrl $platformId
+
+    # Resolve the temporary zip filename.
+    $TempFileName = GetToolsTempFilename $platformId
+
+    # Download the tools package.
+    $WebClient.DownloadFile($DownloadUrl, $TempFileName)
+
+    "Extracting $platformId tools ..."
+
+    # Extract the tools package.
+    Expand-Archive -Force -Path $TempFileName -DestinationPath "$ToolsFolder\$platformId"
+
+    # Remove tools package file.
+    Remove-Item $TempFileName -ErrorAction Ignore
 }
 
 # Constant declaration.
-$ToolsUrl = "https://github.com/IonLanguage/Ion.CLI/releases/download/tools/tools.zip"
-$ToolsZipFile = "tools.zip"
+$WebClient = New-Object System.Net.WebClient
 $ToolsFolder = Resolve "../../.tools"
 $FinishedMessage = "Tools installation completed."
+$PlatformIds = "win64", "win32", "ubuntu16.04", "ubuntu14.04", "macOS", "debian8", "armv7a"
+$PlatformIdsLength = $PlatformIds.Count
+$ToolCounter = 1
 
 # Tools.
 if (Test-Path $ToolsFolder) {
-    "Tools directory already exists."
-}
-else {
-    "Downloading tools ..."
+    $continue = Prompt "Tools directory already exists. Continuing will overwrite existing tools."
 
-    # Enforce TSL12 security protocol.
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-
-    # Download the tools package.
-    Invoke-WebRequest $ToolsUrl -OutFile $ToolsZipFile
-
-    "Extracting tools ..."
-
-    # Extract the tools package.
-    Expand-Archive -path $ToolsZipFile -destinationpath $ToolsFolder
-
-    "Appending tools to path ..."
-
-    # Append tools to path.
-    PathAppend $ToolsFolder
+    if (!$continue) {
+        exit
+    }
 }
 
-# Cleanup.
-"Cleaning up ..."
+"Tools will now be downloaded. This may take some time depending on your Internet speed. This process should only occur once."
 
-# Remove tools package file.
-Remove-Item $ToolsZipFile -ErrorAction Ignore
+# Download tools for all platforms.
+foreach ($platformId in $PlatformIds) {
+    DownloadTools $platformId
+    $ToolCounter++
+}
 
 # Inform the user the process completed.
 $FinishedMessage
+Pause

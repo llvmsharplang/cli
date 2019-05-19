@@ -4,4 +4,4 @@ obj/
 *.exe
 .tools/
 .packages/
-tools.zip
+tools.*.zip

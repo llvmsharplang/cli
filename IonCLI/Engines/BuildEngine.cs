@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Ion.CodeGeneration.Structure;
@@ -6,7 +7,7 @@ using IonCLI.Integrity;
 
 namespace IonCLI.Engines
 {
-    public class BuildEngine : OperationEngine
+    internal class BuildEngine : OperationEngine
     {
         public BuildEngine(EngineContext context) : base(context)
         {
@@ -66,13 +67,73 @@ namespace IonCLI.Engines
                 outputBitcodeFiles.Add(outputBitcodeFilePath);
             }
 
-            // TODO: Hard-coded extension.
-            // Retrieve the application's identifier.
-            string packageIdentifier = $"{this.context.Package.Identifier}.exe";
+            // Compute the executable's filename.
+            string outputExecutableFileName = this.GetExecutableFileName();
 
             // Create the output executable full path.
-            string outputExecutablePath = this.context.Options.PathResolver.Output(packageIdentifier);
+            string outputExecutablePath = this.context.Options.PathResolver.Output(outputExecutableFileName);
 
+            // Prepare the arguments array.
+            string[] args;
+
+            // Determine whether to use Windows configuration.
+            if (Util.IsWindowsOs)
+            {
+                args = this.BuildOnWindows(outputBitcodeFiles, outputExecutablePath, toolInvoker);
+            }
+            // Otherwise, build on Unix-like.
+            else
+            {
+                args = this.BuildOnUnixLike();
+            }
+
+            // Compute the (linker) tool type to use.
+            ToolType toolType = this.GetToolType();
+
+            // Invoke the linker with the arguments as an array.
+            toolInvoker.Invoke(toolType, args);
+
+            // Invoke the cleanup method.
+            this.Cleanup(outputIrFiles, outputBitcodeFiles);
+
+            // Ensure program was compiled successful.
+            if (!File.Exists(outputExecutablePath))
+            {
+                Log.Error("Could not create output executable.");
+            }
+
+            // Inform the user that the compilation was successfull.
+            Log.Success("Compilation successful.");
+        }
+
+        protected string GetExecutableFileName()
+        {
+            string fileName = this.context.Package.Identifier;
+
+            // Append an executable extension if on Windows.
+            if (Util.IsWindowsOs)
+            {
+                fileName += $".{FileExtension.WindowsExecutable}";
+            }
+
+            // Return the resulting filename.
+            return fileName;
+        }
+
+        protected ToolType GetToolType()
+        {
+            // Use Link on Windows.
+            if (Util.IsWindowsOs)
+            {
+                return ToolType.Link;
+            }
+
+            // Otherwise, use LLD.
+            return ToolType.LLD;
+        }
+
+        protected string[] BuildOnWindows(List<string> outputBitcodeFiles, string outputExecutablePath, ToolInvoker toolInvoker)
+        {
             // Resolve the Link tool's root path.
             string linkToolRoot = this.context.Options.PathResolver.ToolRoot(ToolType.Link);
 
@@ -88,15 +149,18 @@ namespace IonCLI.Engines
             // Append all emitted bitcode files.
             args.AddRange(outputBitcodeFiles);
 
-            // Invoke the linker with the arguments as an array.
-            toolInvoker.Invoke(ToolType.Link, args.ToArray());
+            // Return the resulting arguments.
+            return args.ToArray();
+        }
 
-            // Ensure program was compiled successful.
-            if (!File.Exists(outputExecutablePath))
-            {
-                Log.Error("Could not create output executable.");
-            }
+        protected string[] BuildOnUnixLike()
+        {
+            throw new NotImplementedException();
+        }
 
+        protected void Cleanup(List<string> outputIrFiles, List<string> outputBitcodeFiles)
+        {
+            // Determine if emitted files should be kept.
             if (!this.context.Options.KeepEmittedFiles)
             {
                 // Inform the user that cleaning process has begun.
@@ -122,9 +186,6 @@ namespace IonCLI.Engines
                 // Inform the user that the cleaning process will not be executed.
                 Log.Verbose("Keeping emitted files.");
             }
-
-            // Inform the user that the compilation was successfull.
-            Log.Success("Compilation successful.");
         }
     }
 }
