@@ -59,32 +59,35 @@ $ ion
 ### Options
 
 ```
--v, --verbose         Set output to verbose messages.
+-v, --verbose             Set output to verbose messages.
 
--e, --exclude         Exclude certain directories from being processed.
+-e, --exclude             Exclude certain directories from being processed.
 
--o, --output          (Default: ion.bin) The output directory which the
-                      program will be emitted onto.
+-o, --output              (Default: ion.bin) The output directory which the program will be emitted onto.
 
--r, --root            The root directory to start the scanning process from.
+-r, --root                The root directory to start the scanning process from.
 
--b, --bitcode         Print out the LLVM Bitcode code instead of LLVM IR.
+-b, --bitcode             Print out the LLVM Bitcode code instead of LLVM IR.
 
--s, --silent          Do not output any messages.
+-s, --silent              Do not output any messages.
 
--i, --no-integrity    Skip integrity check.
+-i, --no-integrity        Skip integrity check.
 
--d, --debug           Use debugging mode.
+-d, --debug               Use debugging mode.
 
--t, --tools-path      (Default: tools) Specify the tools directory path
-                      to use. Path is relative to the CLI's execution
-                      directory.
+-t, --tools-path          (Default: tools) Specify the tools directory path to use. Path is relative to the CLI's execution directory.
 
---help                Display this help screen.
+-k, --keep-emitted        Do not cleanup emitted files after compilation.
 
---version             Display version information.
+-x, --external-output     Whether to display external executables' output. Verbose mode must also be active.
 
-operation (pos. 0)    (Default: build) The operation to perform.
+-c, --ignore-exit-code    Whether to ignore the exit code of the program being run.
+
+--help                    Display this help screen.
+
+--version                 Display version information.
+
+operation (pos. 0)        (Default: build) The operation to perform.
 ```
 
 Note: If any of the CLI's arguments are specified and defined within the package manifest file, the CLI's arguments will take precedence.
