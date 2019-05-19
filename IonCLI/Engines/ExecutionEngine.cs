@@ -59,6 +59,24 @@ namespace IonCLI.Engines
             // Display the executable's output.
             Log.Compose($"\n{output.Trim()}");
 
+            // Retrieve the exit code.
+            int exitCode = process.ExitCode;
+
+            // Create the output exit code message.
+            string exitCodeMessage = $"Program exited with code {exitCode}.";
+
+            // Exit code was not successful.
+            if (exitCode != 0 && !this.context.Options.IgnoreExitCode)
+            {
+                Log.Error(exitCodeMessage);
+            }
+            // Otherwise the program was successful.
+            else
+            {
+                // Inform the user of the program's successful exit code.
+                Log.Verbose(exitCodeMessage);
+            }
+
             // Wait for completion.
             process.WaitForExit();
         }

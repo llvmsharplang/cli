@@ -13,8 +13,13 @@ namespace IonCLI.Core
 
         public static void Compose(string message, ConsoleColor? color = null)
         {
+            // Return immediately if in silent mode.
+            if (Log.SilentMode)
+            {
+                return;
+            }
             // Set color beforehand if applicable.
-            if (color.HasValue)
+            else if (color.HasValue)
             {
                 Console.ForegroundColor = color.Value;
             }
@@ -41,6 +46,12 @@ namespace IonCLI.Core
 
             // Exit program.
             Environment.Exit(1);
+        }
+
+        public static void Warning(string message)
+        {
+            // Print the message without conditions.
+            Log.Compose($"Warning: {message}", ConsoleColor.Yellow);
         }
 
         public static void ExternalOutput(string message, string sender)

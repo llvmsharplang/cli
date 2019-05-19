@@ -77,7 +77,7 @@ namespace IonCLI.Integrity
                 // Tools directory must exist on Windows.
                 if (!Directory.Exists(toolsPath))
                 {
-                    Log.Error("Tools directory does not exist. You may have a corrupt installation. Try running the installation script again.");
+                    Log.Error("Tools directory does not exist. You may have a corrupt installation.");
                 }
 
                 // Ensure all tools exist.
@@ -86,7 +86,7 @@ namespace IonCLI.Integrity
                     // Ensure required properties are set.
                     if (String.IsNullOrEmpty(tool.FileName))
                     {
-                        throw new Exception($"Tool definition for '{type}' must contain a filename");
+                        throw new Exception($"Tool definition for '{type}' must contain a filename.");
                     }
 
                     // Resolve the path for the tool.

@@ -17,7 +17,6 @@ function PathAppend {
 }
 
 # Constant declaration.
-$ToolsZipFile = "tools.zip"
 $FinishedMessage = "Operation completed."
 $InstallationPath = "$env:LOCALAPPDATA\Programs\IonLanguage"
 
@@ -35,16 +34,15 @@ $FinalExeFullPath = "$InstallationPath\ion.exe"
 if ([System.IO.File]::Exists($MainExeFullPath)) {
     Move-Item -Force -Path $MainExeFullPath -Destination $FinalExeFullPath
 }
+# Otherwise, inform the user that the executable was not renamed.
+else {
+    "Unable to rename the main executable file. You'll have to do this manually."
+    Pause
+}
 
 # Add IonCLI's executable to path.
 "Adding IonCLI to path ..."
 PathAppend $InstallationPath
-
-# Cleanup.
-"Cleaning up ..."
-
-# Remove tools package file.
-Remove-Item $ToolsZipFile -ErrorAction Ignore
 
 # Inform the user the process completed.
 $FinishedMessage

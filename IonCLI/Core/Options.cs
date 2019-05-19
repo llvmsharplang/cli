@@ -26,7 +26,6 @@ namespace IonCLI.Core
         public bool Bitcode { get; set; }
 
         [Option('s', "silent", Required = false, HelpText = "Do not output any messages.")]
-
         public bool Silent { get; set; }
 
         [Option('i', "no-integrity", Required = false, HelpText = "Skip integrity check.")]
@@ -43,6 +42,9 @@ namespace IonCLI.Core
 
         [Option('x', "external-output", Required = false, HelpText = "Whether to display external executables' output. Verbose mode must also be active.")]
         public bool ExternalOutput { get; set; }
+
+        [Option('c', "ignore-exit-code", Required = false, HelpText = "Whether to ignore the exit code of the program being run.")]
+        public bool IgnoreExitCode { get; set; }
 
         public PathResolver PathResolver { get; protected set; }
 

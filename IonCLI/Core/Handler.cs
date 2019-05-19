@@ -71,7 +71,7 @@ namespace IonCLI.Core
                 // Ensure that the existing package manifest was deleted.
                 if (File.Exists(destination))
                 {
-                    Log.Error("Unable to delete existing package manifest");
+                    Log.Error("Unable to delete existing package manifest.");
                 }
 
                 // Inform the user that the existing package manifest was deleted.
@@ -85,12 +85,12 @@ namespace IonCLI.Core
             if (File.Exists(destination))
             {
                 // Inform the user that the operation completed.
-                Log.Success(reinitializing ? "Re-initialized existing package manifest" : "Create a default package manifest file");
+                Log.Success(reinitializing ? "Re-initialized existing package manifest." : "Create a default package manifest file.");
             }
             // Otherwise, report that it does not.
             else
             {
-                Log.Error("Could not create default package manifest");
+                Log.Error("Could not create default package manifest.");
             }
         }
 
@@ -108,7 +108,7 @@ namespace IonCLI.Core
             // Ensure operation type is not unknown.
             if (operation == OperationType.Unknown)
             {
-                Log.Error($"Unknown operation: '{operationValue}'");
+                Log.Error($"Unknown operation: '{operationValue}'.");
             }
 
             // Inform the user that the requested operation is valid, if applicable.
@@ -126,7 +126,7 @@ namespace IonCLI.Core
                 // Ensure provided root directory exists.
                 if (!Directory.Exists(options.Root))
                 {
-                    Log.Error("The specified root directory path does not exist");
+                    Log.Error("The specified root directory path does not exist.");
                 }
 
                 // Use provided root directory path.
@@ -139,7 +139,7 @@ namespace IonCLI.Core
             // Ensure root directory exists.
             if (!Directory.Exists(root))
             {
-                Log.Error("Root directory does not exist");
+                Log.Error("Root directory does not exist.");
             }
 
             // TODO: Should never modify options' root path.
@@ -192,7 +192,7 @@ namespace IonCLI.Core
                     // Ensure directory path exists.
                     if (!Directory.Exists(sourcePath))
                     {
-                        Log.Error("Provided source root directory path in package manifest does not exist");
+                        Log.Error("Provided source root directory path in package manifest does not exist.");
                     }
 
                     // Inform the user that the source directory exists.
@@ -218,7 +218,7 @@ namespace IonCLI.Core
             // Ensure operation is valid.
             if (this.operation == OperationType.Unknown)
             {
-                throw new InvalidOperationException("Unexpected operation to be unknown");
+                throw new InvalidOperationException("Unexpected operation to be unknown.");
             }
 
             // Create the engine context.
@@ -251,7 +251,7 @@ namespace IonCLI.Core
             // Ensure the engine buffer is not null.
             if (engine == null)
             {
-                throw new Exception("Unexpected engine to be null");
+                throw new Exception("Unexpected engine to be null.");
             }
 
             // Invoke the engine buffer.
@@ -317,15 +317,15 @@ namespace IonCLI.Core
             // No matching files.
             if (files.Length == 0)
             {
-                Log.Compose("No matching files discovered.");
+                Log.Warning("No matching files discovered.");
                 Environment.Exit(0);
             }
 
             // Ensure output directory exists, otherwise create it.
             if (!Directory.Exists(this.options.Output))
             {
-                Log.Compose("Creating output directory ...");
                 Directory.CreateDirectory(this.options.Output);
+                Log.Verbose("Created output directory.");
             }
 
             // Create a new project instance.
