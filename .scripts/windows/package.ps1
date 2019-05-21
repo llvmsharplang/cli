@@ -6,6 +6,11 @@ Start-Process -Wait -WindowStyle Hidden -FilePath "cleanup.bat"
 "Setting up environment ..."
 Start-Process -Wait -WindowStyle Hidden -FilePath "setup-env.bat"
 
+# Define globals.
+$UnixLikePlatforms = "ubuntu16.04", "ubuntu14.04", "macOS", "debian8", "armv7a"
+$UnixLikePlatformPublishMap = "linux-x64", "linux-x64", "osx-x64", "linux-x64", "linux-arm"
+$PublishMapCounter = 0
+
 # Navigate to main project's folder.
 Set-Location "../../IonCLI"
 
@@ -20,10 +25,6 @@ dotnet publish -c Release -r win10-x86
 "Building project (Windows x64) ..."
 dotnet publish -c Release -r win10-x64
 
-# Build Linux x64.
-"Building project (Linux x64) ..."
-dotnet publish -c Release -r linux-x64
-
 # Navigate to root folder.
 Set-Location "../"
 
@@ -33,14 +34,27 @@ New-Item -ItemType Directory -Force -Path ".packages"
 
 # Package Windows x64.
 "Packaging Windows x64 (through Inno Setup) ..."
-Start-Process -Wait -WindowStyle Hidden -FilePath "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe" -ArgumentList "InstallerScript.iss"
+#Start-Process -Wait -WindowStyle Hidden -FilePath "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe" -ArgumentList "InstallerScript.iss"
 
-# Package Linux x64.
-"Packaging Linux x64 ..."
-Copy-Item ".installers\installer.sh" ".\IonCLI\bin\Release\netcoreapp2.2\linux-x64\publish\"
-Copy-Item "DefaultPackage.xml" ".\IonCLI\bin\Release\netcoreapp2.2\linux-x64\publish\"
-Copy-Item ".installers\*.txt" ".\IonCLI\bin\Release\netcoreapp2.2\linux-x64\publish\"
-Compress-Archive -CompressionLevel Optimal -Path ".\IonCLI\bin\Release\netcoreapp2.2\linux-x64\publish\*" -DestinationPath ".packages\linux-x64.zip"
+# TODO: Windows x86?
+
+# Process Unix-like platforms.
+foreach ($platformId in $UnixLikePlatforms) {
+    # Compute publish id.
+    $publishId = $UnixLikePlatformPublishMap[$PublishMapCounter]
+
+    # Build.
+    dotnet publish -c Release -r $publishId
+
+    # Package.
+    "Packaging $platformId ..."
+    
+    Copy-Item ".installers\installer.sh" ".\IonCLI\bin\Release\netcoreapp2.2\$publishId\publish\"
+    Copy-Item "DefaultPackage.xml" ".\IonCLI\bin\Release\netcoreapp2.2\$publishId\publish\"
+    Copy-Item ".installers\*.txt" ".\IonCLI\bin\Release\netcoreapp2.2\$publishId\publish\"
+    Compress-Archive -CompressionLevel Optimal -Path ".\IonCLI\bin\Release\netcoreapp2.2\$publishId\publish\*" -DestinationPath ".packages\$platformId.zip"
+    $PublishMapCounter++
+}
 
 # Finish up.
 "Packaging completed."

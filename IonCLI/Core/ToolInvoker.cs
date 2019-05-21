@@ -76,7 +76,7 @@ namespace IonCLI.Core
             string output = process.StandardOutput.ReadToEnd();
 
             // Process the tool's trimmed output.
-            Log.ExternalOutput(output.Trim(), tool.FileName);
+            Log.Output(output.Trim(), tool.FileName);
 
             // Wait for completion.
             process.WaitForExit();

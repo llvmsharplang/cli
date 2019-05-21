@@ -46,6 +46,9 @@ namespace IonCLI.Core
         [Option('c', "ignore-exit-code", Required = false, HelpText = "Whether to ignore the exit code of the program being run.")]
         public bool IgnoreExitCode { get; set; }
 
+        [Option('p', "print-output-ir", Required = false, HelpText = "Print resulting IR output onto the console. Verbose and output mode must also be active.")]
+        public bool PrintOutputIr { get; set; }
+
         public PathResolver PathResolver { get; protected set; }
 
         public Options()

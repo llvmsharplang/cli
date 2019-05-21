@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Ion.Core;
 using IonCLI.Core;
 
 namespace IonCLI.Integrity
@@ -34,6 +35,7 @@ namespace IonCLI.Integrity
             {ToolType.LLI, new ToolDefinition
             {
                 FileName = "lli.exe",
+                Root = PlatformId.Windows64,
                 Invoker = "lli --version",
                 MatchPattern = VerifierConstants.GenericVersionPattern,
                 ExpectedMatch = VerifierConstants.DefaultLlvmVersion
@@ -43,6 +45,7 @@ namespace IonCLI.Integrity
             {ToolType.LLC, new ToolDefinition
             {
                 FileName = "llc.exe",
+                Root = PlatformId.Windows64,
                 Invoker = "llc --version",
                 MatchPattern = VerifierConstants.GenericVersionPattern,
                 ExpectedMatch = VerifierConstants.DefaultLlvmVersion
@@ -51,14 +54,15 @@ namespace IonCLI.Integrity
             // LLD (LLVM linker).
             {ToolType.LLD, new ToolDefinition
             {
-                FileName = "lld.exe"
+                FileName = "lld.exe",
+                Root = PlatformId.Windows64
             }},
 
             // Link (Visual Studio's, Windows-only linker).
             {ToolType.Link, new ToolDefinition
             {
                 FileName = "link.exe",
-                Root = "link"
+                Root = $"{PlatformId.Windows64}/link"
             }}
         };
     }

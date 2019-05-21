@@ -27,7 +27,7 @@ namespace IonCLI
                     Log.VerboseMode = options.Verbose;
 
                     // Set external output mode.
-                    Log.ExternalOutputMode = options.ExternalOutput;
+                    Log.OutputMode = options.ExternalOutput;
 
                     // Inform the user that verbose mode is active.
                     Log.Verbose("Using verbose mode.");

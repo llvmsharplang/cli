@@ -72,13 +72,10 @@ $PlatformIds = "win64", "win32", "ubuntu16.04", "ubuntu14.04", "macOS", "debian8
 $PlatformIdsLength = $PlatformIds.Count
 $ToolCounter = 1
 
-# Tools.
+# Do not continue if tools directory exists.
 if (Test-Path $ToolsFolder) {
-    $continue = Prompt "Tools directory already exists. Continuing will overwrite existing tools."
-
-    if (!$continue) {
-        exit
-    }
+    Tools directory already exists.
+    exit
 }
 
 "Tools will now be downloaded. This may take some time depending on your Internet speed. This process should only occur once."

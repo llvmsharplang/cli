@@ -34,6 +34,12 @@ namespace IonCLI.Engines
             // Loop through all the emitted results.
             foreach ((string fileName, string output) in modules)
             {
+                // Print output if standard output mode is enabled.
+                if (this.context.Options.PrintOutputIr)
+                {
+                    Log.Output(output, fileName);
+                }
+
                 // Form the final, expected output file name.
                 string outputFileName = Path.ChangeExtension(fileName, FileExtension.IR);
 

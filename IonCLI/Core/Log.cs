@@ -9,7 +9,7 @@ namespace IonCLI.Core
 
         public static bool SilentMode { get; set; } = false;
 
-        public static bool ExternalOutputMode { get; set; } = false;
+        public static bool OutputMode { get; set; } = false;
 
         public static void Compose(string message, ConsoleColor? color = null)
         {
@@ -54,12 +54,12 @@ namespace IonCLI.Core
             Log.Compose($"Warning: {message}", ConsoleColor.Yellow);
         }
 
-        public static void ExternalOutput(string message, string sender)
+        public static void Output(string message, string sender)
         {
-            if (Log.VerboseMode && Log.ExternalOutputMode)
+            if (Log.VerboseMode && Log.OutputMode)
             {
                 // Extract the title string.
-                string title = $"External output from '{sender}'";
+                string title = $"Output from '{sender}'";
 
                 // Output the title.
                 Log.Compose(title);
