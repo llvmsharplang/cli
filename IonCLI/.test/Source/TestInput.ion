@@ -14,9 +14,8 @@ string GetFormat()
 
 int main()
 {
-    : GetFormat(), Echo("Hello")
-    | printf
-    ;
+    printf(GetFormat(), Echo("Hello"));
+    printf("%d", 5);
 
     return 1234;
 }
