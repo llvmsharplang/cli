@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Ion.CodeGeneration.Structure;
+using Ion.CodeGeneration.Helpers;
 using IonCLI.Core;
 using IonCLI.Integrity;
 
