@@ -1,21 +1,6 @@
-namespace Test2;
-
-extern int printf(string format, ...);
-
-string Echo(string message)
-{
-    return "Hello";
-}
-
-string GetFormat()
-{
-    return "%s world!";
-}
-
 int main()
 {
-    printf(GetFormat(), Echo("Hello"));
-    printf("%d", 5);
-
     return 1234;
 }
+
+struct MyStruct { }

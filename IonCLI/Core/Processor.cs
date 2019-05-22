@@ -3,6 +3,7 @@ using Ion.Parsing;
 using Ion.CodeGeneration;
 using System.IO;
 using System.Collections.Generic;
+using System;
 
 namespace IonCLI.Core
 {
@@ -45,11 +46,8 @@ namespace IonCLI.Core
             // Create the named driver.
             Driver driver = new Driver(stream, fileName);
 
-            // Invoke the driver continuously.
-            while (driver.HasNext)
-            {
-                driver.Next();
-            }
+            // Invoke the driver.
+            driver.Invoke();
 
             // Return the driver's module.
             return driver.Module;
