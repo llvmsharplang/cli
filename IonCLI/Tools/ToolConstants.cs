@@ -64,19 +64,27 @@ namespace IonCLI.Tools
                 }
             }},
 
-            // LLD (LLVM linker).
-            {ToolType.LLD, new ToolDefinition
+            // LLD (Windows LLVM linker).
+            {ToolType.WindowsLLD, new ToolDefinition
             {
                 FileName = "lld",
 
                 Platforms = new string[] {
                     PlatformId.Windows64,
-                    PlatformId.Windows32,
+                    PlatformId.Windows32
+                }
+            }},
+
+            // LLD (Unix-like, non-MacOS LLVM linker).
+            {ToolType.UnixLikeLLD, new ToolDefinition
+            {
+                FileName = "ld.lld",
+
+                Platforms = new string[] {
                     PlatformId.Ubuntu14,
                     PlatformId.Ubuntu16,
                     PlatformId.Debian8,
-                    PlatformId.ARMv7,
-                    PlatformId.MacOS
+                    PlatformId.ARMv7
                 }
             }},
 

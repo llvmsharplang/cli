@@ -79,25 +79,25 @@ namespace IonCLI.Engines
             // Create the output executable full path.
             string outputExecutablePath = this.context.Options.PathResolver.Output(outputExecutableFileName);
 
-            // Prepare the arguments array.
-            string[] args;
+            // Prepare the linker's arguments array.
+            string[] linkerArgs;
 
             // Determine whether to use Windows configuration.
             if (Util.IsWindowsOS)
             {
-                args = this.BuildOnWindows(outputBitcodeFiles, outputExecutablePath, toolInvoker);
+                linkerArgs = this.LinkWindows(outputBitcodeFiles, outputExecutablePath, toolInvoker);
             }
             // Otherwise, build on Unix-like.
             else
             {
-                args = this.BuildOnUnixLike();
+                linkerArgs = this.LinkUnixLike();
             }
 
             // Compute the (linker) tool type to use.
-            ToolType toolType = this.GetToolType();
+            ToolType toolType = this.GetLinkerToolType();
 
             // Invoke the linker with the arguments as an array.
-            toolInvoker.Invoke(toolType, args);
+            toolInvoker.Invoke(toolType, linkerArgs);
 
             // Invoke the cleanup method.
             this.Cleanup(outputIrFiles, outputBitcodeFiles);
@@ -126,7 +126,7 @@ namespace IonCLI.Engines
             return fileName;
         }
 
-        protected ToolType GetToolType()
+        protected ToolType GetLinkerToolType()
         {
             // Use Link on Windows.
             if (Util.IsWindowsOS)
@@ -135,10 +135,10 @@ namespace IonCLI.Engines
             }
 
             // Otherwise, use LLD.
-            return ToolType.LLD;
+            return ToolType.WindowsLLD;
         }
 
-        protected string[] BuildOnWindows(List<string> outputBitcodeFiles, string outputExecutablePath, ToolInvoker toolInvoker)
+        protected string[] LinkWindows(List<string> outputBitcodeFiles, string outputExecutablePath, ToolInvoker toolInvoker)
         {
             // Resolve the Link tool's root path.
             string linkToolRoot = this.context.Options.PathResolver.ToolRoot(ToolType.Link);
@@ -159,8 +159,31 @@ namespace IonCLI.Engines
             return args.ToArray();
         }
 
-        protected string[] BuildOnUnixLike()
+        protected string[] LinkUnixLike()
         {
+            // Resolve the Unix-like LLD tool's root path.
+            string lldToolRoot = this.context.Options.PathResolver.ToolRoot(ToolType.UnixLikeLLD);
+
+            // TODO: Finish implementation.
+            // Prepare the arguments.
+            List<string> args = new List<string>
+            {
+
+            };
+
+            // Return the resulting arguments.
+            return args.ToArray();
+        }
+
+        protected string[] BuildWindows()
+        {
+            // TODO: Implement.
+            throw new NotImplementedException();
+        }
+
+        protected string[] BuildUnixLike()
+        {
+            // TODO: Implement.
             throw new NotImplementedException();
         }
 

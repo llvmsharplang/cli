@@ -19,7 +19,11 @@ namespace IonCLI.Core
         /// together into an executable runnable in the local
         /// machine.
         /// </summary>
-        LLD,
+        WindowsLLD,
+
+        UnixLikeLLD,
+
+        MacOsLD,
 
         /// <summary>
         /// Microsoft's Visual Studio's linker tool. Windows-only.

@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using Ion.Core;
 using IonCLI.Core;
 using IonCLI.Integrity;
 using IonCLI.Tools;
@@ -18,9 +19,6 @@ namespace IonCLI.Core
 
         public void Invoke(ToolType toolType, string[] args)
         {
-            // Create a new process instance.
-            Process process = new Process();
-
             // Ensure that the corresponding tool definition exists.
             if (!ToolConstants.Tools.ContainsKey(toolType))
             {
@@ -42,45 +40,21 @@ namespace IonCLI.Core
             // Otherwise, inform the user that the tool path exists.
             Log.Verbose($"Tool path for '{tool.FileName}' exists.");
 
-            // Set the process' target file.
-            process.StartInfo.FileName = resolvedToolPath;
-
-            // Do not create a window.
-            process.StartInfo.CreateNoWindow = true;
-
-            // Do not execute from shell.
-            process.StartInfo.UseShellExecute = false;
-
-            // Fill all provided arguments.
-            foreach (string arg in args)
+            // Create the runnable object instance.
+            Runnable runnable = new Runnable
             {
-                process.StartInfo.ArgumentList.Add(arg);
-            }
-
-            // Instruct process to redirect output.
-            process.StartInfo.RedirectStandardOutput = true;
-
-            // TODO: Handle error stream too?
-            // Instruct process to redirect errors.
-            process.StartInfo.RedirectStandardError = true;
+                Path = resolvedToolPath,
+                Arguments = args
+            };
 
             // Inform the user of the tool being started.
             Log.Verbose($"Invoking tool: {tool.FileName}");
 
-            // Start the process.
-            process.Start();
+            // Invoke the runnable.
+            string output = runnable.Run();
 
-            // Inform the user of the waiting state.
-            Log.Verbose($"Awaiting tool: {tool.FileName}");
-
-            // Capture the output of the tool.
-            string output = process.StandardOutput.ReadToEnd();
-
-            // Process the tool's trimmed output.
-            Log.Output(output.Trim(), tool.FileName);
-
-            // Wait for completion.
-            process.WaitForExit();
+            // Process the tool output.
+            Log.Output(output, tool.FileName);
         }
 
         public void Invoke(ToolType tool)
