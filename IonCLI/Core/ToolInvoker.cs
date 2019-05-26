@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using IonCLI.Core;
 using IonCLI.Integrity;
+using IonCLI.Tools;
 
 namespace IonCLI.Core
 {
@@ -21,13 +22,13 @@ namespace IonCLI.Core
             Process process = new Process();
 
             // Ensure that the corresponding tool definition exists.
-            if (!VerifierConstants.Tools.ContainsKey(toolType))
+            if (!ToolConstants.Tools.ContainsKey(toolType))
             {
                 throw new Exception("Tool definition for the provided tool type does not exist");
             }
 
             // Retrieve the tool definition.
-            ToolDefinition tool = VerifierConstants.Tools[toolType];
+            ToolDefinition tool = ToolConstants.Tools[toolType];
 
             // Resolve the tool's executable path.
             string resolvedToolPath = this.options.PathResolver.Tool(toolType);

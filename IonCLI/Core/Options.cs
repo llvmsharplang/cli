@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using CommandLine;
-using IonCLI.Integrity;
+using IonCLI.Tools;
 
 namespace IonCLI.Core
 {
@@ -34,7 +34,7 @@ namespace IonCLI.Core
         [Option('d', "debug", Required = false, HelpText = "Use debugging mode.")]
         public bool DebugMode { get; set; }
 
-        [Option('t', "tools-path", Required = false, HelpText = "Specify the tools directory path to use. Path is relative to the CLI's execution directory.", Default = VerifierConstants.DefaultToolsPath)]
+        [Option('t', "tools-path", Required = false, HelpText = "Specify the tools directory path to use. Path is relative to the CLI's execution directory.", Default = ToolConstants.DefaultToolsPath)]
         public string ToolsPath { get; set; }
 
         [Option('k', "keep-emitted", Required = false, HelpText = "Do not cleanup emitted files after compilation.")]

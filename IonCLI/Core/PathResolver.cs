@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using IonCLI.Tools;
 using IonCLI.Integrity;
+using IonCLI.InterOperability;
 
 namespace IonCLI.Core
 {
@@ -47,13 +49,13 @@ namespace IonCLI.Core
         public string ToolRoot(ToolType type)
         {
             // Ensure the tool type provided is valid.
-            if (!VerifierConstants.Tools.ContainsKey(type))
+            if (!ToolConstants.Tools.ContainsKey(type))
             {
                 throw new ArgumentException($"Unknown tool type: {type}");
             }
 
             // Retrieve the tool.
-            ToolDefinition tool = VerifierConstants.Tools[type];
+            ToolDefinition tool = ToolConstants.Tools[type];
 
             // Resolve tools path.
             string toolsPath = Paths.BaseDirectory(this.Options.ToolsPath);
@@ -62,10 +64,10 @@ namespace IonCLI.Core
             string toolRootPath = toolsPath;
 
             // Prepare the tool's root path if applicable.
-            if (tool.Root != null)
+            if (tool.Platforms != null)
             {
                 // Combine the tools path with the tool's root path.
-                toolRootPath = Path.Combine(toolsPath, tool.Root);
+                toolRootPath = Path.Combine(toolsPath, Platform.Id);
             }
 
             // Return the resulting tool's root path.
@@ -75,13 +77,13 @@ namespace IonCLI.Core
         public string Tool(ToolType type)
         {
             // Ensure the tool type provided is valid.
-            if (!VerifierConstants.Tools.ContainsKey(type))
+            if (!ToolConstants.Tools.ContainsKey(type))
             {
                 throw new ArgumentException($"Unknown tool type: {type}");
             }
 
             // Retrieve the tool.
-            ToolDefinition tool = VerifierConstants.Tools[type];
+            ToolDefinition tool = ToolConstants.Tools[type];
 
             // Retrive the tool type's corresponding filename.
             string fileName = tool.FileName;

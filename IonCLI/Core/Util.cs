@@ -5,7 +5,7 @@ namespace IonCLI.Core
 {
     public static class Util
     {
-        public static bool IsWindowsOs => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+        public static bool IsWindowsOS => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
         public static string CleanPathSeparators(string input)
         {
@@ -13,6 +13,7 @@ namespace IonCLI.Core
             input = input.Replace(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
             input = input.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
 
+            // Return the resulting input.
             return input;
         }
     }

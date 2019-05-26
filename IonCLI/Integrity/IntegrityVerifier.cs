@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using IonCLI.Core;
+using IonCLI.Tools;
 
 namespace IonCLI.Integrity
 {
@@ -81,7 +82,7 @@ namespace IonCLI.Integrity
                 }
 
                 // Ensure all tools exist.
-                foreach ((ToolType type, ToolDefinition tool) in VerifierConstants.Tools)
+                foreach ((ToolType type, ToolDefinition tool) in ToolConstants.Tools)
                 {
                     // Ensure required properties are set.
                     if (String.IsNullOrEmpty(tool.FileName))

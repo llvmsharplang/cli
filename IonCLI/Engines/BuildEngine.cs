@@ -83,7 +83,7 @@ namespace IonCLI.Engines
             string[] args;
 
             // Determine whether to use Windows configuration.
-            if (Util.IsWindowsOs)
+            if (Util.IsWindowsOS)
             {
                 args = this.BuildOnWindows(outputBitcodeFiles, outputExecutablePath, toolInvoker);
             }
@@ -117,7 +117,7 @@ namespace IonCLI.Engines
             string fileName = this.context.Package.Identifier;
 
             // Append an executable extension if on Windows.
-            if (Util.IsWindowsOs)
+            if (Util.IsWindowsOS)
             {
                 fileName += $".{FileExtension.WindowsExecutable}";
             }
@@ -129,7 +129,7 @@ namespace IonCLI.Engines
         protected ToolType GetToolType()
         {
             // Use Link on Windows.
-            if (Util.IsWindowsOs)
+            if (Util.IsWindowsOS)
             {
                 return ToolType.Link;
             }

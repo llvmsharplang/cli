@@ -1,4 +1,4 @@
-namespace Ion.Core
+namespace IonCLI.InterOperability
 {
     public static class PlatformId
     {
@@ -15,5 +15,11 @@ namespace Ion.Core
         public const string Ubuntu14 = "ubuntu14.04";
 
         public const string ARMv7 = "armv7a";
+
+        /// <summary>
+        /// Represents a generic, Unix-like OS proxy,
+        /// pointing to Ubuntu 16.04.
+        /// </summary>
+        public const string UnixLike = PlatformId.Ubuntu16;
     }
 }
