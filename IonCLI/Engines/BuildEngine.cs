@@ -55,7 +55,7 @@ namespace IonCLI.Engines
                 // TODO: Ensure it was created/it exists (IR output file).
 
                 // Invoke the LLC tool to compile to object code (Bitcode).
-                toolInvoker.Invoke(ToolType.LLC, new string[]
+                toolInvoker.Invoke(ToolType.Llc, new string[]
                 {
                     "-filetype=obj",
 
@@ -135,7 +135,7 @@ namespace IonCLI.Engines
             }
 
             // Otherwise, use LLD.
-            return ToolType.WindowsLLD;
+            return ToolType.WindowsLldLink;
         }
 
         protected string[] LinkWindows(List<string> outputBitcodeFiles, string outputExecutablePath, ToolInvoker toolInvoker)
@@ -162,7 +162,7 @@ namespace IonCLI.Engines
         protected string[] LinkUnixLike()
         {
             // Resolve the Unix-like LLD tool's root path.
-            string lldToolRoot = this.context.Options.PathResolver.ToolRoot(ToolType.UnixLikeLLD);
+            string lldToolRoot = this.context.Options.PathResolver.ToolRoot(ToolType.UnixLikeLld);
 
             // TODO: Finish implementation.
             // Prepare the arguments.

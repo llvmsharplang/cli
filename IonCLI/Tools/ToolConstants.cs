@@ -10,30 +10,14 @@ namespace IonCLI.Tools
     {
         /// <summary>
         /// The default folder path on which the required tools
-        /// are stored in. Windows only.
+        /// are stored in.
         /// </summary>
         public const string DefaultToolsPath = "tools";
 
-        /// <summary>
-        /// The default version string expected to be captured during
-        /// the invocation of the tools.
-        /// </summary>
-        public const string DefaultLlvmVersion = "5.0.0";
-
-        /// <summary>
-        /// Matches a generic version string from the version command
-        /// invocation output.
-        /// </summary>
-        public static Regex GenericVersionPattern = new Regex(@"[0-9]\.[0-9]\.[0-9]");
-
-        /// <summary>
-        /// The tool filenames expected to be within the tools
-        /// folder.
-        /// </summary>
         public static Dictionary<ToolType, ToolDefinition> Tools = new Dictionary<ToolType, ToolDefinition>
         {
             // LLI (LLVM IR direct executioner).
-            {ToolType.LLI, new ToolDefinition
+            {ToolType.Lli, new ToolDefinition
             {
                 FileName = "lli",
 
@@ -49,7 +33,7 @@ namespace IonCLI.Tools
             }},
 
             // LLC (LLVM static compiler).
-            {ToolType.LLC, new ToolDefinition
+            {ToolType.Llc, new ToolDefinition
             {
                 FileName = "llc",
 
@@ -64,8 +48,8 @@ namespace IonCLI.Tools
                 }
             }},
 
-            // LLD (Windows LLVM linker).
-            {ToolType.WindowsLLD, new ToolDefinition
+            // LLD-LINK (Windows LLVM linker).
+            {ToolType.WindowsLldLink, new ToolDefinition
             {
                 FileName = "lld",
 
@@ -76,7 +60,7 @@ namespace IonCLI.Tools
             }},
 
             // LLD (Unix-like, non-MacOS LLVM linker).
-            {ToolType.UnixLikeLLD, new ToolDefinition
+            {ToolType.UnixLikeLld, new ToolDefinition
             {
                 FileName = "ld.lld",
 

@@ -5,7 +5,7 @@ using IonCLI.Core;
 using IonCLI.InterOperability;
 using IonCLI.Tools;
 
-namespace Ion.Core
+namespace IonCLI.Core
 {
     public class Runnable
     {
