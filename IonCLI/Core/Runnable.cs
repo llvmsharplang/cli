@@ -9,8 +9,15 @@ namespace Ion.Core
 {
     public class Runnable
     {
+        /// <summary>
+        /// The arguments to be passed onto the
+        /// process' start information.
+        /// </summary>
         public string[] Arguments { get; set; }
 
+        /// <summary>
+        /// The path to the executable file.
+        /// </summary>
         public string Path { get; set; }
 
         public Runnable(string path)
@@ -23,6 +30,10 @@ namespace Ion.Core
             //
         }
 
+        /// <summary>
+        /// Execute the target file and return
+        /// its output.
+        /// </summary>
         public string Run()
         {
             // Create a new process instance.
