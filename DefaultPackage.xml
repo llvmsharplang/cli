@@ -6,6 +6,6 @@
     <Build>0</Build>
     <Author>Unknown</Author>
     <Options>
-        <SourceRoot>Src</SourceRoot>
+        <SourceRoot>src</SourceRoot>
     </Options>
 </Package>
