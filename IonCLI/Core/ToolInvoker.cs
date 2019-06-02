@@ -31,6 +31,9 @@ namespace IonCLI.Core
             // Resolve the tool's executable path.
             string resolvedToolPath = this.options.PathResolver.Tool(toolType);
 
+            // Inform the user that tool's path verification is taking place.
+            Log.Verbose($"Verifying tool '{tool.FileName}' path: {resolvedToolPath}");
+
             // Ensure tool path exists.
             if (!File.Exists(resolvedToolPath))
             {

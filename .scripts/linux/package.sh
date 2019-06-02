@@ -16,7 +16,7 @@ INSTALLERS_PATH=.installers
 mkdir -p $PACKAGES_PATH
 
 # Copy corresponding installer scripts and text files to the publish directory.
-cp $INSTALLERS_PATH/installer.sh $PUBLISH_PATH
+cp $INSTALLERS_PATH/INSTALL.sh $PUBLISH_PATH
 cp $INSTALLERS_PATH/*.txt $PUBLISH_PATH
 
 # Enter the publish path.

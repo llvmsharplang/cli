@@ -1,2 +1,2 @@
 @echo off
-dotnet run -- run -dxvkcp -t ../.tools -r .test -o .test/bin
+dotnet run -- run -dxvkcp -t ../.tools/win64 -r .test -o .test/bin

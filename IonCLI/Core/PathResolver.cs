@@ -63,13 +63,6 @@ namespace IonCLI.Core
             // Initialize the tool's root path to be the previously resolved tools path.
             string toolRootPath = toolsPath;
 
-            // Prepare the tool's root path if applicable.
-            if (tool.Platforms != null)
-            {
-                // Combine the tools path with the tool's root path.
-                toolRootPath = Path.Combine(toolsPath, Platform.Id);
-            }
-
             // Append the sub path at this point, if applicable.
             if (tool.SubPath != null)
             {
