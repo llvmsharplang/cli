@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using Ion.CodeGeneration.Helpers;
 using IonCLI.Core;
 using IonCLI.Integrity;
@@ -55,19 +56,15 @@ namespace IonCLI.Engines
                 // TODO: Ensure it was created/it exists (IR output file).
 
                 // Invoke the LLC tool to compile to object code (Bitcode).
-                toolInvoker.Invoke(ToolType.Llc, new string[]
-                {
-                    "-filetype=obj",
-
-                    // TODO: Hard-coded target.
-                    "-mtriple=x86_64-pc-windows-msvc",
-                    outputIrFilePath
-                });
+                toolInvoker.Invoke(ToolType.Llc, this.GetBuildToolArgs(outputIrFilePath));
 
                 // TODO: Also ensure it was created/it exists (Bitcode output file).
 
+                // Determine the output bitcode file extension based on the OS.
+                string extension = Util.IsWindowsOS ? FileExtension.BitcodeObj : FileExtension.BitcodeO;
+
                 // Prepare outputted bitcode filename.
-                string outputBitcodeFilePath = Path.ChangeExtension(outputIrFilePath, FileExtension.Bitcode);
+                string outputBitcodeFilePath = Path.ChangeExtension(outputIrFilePath, extension);
 
                 // Append Bitcode file to the emitted list.
                 outputBitcodeFiles.Add(outputBitcodeFilePath);
@@ -82,19 +79,20 @@ namespace IonCLI.Engines
             // Prepare the linker's arguments array.
             string[] linkerArgs;
 
+            // TODO: Use wrapper for this.
             // Determine whether to use Windows configuration.
             if (Util.IsWindowsOS)
             {
-                linkerArgs = this.LinkWindows(outputBitcodeFiles, outputExecutablePath, toolInvoker);
+                linkerArgs = this.LinkWindowsTarget(outputBitcodeFiles, outputExecutablePath);
             }
             // Otherwise, build on Unix-like.
             else
             {
-                linkerArgs = this.LinkUnixLike();
+                linkerArgs = this.LinkLinuxTarget(outputBitcodeFiles, outputExecutablePath);
             }
 
             // Compute the (linker) tool type to use.
-            ToolType toolType = this.GetLinkerToolType();
+            ToolType toolType = this.GetLinkToolType();
 
             // Invoke the linker with the arguments as an array.
             toolInvoker.Invoke(toolType, linkerArgs);
@@ -112,8 +110,20 @@ namespace IonCLI.Engines
             Log.Success("Compilation successful.");
         }
 
+        // TODO: Missing support for MacOS.
+        protected string[] GetBuildToolArgs(string outputIrFilePath)
+        {
+            if (Util.IsWindowsOS)
+            {
+                return this.BuildWindows(outputIrFilePath);
+            }
+
+            return this.BuildLinux(outputIrFilePath);
+        }
+
         protected string GetExecutableFileName()
         {
+            // Abstract the package's identifier.
             string fileName = this.context.Package.Identifier;
 
             // Append an executable extension if on Windows.
@@ -126,25 +136,24 @@ namespace IonCLI.Engines
             return fileName;
         }
 
-        protected ToolType GetLinkerToolType()
+        protected ToolType GetLinkToolType()
         {
             // Use Link on Windows.
             if (Util.IsWindowsOS)
             {
-                return ToolType.Link;
+                return ToolType.WindowsLink;
             }
 
-            // Otherwise, use LLD.
-            return ToolType.WindowsLldLink;
+            // Otherwise, use LD.LLD.
+            return ToolType.LinuxLdLld;
         }
 
-        protected string[] LinkWindows(List<string> outputBitcodeFiles, string outputExecutablePath, ToolInvoker toolInvoker)
+        protected string[] LinkWindowsTarget(List<string> outputBitcodeFiles, string outputExecutablePath)
         {
             // Resolve the Link tool's root path.
-            string linkToolRoot = this.context.Options.PathResolver.ToolRoot(ToolType.Link);
+            string linkToolRoot = this.context.Options.PathResolver.ToolRoot(ToolType.WindowsLink);
 
-            // TODO: Hard-coded for Windows.
-            // Create the argument list for LLD.
+            // Create the argument list for the Link tool.
             List<string> args = new List<string>
             {
                 "/DEFAULTLIB:libcmt",
@@ -159,29 +168,88 @@ namespace IonCLI.Engines
             return args.ToArray();
         }
 
-        protected string[] LinkUnixLike()
+        protected string[] LinkLinuxTarget(List<string> outputBitcodeFiles, string outputExecutablePath)
         {
+            // Define the tool type to use.
+            ToolType tool = ToolType.GenericLld;
+
             // Resolve the Unix-like LLD tool's root path.
-            string lldToolRoot = this.context.Options.PathResolver.ToolRoot(ToolType.UnixLikeLld);
+            string toolRoot = this.context.Options.PathResolver.ToolRoot(tool);
+
+            // Join all output bitcode files onto a string.
+            string targetFiles = string.Join(" ", outputBitcodeFiles);
+
+            // Abstract the path resolver from the context's options.
+            PathResolver resolver = this.context.Options.PathResolver;
 
             // TODO: Finish implementation.
             // Prepare the arguments.
             List<string> args = new List<string>
             {
-
+                "-m",
+                "elf_x86_64",
+                "-dynamic-linker",
+                resolver.ToolResource(tool, "ld-2.27.so"),
+                "-o",
+                outputExecutablePath,
+                resolver.ToolResource(tool, "crt1.o"),
+                resolver.ToolResource(tool, "crti.o"),
+                resolver.ToolResource(tool, "crtbegin.o"),
+                $"-L{resolver.ToolResourcesFolder(tool)}",
+                targetFiles,
+                "-lgcc",
+                "--as-needed",
+                "-lgcc_s",
+                "--no-as-needed",
+                "-lc",
+                "-lgcc",
+                "--as-needed",
+                "-lgcc_s",
+                "--no-as-needed",
+                resolver.ToolResource(tool, "crtend.o"),
+                resolver.ToolResource(tool, "crtn.o")
             };
 
             // Return the resulting arguments.
             return args.ToArray();
         }
 
-        protected string[] BuildWindows()
+        protected string[] LinkMacOS()
         {
             // TODO: Implement.
             throw new NotImplementedException();
         }
 
-        protected string[] BuildUnixLike()
+        protected string[] BuildWindows(string outputIrFilePath)
+        {
+            // Create the argument list.
+            List<string> result = new List<string>
+            {
+                "-filetype=obj",
+                "-mtriple=x86_64-pc-windows-msvc",
+                outputIrFilePath
+            };
+
+            // Return the resulting argument list.
+            return result.ToArray();
+        }
+
+        // TODO: Code is simply repeating Window's just changing target.
+        protected string[] BuildLinux(string outputIrFilePath)
+        {
+            // Create the argument list.
+            List<string> result = new List<string>
+            {
+                "-filetype=obj",
+                "-mtriple=x86_64-pc-linux-gnu",
+                outputIrFilePath
+            };
+
+            // Return the resulting argument list.
+            return result.ToArray();
+        }
+
+        protected string[] BuildMacOS()
         {
             // TODO: Implement.
             throw new NotImplementedException();

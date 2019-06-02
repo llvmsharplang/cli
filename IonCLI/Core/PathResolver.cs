@@ -70,8 +70,31 @@ namespace IonCLI.Core
                 toolRootPath = Path.Combine(toolsPath, Platform.Id);
             }
 
+            // Append the sub path at this point, if applicable.
+            if (tool.SubPath != null)
+            {
+                toolRootPath = Path.Combine(toolRootPath, tool.SubPath);
+            }
+
             // Return the resulting tool's root path.
             return toolRootPath;
+        }
+
+        public string ToolResource(ToolType type, string resourcePath)
+        {
+            // Resolve the tool's root folder and combine it with the resources folder path.
+            string resourcesPath = this.ToolResourcesFolder(type);
+
+            // Combine the tool's root with the provided resource's path.
+            string result = Path.Combine(resourcesPath, resourcePath);
+
+            // Return the resulting resource path.
+            return result;
+        }
+
+        public string ToolResourcesFolder(ToolType type)
+        {
+            return Path.Combine(this.ToolRoot(type), ToolConstants.ResourcesFolder);
         }
 
         public string Tool(ToolType type)
@@ -87,6 +110,13 @@ namespace IonCLI.Core
 
             // Retrive the tool type's corresponding filename.
             string fileName = tool.FileName;
+
+            // TODO: Subtly hard-coded.
+            // Append the executable extension if on Windows.
+            if (Util.IsWindowsOS)
+            {
+                fileName += $".{FileExtension.WindowsExecutable}";
+            }
 
             // Retrieve the tool's root path.
             string toolRootPath = this.ToolRoot(type);

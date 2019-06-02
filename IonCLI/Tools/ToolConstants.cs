@@ -14,6 +14,8 @@ namespace IonCLI.Tools
         /// </summary>
         public const string DefaultToolsPath = "tools";
 
+        public const string ResourcesFolder = "resources";
+
         public static Dictionary<ToolType, ToolDefinition> Tools = new Dictionary<ToolType, ToolDefinition>
         {
             // LLI (LLVM IR direct executioner).
@@ -24,10 +26,8 @@ namespace IonCLI.Tools
                 Platforms = new string[] {
                     PlatformId.Windows64,
                     PlatformId.Windows32,
-                    PlatformId.Ubuntu14,
-                    PlatformId.Ubuntu16,
-                    PlatformId.Debian8,
                     PlatformId.ARMv7,
+                    PlatformId.Linux,
                     PlatformId.MacOS
                 }
             }},
@@ -40,40 +40,40 @@ namespace IonCLI.Tools
                 Platforms = new string[] {
                     PlatformId.Windows64,
                     PlatformId.Windows32,
-                    PlatformId.Ubuntu14,
-                    PlatformId.Ubuntu16,
-                    PlatformId.Debian8,
                     PlatformId.ARMv7,
+                    PlatformId.Linux,
                     PlatformId.MacOS
                 }
             }},
 
-            // LLD-LINK (Windows LLVM linker).
-            {ToolType.WindowsLldLink, new ToolDefinition
+            // LLD (Generic linker driver).
+            {ToolType.GenericLld, new ToolDefinition
             {
                 FileName = "lld",
 
                 Platforms = new string[] {
                     PlatformId.Windows64,
-                    PlatformId.Windows32
+                    PlatformId.Windows32,
+                    PlatformId.Linux
                 }
             }},
 
-            // LLD (Unix-like, non-MacOS LLVM linker).
-            {ToolType.UnixLikeLld, new ToolDefinition
+            // LD.LLD (Linux linker).
+            {ToolType.LinuxLdLld, new ToolDefinition
             {
                 FileName = "ld.lld",
 
                 Platforms = new string[] {
-                    PlatformId.Ubuntu14,
-                    PlatformId.Ubuntu16,
-                    PlatformId.Debian8,
-                    PlatformId.ARMv7
+                    PlatformId.Windows64,
+                    PlatformId.Windows32,
+                    PlatformId.ARMv7,
+                    PlatformId.Linux,
+                    PlatformId.MacOS
                 }
             }},
 
-            // Link (Visual Studio's, Windows-only linker).
-            {ToolType.Link, new ToolDefinition
+            // Link (Visual Studio's, Windows-target linker).
+            {ToolType.WindowsLink, new ToolDefinition
             {
                 FileName = "link",
                 SubPath = "link",

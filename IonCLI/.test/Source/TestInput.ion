@@ -1,6 +1,8 @@
+extern int puts(string message);
+
 int main()
 {
+    puts("Hello world!");
     return 1234;
 }
 
-struct MyStruct { }

@@ -8,7 +8,7 @@ namespace IonCLI.InterOperability
     {
         private static Dictionary<OSPlatform, string> platformIdMap = new Dictionary<OSPlatform, string>
         {
-            {OSPlatform.Linux, PlatformId.UnixLike},
+            {OSPlatform.Linux, PlatformId.Linux},
             {OSPlatform.OSX, PlatformId.MacOS}
         };
 

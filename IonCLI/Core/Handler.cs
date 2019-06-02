@@ -286,7 +286,7 @@ namespace IonCLI.Core
             else
             {
                 // Set the extension to Bitcode.
-                extension = FileExtension.Bitcode;
+                extension = FileExtension.BitcodeObj;
 
                 // Create the target path.
                 targetPath = Path.Join(this.options.Output, $"{module.FileName}.{extension}");

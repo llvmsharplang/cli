@@ -20,16 +20,22 @@ namespace IonCLI.Engines
             // Prepare engine.
             this.Prepare();
 
-            // Retrieve the application's identifier.
-            string packageIdentifier = $"{this.context.Package.Identifier}.exe";
+            // Create the executable filename.
+            string fileName = this.context.Package.Identifier;
+
+            // Append the executable file extension if on Windows.
+            if (Util.IsWindowsOS)
+            {
+                fileName = Path.ChangeExtension(fileName, FileExtension.WindowsExecutable);
+            }
 
             // Resolve the executable's path.
-            string executablePath = this.context.Options.PathResolver.Output(packageIdentifier);
+            string executablePath = this.context.Options.PathResolver.Output(fileName);
 
             // Ensure executable exists.
             if (!File.Exists(executablePath))
             {
-                throw new FileNotFoundException("Could not find required output executable");
+                Log.Error("Could not find output executable");
             }
 
             // Extract the executable's file name for future
@@ -55,6 +61,9 @@ namespace IonCLI.Engines
 
             // Start the process.
             process.Start();
+
+            // Wait for the process to exit.
+            process.WaitForExit();
 
             // Capture the output of the executable.
             string output = process.StandardOutput.ReadToEnd();
