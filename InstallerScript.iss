@@ -1,5 +1,5 @@
 #define Name "Ion Language"
-#define Version "0.0.3-alpha"
+#define Version "0.0.4-alpha"
 #define Publisher "Atlas and Contributors"
 #define Website "https://github.com/IonLanguage"
 

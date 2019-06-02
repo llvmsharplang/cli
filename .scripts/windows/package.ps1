@@ -7,8 +7,8 @@ Start-Process -Wait -WindowStyle Hidden -FilePath "cleanup.bat"
 Start-Process -Wait -WindowStyle Hidden -FilePath "setup-env.bat"
 
 # Define globals.
-$UnixLikePlatforms = "ubuntu16.04", "ubuntu14.04", "macOS", "debian8", "armv7a"
-$UnixLikePlatformPublishMap = "linux-x64", "linux-x64", "osx-x64", "linux-x64", "linux-arm"
+$UnixLikePlatforms = "linux", "macOS", "armv7a"
+$UnixLikePlatformPublishMap = "linux-x64", "osx-x64", "linux-arm"
 $PublishMapCounter = 0
 
 # Navigate to main project's folder.
@@ -34,7 +34,7 @@ New-Item -ItemType Directory -Force -Path ".packages"
 
 # Package Windows x64.
 "Packaging Windows x64 (through Inno Setup) ..."
-#Start-Process -Wait -WindowStyle Hidden -FilePath "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe" -ArgumentList "InstallerScript.iss"
+Start-Process -Wait -WindowStyle Hidden -FilePath "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe" -ArgumentList "InstallerScript.iss"
 
 # TODO: Windows x86?
 
@@ -49,7 +49,7 @@ foreach ($platformId in $UnixLikePlatforms) {
     # Package.
     "Packaging $platformId ..."
     
-    Copy-Item ".installers\installer.sh" ".\IonCLI\bin\Release\netcoreapp2.2\$publishId\publish\"
+    Copy-Item ".installers\INSTALL.sh" ".\IonCLI\bin\Release\netcoreapp2.2\$publishId\publish\"
     Copy-Item "DefaultPackage.xml" ".\IonCLI\bin\Release\netcoreapp2.2\$publishId\publish\"
     Copy-Item ".installers\*.txt" ".\IonCLI\bin\Release\netcoreapp2.2\$publishId\publish\"
     Compress-Archive -CompressionLevel Optimal -Path ".\IonCLI\bin\Release\netcoreapp2.2\$publishId\publish\*" -DestinationPath ".packages\$platformId.zip"
