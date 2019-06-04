@@ -12,7 +12,7 @@
                 Reference the Ion compiler library.
                 Make sure it exists and that you've compiled it beforehand!
             -->
-            <HintPath>..\..\Ion\Ion\bin\Debug\netcoreapp2.2\Ion.dll</HintPath>
+            <HintPath>..\Ion\Ion\bin\Debug\netcoreapp2.2\Ion.dll</HintPath>
         </Reference>
         <PackageReference Include="CommandLineParser" Version="2.4.3" />
         <PackageReference Include="LLVMSharp" Version="5.0.0" />
