@@ -34,7 +34,7 @@ New-Item -ItemType Directory -Force -Path ".packages"
 
 # Package Windows x64.
 "Packaging Windows x64 (through Inno Setup) ..."
-Start-Process -Wait -WindowStyle Hidden -FilePath "$env:LOCALAPPDATA\Programs\Inno Setup 6\ISCC.exe" -ArgumentList "InstallerScript.iss"
+Start-Process -Wait -WindowStyle Hidden -FilePath "$env:LOCALAPPDATA/Programs/Inno Setup 6/ISCC.exe" -ArgumentList "InstallerScript.iss"
 
 # TODO: Windows x86?
 
@@ -49,18 +49,18 @@ foreach ($platformId in $UnixLikePlatforms) {
     # Package.
     "Packaging $platformId ..."
 
-    $publishPath = ".\IonCLI\bin\Release\netcoreapp2.2\$publishId\publish"
+    $publishPath = "./IonCLI/bin/Release/netcoreapp2.2/$publishId/publish"
     
-    Copy-Item ".installers\INSTALL.sh" $publishPath
+    Copy-Item ".installers/INSTALL.sh" $publishPath
     Copy-Item "DefaultPackage.xml" $publishPath
-    Copy-Item ".installers\*.txt" $publishPath
-    New-item -Force -Name "$publishPath\tools" -ItemType Directory
-    Copy-Item -Force -Recurse ".tools\$platformId\*" "$publishPath\tools\"
-    Compress-Archive -CompressionLevel Optimal -Path "$publishPath\*" -DestinationPath ".packages\$platformId.zip"
+    Copy-Item ".installers/*.txt" $publishPath
+    New-item -Force -Name "$publishPath/tools" -ItemType Directory
+    Copy-Item -Force -Recurse ".tools/$platformId/*" "$publishPath/tools/"
+    Compress-Archive -CompressionLevel Optimal -Path "$publishPath/*" -DestinationPath ".packages/$platformId.zip"
     $PublishMapCounter++
 }
 
 # Finish up.
 "Packaging completed."
-Set-Location ".scripts\windows"
+Set-Location ".scripts/windows"
 Pause
