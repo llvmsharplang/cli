@@ -4,7 +4,7 @@ The CLI compiler for the Ion language.
 
 ### Development Environment Notes
 
-Please note that to setup a working development environment, the Ion git submodule must be initiated, updated using `git submodule init && git submodule update` and then built.
+Please note that to setup a working development environment, the Ion git submodule must be initiated and updated using `git submodule init && git submodule update` and then built.
 
 
 ### Development environment setup
