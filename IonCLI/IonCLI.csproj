@@ -10,7 +10,7 @@
         <Reference Include="Ion">
             <!--
                 Reference the Ion compiler library.
-                Make sure it exists and that you've compiled it beforehand!
+                Make sure you've initialized and updated your git submodules!
             -->
             <HintPath>..\Ion\Ion\bin\Release\netcoreapp2.2\Ion.dll</HintPath>
         </Reference>
