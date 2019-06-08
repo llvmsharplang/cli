@@ -1,0 +1,3 @@
+[submodule "Ion"]
+	path = Ion
+	url = git@github.com:IonLanguage/Ion
