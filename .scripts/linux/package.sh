@@ -44,6 +44,7 @@ for i in ${platforms[@]}; do
     # Create the packages output directory.
     mkdir -p $PACKAGES_PATH
 
+    # TODO: Should copy .ps1 script for Windows-based platforms.
     # Copy corresponding installer scripts and text files to the publish directory.
     cp $INSTALLERS_PATH/INSTALL.sh $PUBLISH_PATH
     cp $INSTALLERS_PATH/*.txt $PUBLISH_PATH

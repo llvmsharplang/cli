@@ -12,6 +12,8 @@ publish:
 	cd IonCLI && dotnet publish -c Release -o bin/publish -r linux-x64
 install:
 	export ION_ROOT=$(shell pwd)/IonCLI/bin/publish && bash .installers/INSTALL.sh
+package:
+	bash .scripts/linux/package.sh
 uninstall:
 	rm -rf /opt/ioncli
 	rm -f /usr/bin/ion
