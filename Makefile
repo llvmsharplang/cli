@@ -1,18 +1,17 @@
 all: IonCLI
-	cd Ion
-	dotnet build -c Release
-	cd ..
-	dotnet build -c Release
+	# Build Ion's core library project.
+	cd Ion/Ion && dotnet build -c Release
+
+	# Build IonCLI project.
+	cd IonCLI && dotnet build -c Release
 clean:
-	rm -rf bin
-	rm -rf .packages
-	rm -rf obj
-test: 
-	cd IonCLI.Tests
-	dotnet test
+	bash .scripts/linux/clean.sh
+test:
+	cd IonCLI.Tests && dotnet test
+publish:
+	cd IonCLI && dotnet publish -c Release -o bin/publish -r linux-x64
 install:
-	cp -r IonCLI/bin/Release/netcoreapp2.2/linux-x64/publish /opt/ioncli
-	chmod +x /opt/ioncli/IonCLI
-	ln -s /opt/ioncli/IonCLI /usr/bin/ion
+	export ION_ROOT=$(shell pwd)/IonCLI/bin/publish && bash .installers/INSTALL.sh
 uninstall:
-	rm -r /opt/ioncli
+	rm -rf /opt/ioncli
+	rm -f /usr/bin/ion

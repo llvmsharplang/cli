@@ -9,5 +9,3 @@ done
 
 rm -rf .packages
 mkdir -p .packages
-dotnet restore
-dotnet build

@@ -1,15 +1,44 @@
 #!/bin/bash
 
-# Define alias target.
-ALIAS_TARGET="$PWD/IonCLI"
+# Abort script on failure.
+set -e
 
-# Create the alias in the current shell.
-alias ion="$ALIAS_TARGET"
+# Prepare root directory.
+ROOT=$PWD
 
-# Append the alias to the .bashrc file.
-echo "alias ion=\"$ALIAS_TARGET\"" >> ~/.bashrc
+# Use environment root path if applicable.
+if [ ! -z "$ION_ROOT" ]; then
+    ROOT=$ION_ROOT
+    echo "Using environment root path: $ROOT"
+else
+    echo "Using root path: $ROOT"
+fi
 
-# Inform the user that the process was completed.
-echo "IonCLI utility was installed as an alias and saved on the ~/.bashrc file.
-You may now use \"$ ion\" to compile Ion source code files.
-Restart or open a new shell in order for the changes to take effect."
+# Verify root path.
+if [ ! -d "$ROOT" ]; then
+    echo "Error: Root path does not exist"
+    exit 1
+fi
+
+# Define paths.
+BASE_PATH=/opt/ioncli
+EXE_PATH=$BASE_PATH/IonCLI
+BIN_PATH=/usr/bin/ion
+
+# Ensure base path exists, otherwise create it.
+if [ ! -d "$BASE_PATH" ]; then
+    echo "Creating base directory."
+    mkdir -p $BASE_PATH
+fi
+
+# Copy program.
+cp -r $ROOT/* $BASE_PATH
+
+# Remove installation script.
+rm -f $BASE_PATH/INSTALL.sh
+
+# Mark as executable.
+chmod +x $EXE_PATH
+
+# Create symbolic link.
+ln -s $EXE_PATH $BIN_PATH

@@ -18,6 +18,7 @@ First, make sure you have Inno Setup installed, as this is used to package the W
 > [Click here to download it](http://www.jrsoftware.org/download.php/is.exe)
 
 Now, simply `cd` into your desired development folder, and run the following one-liner:
+
 ```cmd
 $ git clone https://github.com/IonLanguage/Ion.CLI && cd Ion.CLI/.scripts/windows && setup-env.bat
 ```
