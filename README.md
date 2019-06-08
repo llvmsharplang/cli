@@ -29,7 +29,13 @@ You're all set!
 If you're developing the application, it is recommended you run it with the following command:
 
 ```shell
-$ dotnet run -- --verbose --debug --root .test --tools-path .tools
+$ dotnet run -- run --verbose --debug --root .test --tools-path .tools
+```
+
+Or if you prefer a shorter syntax:
+
+```shell
+$ dotnet run -- run -vdxk -r .test -t .tools
 ```
 
 ### Installation
