@@ -1,4 +1,3 @@
-
 all: IonCLI
 	cd Ion
 	dotnet build -c Release
