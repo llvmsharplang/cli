@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
 # This is a conviniency bash installer script, designed to be invoked remotely by curl.
 # -------------------------------------------------------------------------------------
 
