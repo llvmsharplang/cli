@@ -1,29 +1,53 @@
 #!/bin/bash
 
+# Setup.
+platforms=(linux-x64 linux-x86 linux-arm win10-x64 win10-x86)
+
 # Cleanup.
 bash .scripts/linux/clean.sh
 
-# Build Linux x64.
-dotnet publish -c Release -r linux-x64
+# Install zip command if applicable.
+if [ -x "$(command -v zip)" ]; then
+    echo "Installing required zip command"
+    sudo apt-get install zip
+fi
 
-# Setup directories.
-ROOT=$PWD
-PUBLISH_PATH=bin/Release/netcoreapp2.2/linux-x64/publish
-PACKAGES_PATH=.packages
-INSTALLERS_PATH=.installers
+for i in ${platforms[@]}; do
+    # Build platform.
+    dotnet publish -c Release -r ${i}
 
-# Create the packages output directory.
-mkdir -p $PACKAGES_PATH
+    # Setup directories.
+    ROOT=$PWD
+    PUBLISH_PATH=IonCLI/bin/Release/netcoreapp2.2/${i}/publish
+    PACKAGES_PATH=.packages
+    INSTALLERS_PATH=.installers
 
-# Copy corresponding installer scripts and text files to the publish directory.
-cp $INSTALLERS_PATH/INSTALL.sh $PUBLISH_PATH
-cp $INSTALLERS_PATH/*.txt $PUBLISH_PATH
+    # Create the packages output directory.
+    mkdir -p $PACKAGES_PATH
 
-# Enter the publish path.
-cd $PUBLISH_PATH
+    # Copy corresponding installer scripts and text files to the publish directory.
+    cp $INSTALLERS_PATH/INSTALL.sh $PUBLISH_PATH
+    cp $INSTALLERS_PATH/*.txt $PUBLISH_PATH
 
-# Zip publish directory.
-tar -czf $ROOT/$PACKAGES_PATH/ion-cli-linux-x64-v0.0.0.tar.gz .
+    # Enter the publish path.
+    cd $PUBLISH_PATH
 
-# Inform operation completed.
-echo "Operation completed"
+    # Windows-based platform.
+    if [[ ${i} == win* ]]; then
+        zip -r $ROOT/$PACKAGES_PATH/${i}.zip .
+    # Linux-based platform.
+    elif [[ ${i} == linux* ]]; then
+        # Zip the publish directories.
+        tar -czvf $ROOT/$PACKAGES_PATH/${i}.tar.gz .
+    # Unsupported platform.
+    else
+        echo "Unrecognized platform: ${i}"
+        exit 1
+    fi
+
+    # Enter root directory.
+    cd $ROOT
+done
+
+# Finish.
+exit 0
